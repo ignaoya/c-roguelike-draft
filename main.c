@@ -13,7 +13,7 @@ typedef struct Room
 	Position position;
 	int height;
 	int width;
-	Position doors[4];
+	Position** doors;
 	//Monster** monsters;
 	//Item** items;
 } Room;
@@ -91,22 +91,28 @@ Room* createRoom(int y, int x, int height, int width)
 	newRoom->height = height;
 	newRoom->width = width;
 
+	newRoom->doors = malloc(sizeof(Position) * 4);
+
 
 	/* top door */
-	newRoom->doors[0].x = rand() % (width - 2) + newRoom->position.x + 1;
-	newRoom->doors[0].y = newRoom->position.y;
+	newRoom->doors[0] = malloc(sizeof(Position));
+	newRoom->doors[0]->x = rand() % (width - 2) + newRoom->position.x + 1;
+	newRoom->doors[0]->y = newRoom->position.y;
 
 	/* bottom door */
-	newRoom->doors[1].x = rand() % (width - 2) + newRoom->position.x + 1;
-	newRoom->doors[1].y = newRoom->position.y + height - 1;
+	newRoom->doors[1] = malloc(sizeof(Position));
+	newRoom->doors[1]->x = rand() % (width - 2) + newRoom->position.x + 1;
+	newRoom->doors[1]->y = newRoom->position.y + height - 1;
 
 	/* left door */
-	newRoom->doors[2].x = newRoom->position.x;
-	newRoom->doors[2].y = rand() % (height - 2) + newRoom->position.y + 1;
+	newRoom->doors[2] = malloc(sizeof(Position));
+	newRoom->doors[2]->x = newRoom->position.x;
+	newRoom->doors[2]->y = rand() % (height - 2) + newRoom->position.y + 1;
 
 	/* right door */
-	newRoom->doors[3].x = newRoom->position.x + width - 1;
-	newRoom->doors[3].y = rand() % (height - 2)  + newRoom->position.y + 1;
+	newRoom->doors[3] = malloc(sizeof(Position));
+	newRoom->doors[3]->x = newRoom->position.x + width - 1;
+	newRoom->doors[3]->y = rand() % (height - 2)  + newRoom->position.y + 1;
 
 	return newRoom;
 }
@@ -140,7 +146,7 @@ void drawRoom(Room* room)
 	/* draw doors */
 	for (int i = 0; i < 4; i++)
 	{
-		mvprintw(room->doors[i].y, room->doors[i].x, "+");
+		mvprintw(room->doors[i]->y, room->doors[i]->x, "+");
 	}
 }
 
