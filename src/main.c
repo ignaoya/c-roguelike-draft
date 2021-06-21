@@ -22,6 +22,10 @@ int main(void)
 		checkPosition(newPosition, user, level);
 	}
 
+	clear();
+	move(20, 60);
+	printw("Thank you for playing!");
+	getch();
 	endwin();
 
 	return 0;
@@ -30,7 +34,6 @@ int main(void)
 void screenSetUp(void)
 {
 	initscr();
-	printw("Hello world!");
 	noecho();
 	refresh();
 }
