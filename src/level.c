@@ -21,21 +21,23 @@ Room** mapSetUp(void)
 }
 
 
-char** saveLevelPositions(void)
+Tile** saveLevelTiles(void)
 {
 	int x, y;
-	char** positions;
-	positions = malloc(sizeof(char*) * 25);
+	Tile** tiles;
+	tiles = malloc(sizeof(Tile*) * 25);
 
 
 	for (y = 0; y < 25; y++)
 	{
-		positions[y] = malloc(sizeof(char) * 100);
+		tiles[y] = malloc(sizeof(Tile) * 100);
 		for (x = 0; x < 100; x++)
 		{
-			positions[y][x] = mvinch(y, x);
+			tiles[y][x].ch = mvinch(y, x);
+			tiles[y][x].walkable = true;
+			tiles[y][x].transparent = true;
 		}
 	}
 
-	return positions;
+	return tiles;
 }

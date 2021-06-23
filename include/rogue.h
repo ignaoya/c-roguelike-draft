@@ -10,6 +10,13 @@ typedef struct Position
 	int y;
 } Position;
 
+typedef struct Tile
+{
+	char ch;
+	bool walkable;
+	bool transparent;
+} Tile;
+
 typedef struct Room
 {
 	Position position;
@@ -30,13 +37,13 @@ void screenSetUp(void);
 
 // level/map functions 
 Room** mapSetUp(void);
-char** saveLevelPositions(void);
+Tile** saveLevelTiles(void);
 
 // player functions
 Player* playerSetUp(void);
 Position* handleInput(int input, Player* user);
-int playerMove(Position* newPosition, Player* user, char** level);
-int checkPosition(Position* newPosition, Player* user, char** level);
+int playerMove(Position* newPosition, Player* user, Tile** level);
+int checkPosition(Position* newPosition, Player* user, Tile** level);
 
 // room functions
 Room* createRoom(int y, int x, int height, int width);

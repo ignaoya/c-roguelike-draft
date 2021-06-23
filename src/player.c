@@ -52,9 +52,8 @@ Position* handleInput(int input, Player* user)
 	return newPosition;
 }
 
-int checkPosition(Position* newPosition, Player* user, char** level)
+int checkPosition(Position* newPosition, Player* user, Tile** level)
 {
-	int space;
 	switch (mvinch(newPosition->y, newPosition->x))
 	{
 		case '.':
@@ -68,10 +67,10 @@ int checkPosition(Position* newPosition, Player* user, char** level)
 	}
 }
 
-int playerMove(Position* newPosition, Player* user, char** level)
+int playerMove(Position* newPosition, Player* user, Tile** level)
 {
 	char buffer[8];
-	sprintf(buffer, "%c", level[user->position.y][user->position.x]);
+	sprintf(buffer, "%c", level[user->position.y][user->position.x].ch);
 	mvprintw(user->position.y, user->position.x, buffer);
 
 	user->position.y = newPosition->y;

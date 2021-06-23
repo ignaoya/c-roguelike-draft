@@ -6,12 +6,12 @@ int main(void)
 	Player* user;
 	int ch;
 	Position* newPosition;
-	char** level;
+	Tile** level;
 	screenSetUp();
 
 	mapSetUp();
 
-	level = saveLevelPositions();
+	level = saveLevelTiles();
 
 	user = playerSetUp();
 
