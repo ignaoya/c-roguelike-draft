@@ -1,7 +1,7 @@
 #include "rogue.h"
 
 int MAX_ROOMS = 6;
-int MIN_SIZE = 5;
+int MIN_SIZE = 3;
 int MAX_SIZE = 8;
 
 Room** mapSetUp(Tile** level)

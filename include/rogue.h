@@ -53,6 +53,7 @@ int checkPosition(Position* newPosition, Player* user, Tile** level);
 Room* createRoom(int y, int x, int height, int width);
 void drawRoom(Room* room, Tile** level);
 void connectDoors(Position* doorOne, Position* doorTwo, Tile** level);
+bool roomIntersectsOther(Room* room, Room* other);
 
 // fov.c functions
 void makeFOV(Tile** level, Player* player);

@@ -72,3 +72,21 @@ void connectDoors(Position* doorOne, Position* doorTwo, Tile** level)
 		}
 	}
 }
+
+bool roomIntersectsOther(Room* room, Room* other)
+{
+	int roomX1, roomX2, roomY1, roomY2;
+	int otherX1, otherX2, otherY1, otherY2;
+	
+	roomX1 = room->position.x;
+	roomX2 = room->position.x + room->width;
+	roomY1 = room->position.y;
+	roomY2 = room->position.y + room->height;
+
+	otherX1 = other->position.x;
+	otherX2 = other->position.x + other->width;
+	otherY1 = other->position.y;
+	otherY2 = other->position.y + other->height;
+
+	return roomX1 <= otherX2 && roomX2 >= otherX1 && roomY1 <= otherY2 && roomY2 >= otherY1;
+}
