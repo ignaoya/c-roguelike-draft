@@ -52,15 +52,15 @@ Position* handleInput(int input, Player* user)
 	return newPosition;
 }
 
-int checkPosition(Position* newPosition, Player* user, Tile** level)
+int checkPosition(Position* newPosition, Player* player, Tile** level)
 {
 	switch (mvinch(newPosition->y, newPosition->x))
 	{
 		case '.':
-			playerMove(newPosition, user, level);
+			playerMove(newPosition, player, level);
 			break;
 		default:
-			move(user->position.y, user->position.x);
+			move(player->position.y, player->position.x);
 			break;
 	}
 }
@@ -69,11 +69,13 @@ int playerMove(Position* newPosition, Player* user, Tile** level)
 {
 	//char buffer[8];
 	//sprintf(buffer, "%c", level[user->position.y][user->position.x].ch);
-	mvprintw(user->position.y, user->position.x, level[user->position.y][user->position.x].ch);
+	//mvprintw(user->position.y, user->position.x, level[user->position.y][user->position.x].ch);
 
+	clearFOV(level, user);
 	user->position.y = newPosition->y;
 	user->position.x = newPosition->x;
-
+	makeFOV(level, user);
+	mapDraw(level);
 	mvprintw(user->position.y, user->position.x, "@");
 	move(user->position.y, user->position.x);
 }

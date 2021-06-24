@@ -3,23 +3,22 @@
 int main(void)
 {
 	srand(time(NULL));
-	Player* user;
+	Player* player;
 	int ch;
 	Position* newPosition;
 	Tile** level;
+
 	level = createLevelTiles();
 	screenSetUp();
-
 	mapSetUp(level);
-	mapDraw(level);
-
-	user = playerSetUp();
+	player = playerSetUp();
+	playerMove(&(player->position), player, level);
 
 	/* main game loop */
 	while ((ch = getch()) != 'q')
 	{
-		newPosition = handleInput(ch, user);
-		checkPosition(newPosition, user, level);
+		newPosition = handleInput(ch, player);
+		checkPosition(newPosition, player, level);
 	}
 
 	clear();

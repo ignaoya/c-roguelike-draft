@@ -26,7 +26,8 @@ void mapDraw(Tile** level)
 	{
 		for (x = 0; x < 100; x++)
 		{
-			mvprintw(y, x, level[y][x].ch);
+			if (level[y][x].visible)
+				mvprintw(y, x, level[y][x].ch);
 		}
 	}
 }
@@ -46,6 +47,7 @@ Tile** createLevelTiles(void)
 			tiles[y][x].ch = "#";
 			tiles[y][x].walkable = false;
 			tiles[y][x].transparent = false;
+			tiles[y][x].visible = false;
 		}
 	}
 

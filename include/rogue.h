@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 typedef struct Position 
 {
@@ -15,6 +16,7 @@ typedef struct Tile
 	char* ch;
 	bool walkable;
 	bool transparent;
+	bool visible;
 } Tile;
 
 typedef struct Room
@@ -51,5 +53,10 @@ int checkPosition(Position* newPosition, Player* user, Tile** level);
 Room* createRoom(int y, int x, int height, int width);
 void drawRoom(Room* room, Tile** level);
 void connectDoors(Position* doorOne, Position* doorTwo, Tile** level);
+
+// fov.c functions
+void makeFOV(Tile** level, Player* player);
+void clearFOV(Tile** level, Player* player);
+bool isInMap(int y, int x);
 
 #endif
