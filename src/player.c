@@ -1,11 +1,11 @@
 #include "rogue.h"
 
-Player* playerSetUp(Room** rooms)
+Player* playerSetUp(Room* room)
 {
 	Player* newPlayer; 
 	newPlayer = malloc(sizeof(Player));
-	newPlayer->position.x = 14;
-	newPlayer->position.y = 14;
+	newPlayer->position.x = room->center->x;
+	newPlayer->position.y = room->center->y;
 	newPlayer->health = 20;
 
 	mvprintw(newPlayer->position.y, newPlayer->position.x, "@");

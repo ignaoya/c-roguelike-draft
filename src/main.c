@@ -12,7 +12,7 @@ int main(void)
 	level = createLevelTiles();
 	screenSetUp();
 	rooms = mapSetUp(level);
-	player = playerSetUp(rooms);
+	player = playerSetUp(rooms[0]);
 	playerMove(&(player->position), player, level);
 
 	/* main game loop */

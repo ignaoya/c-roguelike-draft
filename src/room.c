@@ -64,8 +64,11 @@ void connectDoors(Position* doorOne, Position* doorTwo, Tile** level)
 		{
 			break;
 		}
-		level[temp.y][temp.x].ch = ".";
-		level[temp.y][temp.x].walkable = true;
-		level[temp.y][temp.x].transparent = true;
+		if (isInMap(temp.y, temp.x))
+		{
+			level[temp.y][temp.x].ch = ".";
+			level[temp.y][temp.x].walkable = true;
+			level[temp.y][temp.x].transparent = true;
+		}
 	}
 }

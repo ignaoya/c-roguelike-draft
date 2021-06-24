@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-int RADIUS = 5;
+int RADIUS = 25;
 
 void makeFOV(Tile** level, Player* player) 
 {
