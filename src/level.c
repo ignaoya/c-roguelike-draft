@@ -27,7 +27,13 @@ void mapDraw(Tile** level)
 		for (x = 0; x < 100; x++)
 		{
 			if (level[y][x].visible)
+			{
 				mvprintw(y, x, level[y][x].ch);
+			}
+			else
+			{
+				mvprintw(y, x, " ");
+			}
 		}
 	}
 }
