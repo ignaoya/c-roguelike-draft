@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-Player* playerSetUp(void)
+Player* playerSetUp(Room** rooms)
 {
 	Player* newPlayer; 
 	newPlayer = malloc(sizeof(Player));

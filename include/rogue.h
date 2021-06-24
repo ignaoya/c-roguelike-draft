@@ -44,7 +44,7 @@ void mapDraw(Tile** level);
 Tile** createLevelTiles(void);
 
 // player.c functions
-Player* playerSetUp(void);
+Player* playerSetUp(Room** rooms);
 Position* handleInput(int input, Player* user);
 int playerMove(Position* newPosition, Player* user, Tile** level);
 int checkPosition(Position* newPosition, Player* user, Tile** level);

@@ -7,11 +7,12 @@ int main(void)
 	int ch;
 	Position* newPosition;
 	Tile** level;
+	Room** rooms;
 
 	level = createLevelTiles();
 	screenSetUp();
-	mapSetUp(level);
-	player = playerSetUp();
+	rooms = mapSetUp(level);
+	player = playerSetUp(rooms);
 	playerMove(&(player->position), player, level);
 
 	/* main game loop */

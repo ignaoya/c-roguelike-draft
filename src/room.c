@@ -27,9 +27,12 @@ void drawRoom(Room* room, Tile** level)
 	{
 		for (x = room->position.x + 1; x < room->position.x + room->width - 1; x++)
 		{
-			level[y][x].ch = ".";
-			level[y][x].walkable = true;
-			level[y][x].transparent = true;
+			if (isInMap(y, x))
+			{
+				level[y][x].ch = ".";
+				level[y][x].walkable = true;
+				level[y][x].transparent = true;
+			}
 		}
 	}
 }
