@@ -7,11 +7,11 @@ int main(void)
 	int ch;
 	Position* newPosition;
 	Tile** level;
+	level = createLevelTiles();
 	screenSetUp();
 
-	mapSetUp();
-
-	level = saveLevelTiles();
+	mapSetUp(level);
+	mapDraw(level);
 
 	user = playerSetUp();
 

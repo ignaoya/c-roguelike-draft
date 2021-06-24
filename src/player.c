@@ -57,8 +57,6 @@ int checkPosition(Position* newPosition, Player* user, Tile** level)
 	switch (mvinch(newPosition->y, newPosition->x))
 	{
 		case '.':
-		case '+':
-		case '#':
 			playerMove(newPosition, user, level);
 			break;
 		default:
@@ -69,9 +67,9 @@ int checkPosition(Position* newPosition, Player* user, Tile** level)
 
 int playerMove(Position* newPosition, Player* user, Tile** level)
 {
-	char buffer[8];
-	sprintf(buffer, "%c", level[user->position.y][user->position.x].ch);
-	mvprintw(user->position.y, user->position.x, buffer);
+	//char buffer[8];
+	//sprintf(buffer, "%c", level[user->position.y][user->position.x].ch);
+	mvprintw(user->position.y, user->position.x, level[user->position.y][user->position.x].ch);
 
 	user->position.y = newPosition->y;
 	user->position.x = newPosition->x;
