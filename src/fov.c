@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-int RADIUS = 25;
+int RADIUS = 5;
 
 void makeFOV(Tile** level, Player* player) 
 {
@@ -39,7 +39,7 @@ void clearFOV(Tile** level, Player* player)
 
 bool isInMap(int y, int x)
 {
-	if ((0 < y && y < 25) && (0 < x && x < 100))
+	if ((0 < y && y < GAMEMAP_HEIGHT) && (0 < x && x < GAMEMAP_WIDTH))
 	{
 		return true;
 	}

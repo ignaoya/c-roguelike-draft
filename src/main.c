@@ -1,5 +1,8 @@
 #include "rogue.h"
 
+const int GAMEMAP_HEIGHT = 35;
+const int GAMEMAP_WIDTH = 120;
+
 int main(void)
 {
 	srand(time(NULL));

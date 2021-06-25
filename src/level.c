@@ -1,8 +1,8 @@
 #include "rogue.h"
 
-int MAX_ROOMS = 6;
-int MIN_SIZE = 3;
-int MAX_SIZE = 8;
+int MAX_ROOMS = 12;
+int MIN_SIZE = 4;
+int MAX_SIZE = 9;
 
 Room** mapSetUp(Tile** level)
 {
@@ -12,8 +12,8 @@ Room** mapSetUp(Tile** level)
 
 	for (int i = 0; i < MAX_ROOMS; i++)
 	{
-		y = rand() % 15 + 2;
-		x = rand() % 85 + 2;
+		y = rand() % (GAMEMAP_HEIGHT - 5) + 2;
+		x = rand() % (GAMEMAP_WIDTH - 15) + 2;
 		height = rand() % MAX_SIZE + MIN_SIZE;
 		width = rand() % MAX_SIZE + MIN_SIZE;
 
@@ -30,9 +30,9 @@ Room** mapSetUp(Tile** level)
 void mapDraw(Tile** level)
 {
 	int x, y;
-	for (y = 0; y < 25; y++)
+	for (y = 0; y < GAMEMAP_HEIGHT; y++)
 	{
-		for (x = 0; x < 100; x++)
+		for (x = 0; x < GAMEMAP_WIDTH; x++)
 		{
 			if (level[y][x].visible)
 			{
@@ -51,12 +51,12 @@ Tile** createLevelTiles(void)
 {
 	int x, y;
 	Tile** tiles;
-	tiles = malloc(sizeof(Tile*) * 25);
+	tiles = malloc(sizeof(Tile*) * GAMEMAP_HEIGHT);
 
-	for (y = 0; y < 25; y++)
+	for (y = 0; y < GAMEMAP_HEIGHT; y++)
 	{
-		tiles[y] = malloc(sizeof(Tile) * 100);
-		for (x = 0; x < 100; x++)
+		tiles[y] = malloc(sizeof(Tile) * GAMEMAP_WIDTH);
+		for (x = 0; x < GAMEMAP_WIDTH; x++)
 		{
 			tiles[y][x].ch = "#";
 			tiles[y][x].walkable = false;

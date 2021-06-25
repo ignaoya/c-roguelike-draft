@@ -5,6 +5,9 @@
 #include <time.h>
 #include <math.h>
 
+extern const int GAMEMAP_HEIGHT;
+extern const int GAMEMAP_WIDTH;
+
 typedef struct Position 
 {
 	int x;
