@@ -4,7 +4,7 @@ int MAX_ROOMS = 12;
 int MIN_SIZE = 4;
 int MAX_SIZE = 9;
 
-Room** mapSetUp(Tile** level)
+Room** mapSetUp(void)
 {
 	int y, x, height, width;
 	Room** rooms;
@@ -18,16 +18,16 @@ Room** mapSetUp(Tile** level)
 		width = rand() % MAX_SIZE + MIN_SIZE;
 
 		rooms[i] = createRoom(y, x, height, width);
-		drawRoom(rooms[i], level);
+		drawRoom(rooms[i]);
 		if (i > 0) 
 		{
-			connectDoors(rooms[i]->center, rooms[i-1]->center, level);
+			connectDoors(rooms[i]->center, rooms[i-1]->center);
 		}
 	}
 	return rooms;
 }
 
-void mapDraw(Tile** level)
+void mapDraw(void)
 {
 	int x, y;
 	for (y = 0; y < GAMEMAP_HEIGHT; y++)
@@ -42,6 +42,18 @@ void mapDraw(Tile** level)
 			{
 				mvprintw(y, x, " ");
 			}
+		}
+	}
+}
+
+void showWholeMap(void)
+{
+	int x, y;
+	for (y = 0; y < GAMEMAP_HEIGHT; y++)
+	{
+		for (x = 0; x < GAMEMAP_WIDTH; x++)
+		{
+			mvprintw(y, x, level[y][x].ch);
 		}
 	}
 }

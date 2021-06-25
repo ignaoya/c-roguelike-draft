@@ -38,29 +38,33 @@ typedef struct Player
 	int health;
 } Player;
 
+
+extern Tile** level;
+
 // main.c functions
 void screenSetUp(void);
 
 // level.c functions 
-Room** mapSetUp(Tile** level);
-void mapDraw(Tile** level);
+Room** mapSetUp(void);
+void mapDraw(void);
+void showWholeMap(void);
 Tile** createLevelTiles(void);
 
 // player.c functions
 Player* playerSetUp(Room* room);
 Position* handleInput(int input, Player* user);
-int playerMove(Position* newPosition, Player* user, Tile** level);
-int checkPosition(Position* newPosition, Player* user, Tile** level);
+int playerMove(Position* newPosition, Player* user);
+int checkPosition(Position* newPosition, Player* user);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
-void drawRoom(Room* room, Tile** level);
-void connectDoors(Position* doorOne, Position* doorTwo, Tile** level);
+void drawRoom(Room* room);
+void connectDoors(Position* doorOne, Position* doorTwo);
 bool roomIntersectsOther(Room* room, Room* other);
 
 // fov.c functions
-void makeFOV(Tile** level, Player* player);
-void clearFOV(Tile** level, Player* player);
+void makeFOV(Player* player);
+void clearFOV(Player* player);
 bool isInMap(int y, int x);
 
 #endif

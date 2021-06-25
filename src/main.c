@@ -2,6 +2,7 @@
 
 const int GAMEMAP_HEIGHT = 35;
 const int GAMEMAP_WIDTH = 120;
+Tile** level;
 
 int main(void)
 {
@@ -9,20 +10,20 @@ int main(void)
 	Player* player;
 	int ch;
 	Position* newPosition;
-	Tile** level;
+	//Tile** level;
 	Room** rooms;
 
 	level = createLevelTiles();
 	screenSetUp();
-	rooms = mapSetUp(level);
+	rooms = mapSetUp();
 	player = playerSetUp(rooms[0]);
-	playerMove(&(player->position), player, level);
+	playerMove(&(player->position), player);
 
 	/* main game loop */
 	while ((ch = getch()) != 'q')
 	{
 		newPosition = handleInput(ch, player);
-		checkPosition(newPosition, player, level);
+		checkPosition(newPosition, player);
 	}
 
 	clear();

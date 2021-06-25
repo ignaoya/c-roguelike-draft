@@ -2,7 +2,7 @@
 
 int RADIUS = 5;
 
-void makeFOV(Tile** level, Player* player) 
+void makeFOV(Player* player) 
 {
 	int y, x;
 	double dist, dy, dx;
@@ -23,7 +23,7 @@ void makeFOV(Tile** level, Player* player)
 	}
 }
 
-void clearFOV(Tile** level, Player* player) 
+void clearFOV(Player* player) 
 {
 	int y, x;
 

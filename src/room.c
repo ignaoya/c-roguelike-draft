@@ -18,7 +18,7 @@ Room* createRoom(int y, int x, int height, int width)
 	return newRoom;
 }
 
-void drawRoom(Room* room, Tile** level)
+void drawRoom(Room* room)
 {
 	int y;
 	int x;
@@ -37,7 +37,7 @@ void drawRoom(Room* room, Tile** level)
 	}
 }
 
-void connectDoors(Position* doorOne, Position* doorTwo, Tile** level)
+void connectDoors(Position* doorOne, Position* doorTwo)
 {
 	Position temp;
 	temp.x = doorOne->x;
