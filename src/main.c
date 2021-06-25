@@ -10,7 +10,6 @@ int main(void)
 	Player* player;
 	int ch;
 	Position* newPosition;
-	//Tile** level;
 	Room** rooms;
 
 	level = createLevelTiles();
