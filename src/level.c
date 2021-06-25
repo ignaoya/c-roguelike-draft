@@ -21,7 +21,7 @@ Room** mapSetUp(void)
 		drawRoom(rooms[i]);
 		if (i > 0) 
 		{
-			connectDoors(rooms[i]->center, rooms[i-1]->center);
+			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
 		}
 	}
 	return rooms;

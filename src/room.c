@@ -37,27 +37,27 @@ void drawRoom(Room* room)
 	}
 }
 
-void connectDoors(Position* doorOne, Position* doorTwo)
+void connectRoomCenters(Position* centerOne, Position* centerTwo)
 {
 	Position temp;
-	temp.x = doorOne->x;
-	temp.y = doorOne->y;
+	temp.x = centerOne->x;
+	temp.y = centerOne->y;
 
 	while (true)
 	{
-		if ((abs((temp.x - 1) - doorTwo->x) < abs(temp.x - doorTwo->x)))
+		if ((abs((temp.x - 1) - centerTwo->x) < abs(temp.x - centerTwo->x)))
 		{
 			temp.x--;
 
-		} else if ((abs((temp.x + 1) - doorTwo->x) < abs(temp.x - doorTwo->x)))
+		} else if ((abs((temp.x + 1) - centerTwo->x) < abs(temp.x - centerTwo->x)))
 		{
 			temp.x++;
 
-		} else if ((abs((temp.y + 1) - doorTwo->y) < abs(temp.y - doorTwo->y)))
+		} else if ((abs((temp.y + 1) - centerTwo->y) < abs(temp.y - centerTwo->y)))
 		{
 			temp.y++;
 
-		} else if ((abs((temp.y - 1) - doorTwo->y) < abs(temp.y - doorTwo->y)))
+		} else if ((abs((temp.y - 1) - centerTwo->y) < abs(temp.y - centerTwo->y)))
 		{
 			temp.y--;
 		} else

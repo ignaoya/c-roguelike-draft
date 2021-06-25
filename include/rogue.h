@@ -59,7 +59,7 @@ int checkPosition(Position* newPosition, Player* user);
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
 void drawRoom(Room* room);
-void connectDoors(Position* doorOne, Position* doorTwo);
+void connectRoomCenters(Position* centerOne, Position* centerTwo);
 bool roomIntersectsOther(Room* room, Room* other);
 
 // fov.c functions
