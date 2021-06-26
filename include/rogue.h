@@ -1,6 +1,7 @@
 #ifndef ROGUE_H
 #define ROGUE_H
 #include <ncurses.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
@@ -42,7 +43,7 @@ typedef struct Player
 extern Tile** level;
 
 // main.c functions
-void screenSetUp(void);
+bool screenSetUp(void);
 
 // level.c functions 
 Room** mapSetUp(void);
