@@ -12,8 +12,8 @@ Room** mapSetUp(void)
 
 	for (int i = 0; i < MAX_ROOMS; i++)
 	{
-		y = rand() % (GAMEMAP_HEIGHT - 5) + 2;
-		x = rand() % (GAMEMAP_WIDTH - 15) + 2;
+		y = rand() % (GAMEMAP_HEIGHT - 10) + 1;
+		x = rand() % (GAMEMAP_WIDTH - 15) + 1;
 		height = rand() % MAX_SIZE + MIN_SIZE;
 		width = rand() % MAX_SIZE + MIN_SIZE;
 
