@@ -36,7 +36,11 @@ void mapDraw(void)
 		{
 			if (level[y][x].visible)
 			{
-				mvprintw(y, x, level[y][x].ch);
+				mvaddch(y, x, level[y][x].ch[0] | COLOR_PAIR(VISIBLE_COLOR));
+			}
+			else if (level[y][x].seen)
+			{
+				mvaddch(y, x, level[y][x].ch[0] | COLOR_PAIR(SEEN_COLOR));
 			}
 			else
 			{
@@ -74,6 +78,7 @@ Tile** createLevelTiles(void)
 			tiles[y][x].walkable = false;
 			tiles[y][x].transparent = false;
 			tiles[y][x].visible = false;
+			tiles[y][x].seen = false;
 		}
 	}
 

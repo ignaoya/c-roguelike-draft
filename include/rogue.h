@@ -6,6 +6,11 @@
 #include <time.h>
 #include <math.h>
 
+#define BLACK_COLOR 0
+#define PLAYER_COLOR 1
+#define VISIBLE_COLOR 2
+#define SEEN_COLOR 3
+
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
 
@@ -21,6 +26,7 @@ typedef struct Tile
 	bool walkable;
 	bool transparent;
 	bool visible;
+	bool seen;
 } Tile;
 
 typedef struct Room
@@ -29,13 +35,12 @@ typedef struct Room
 	int height;
 	int width;
 	Position* center;
-	//Monster** monsters;
-	//Item** items;
 } Room;
 
 typedef struct Player
 {
 	Position position;
+	char ch;
 	int health;
 } Player;
 
@@ -53,9 +58,10 @@ Tile** createLevelTiles(void);
 
 // player.c functions
 Player* playerSetUp(Room* room);
-Position* handleInput(int input, Player* user);
-int playerMove(Position* newPosition, Player* user);
-int checkPosition(Position* newPosition, Player* user);
+Position* handleInput(int input, Player* player);
+void checkPosition(Position* newPosition, Player* player);
+void playerMove(Position* newPosition, Player* player);
+void playerDraw(Player* player);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);

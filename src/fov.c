@@ -17,7 +17,10 @@ void makeFOV(Player* player)
 			if (floor(dist) < RADIUS)
 			{
 				if (isInMap(y, x))
+				{
 					level[y][x].visible = true;
+					level[y][x].seen = true;
+				}
 			}
 		}
 	}
