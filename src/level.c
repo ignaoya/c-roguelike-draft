@@ -1,16 +1,16 @@
 #include "rogue.h"
 
-int MAX_ROOMS = 12;
 int MIN_SIZE = 4;
 int MAX_SIZE = 9;
 
 Room** mapSetUp(void)
 {
-	int y, x, height, width;
+	int y, x, height, width, max_rooms;
+	max_rooms = rand() % 15 + 5;
 	Room** rooms;
-	rooms = malloc(sizeof(Room) * MAX_ROOMS);
+	rooms = malloc(sizeof(Room) * max_rooms);
 
-	for (int i = 0; i < MAX_ROOMS; i++)
+	for (int i = 0; i < max_rooms; i++)
 	{
 		y = rand() % (GAMEMAP_HEIGHT - 10) + 1;
 		x = rand() % (GAMEMAP_WIDTH - 15) + 1;
