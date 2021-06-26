@@ -59,7 +59,21 @@ typedef struct Actor
 	char* name;
 } Actor;
 	
+typedef struct MonsterTemplate
+{
+	char ch;
+	int hp;
+	int attack;
+	int defense;
+	bool ai;
+	char* name;
+} MonsterTemplate;
+
+// global variables
 extern Tile** level;
+extern Actor* actors[];
+extern int n_actors;
+extern MonsterTemplate goblin;
 
 // main.c functions
 bool screenSetUp(void);
@@ -76,6 +90,11 @@ Position* handleInput(int input, Entity* player);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
 void playerDraw(Entity* player);
+
+// monster.c functions
+Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
+void drawEntity(Entity* entity);
+void drawAllMonsters(void);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);

@@ -3,6 +3,8 @@
 const int GAMEMAP_HEIGHT = 35;
 const int GAMEMAP_WIDTH = 120;
 Tile** level;
+Actor* actors[15] = { NULL };
+int n_actors = 0;
 
 int main(void)
 {
@@ -20,6 +22,7 @@ int main(void)
 
 	makeFOV(player->entity);
 	mapDraw();
+	drawAllMonsters();
 	playerDraw(player->entity);
 
 	/* main game loop */

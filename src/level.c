@@ -2,10 +2,11 @@
 
 int MIN_SIZE = 4;
 int MAX_SIZE = 9;
+int MAX_MONSTERS = 3;
 
 Room** mapSetUp(void)
 {
-	int y, x, height, width, max_rooms;
+	int y, x, height, width, max_rooms, n_monsters;
 	max_rooms = rand() % 15 + 5;
 	Room** rooms;
 	rooms = malloc(sizeof(Room) * max_rooms);
@@ -16,9 +17,25 @@ Room** mapSetUp(void)
 		x = rand() % (GAMEMAP_WIDTH - 15) + 1;
 		height = rand() % MAX_SIZE + MIN_SIZE;
 		width = rand() % MAX_SIZE + MIN_SIZE;
+		n_monsters = rand() % MAX_MONSTERS;
 
 		rooms[i] = createRoom(y, x, height, width);
+		for (int j = 0; j < n_monsters; j++)
+		{
+			if (n_actors >= 15 || i == 0)
+			{
+				break;
+			}
+			int monster_y = rand() % height + y;
+			int monster_x = rand() % width + x;
+			int monster_level = rand() % 3;
+			actors[n_actors] = createMonster(monster_y, monster_x, goblin, monster_level);
+			n_actors++;
+		}
+
 		drawRoom(rooms[i]);
+		
+
 		if (i > 0) 
 		{
 			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);

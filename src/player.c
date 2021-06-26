@@ -96,6 +96,7 @@ void playerMove(Position* newPosition, Entity* player)
 	player->position.x = newPosition->x;
 	makeFOV(player);
 	mapDraw();
+	drawAllMonsters();
 	playerDraw(player);
 }
 
