@@ -8,7 +8,7 @@ int main(void)
 {
 	srand(time(NULL));
 	bool compatibleTerminal;
-	Player* player;
+	Actor* player;
 	int ch;
 	Position* newPosition;
 	Room** rooms;
@@ -17,15 +17,18 @@ int main(void)
 	compatibleTerminal = screenSetUp();
 	rooms = mapSetUp();
 	player = playerSetUp(rooms[0]);
-	playerMove(&(player->position), player);
+
+	makeFOV(player->entity);
+	mapDraw();
+	playerDraw(player->entity);
 
 	/* main game loop */
 	if (compatibleTerminal)
 	{
 		while ((ch = getch()) != 'q')
 		{
-			newPosition = handleInput(ch, player);
-			checkPosition(newPosition, player);
+			newPosition = handleInput(ch, player->entity);
+			checkPosition(newPosition, player->entity);
 		}
 
 		clear();

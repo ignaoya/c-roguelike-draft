@@ -37,14 +37,28 @@ typedef struct Room
 	Position* center;
 } Room;
 
-typedef struct Player
+typedef struct Entity
 {
 	Position position;
 	char ch;
-	int health;
-} Player;
+} Entity;
 
+typedef struct Fighter
+{
+	int hp;
+	int max_hp;
+	int attack;
+	int defense;
+	bool ai;
+} Fighter;
 
+typedef struct Actor
+{
+	Entity* entity;
+	Fighter* fighter;
+	char* name;
+} Actor;
+	
 extern Tile** level;
 
 // main.c functions
@@ -57,11 +71,11 @@ void showWholeMap(void);
 Tile** createLevelTiles(void);
 
 // player.c functions
-Player* playerSetUp(Room* room);
-Position* handleInput(int input, Player* player);
-void checkPosition(Position* newPosition, Player* player);
-void playerMove(Position* newPosition, Player* player);
-void playerDraw(Player* player);
+Actor* playerSetUp(Room* room);
+Position* handleInput(int input, Entity* player);
+void checkPosition(Position* newPosition, Entity* player);
+void playerMove(Position* newPosition, Entity* player);
+void playerDraw(Entity* player);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
@@ -69,8 +83,8 @@ void drawRoom(Room* room);
 void connectRoomCenters(Position* centerOne, Position* centerTwo);
 
 // fov.c functions
-void makeFOV(Player* player);
-void clearFOV(Player* player);
+void makeFOV(Entity* player);
+void clearFOV(Entity* player);
 bool isInMap(int y, int x);
 
 #endif

@@ -1,20 +1,28 @@
 #include "rogue.h"
 
-Player* playerSetUp(Room* room)
+Actor* playerSetUp(Room* room)
 {
-	Player* newPlayer; 
-	newPlayer = malloc(sizeof(Player));
-	newPlayer->position.x = room->center->x;
-	newPlayer->position.y = room->center->y;
-	newPlayer->ch = '@';
-	newPlayer->health = 20;
+	Actor* newPlayer; 
+	newPlayer = malloc(sizeof(Actor));
+	newPlayer->entity = malloc(sizeof(Entity));
+	newPlayer->fighter = malloc(sizeof(Fighter));
 
-	playerDraw(newPlayer);
+	newPlayer->entity->position.x = room->center->x;
+	newPlayer->entity->position.y = room->center->y;
+	newPlayer->entity->ch = '@';
+	newPlayer->fighter->hp = 20;
+	newPlayer->fighter->max_hp = 20;
+	newPlayer->fighter->attack = 5;
+	newPlayer->fighter->defense = 1;
+	newPlayer->fighter->ai = false;
+	newPlayer->name = "player";
+
+	playerDraw(newPlayer->entity);
 
 	return newPlayer;
 }
 
-Position* handleInput(int input, Player* player)
+Position* handleInput(int input, Entity* player)
 {
 	Position* newPosition;
 	newPosition = malloc(sizeof(Position));
@@ -64,7 +72,7 @@ Position* handleInput(int input, Player* player)
 	return newPosition;
 }
 
-void checkPosition(Position* newPosition, Player* player)
+void checkPosition(Position* newPosition, Entity* player)
 {
 	switch (mvinch(newPosition->y, newPosition->x) & A_CHARTEXT) // Using A_CHARTEXT mask to separate the char from color info.
 	{
@@ -77,7 +85,7 @@ void checkPosition(Position* newPosition, Player* player)
 	}
 }
 
-void playerMove(Position* newPosition, Player* player)
+void playerMove(Position* newPosition, Entity* player)
 {
 	//char buffer[8];
 	//sprintf(buffer, "%c", level[user->position.y][user->position.x].ch);
@@ -91,7 +99,7 @@ void playerMove(Position* newPosition, Player* player)
 	playerDraw(player);
 }
 
-void playerDraw(Player* player)
+void playerDraw(Entity* player)
 {
 	mvaddch(player->position.y, player->position.x, player->ch | COLOR_PAIR(PLAYER_COLOR));
 	move(player->position.y, player->position.x);

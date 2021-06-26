@@ -2,7 +2,7 @@
 
 int RADIUS = 5;
 
-void makeFOV(Player* player) 
+void makeFOV(Entity* player) 
 {
 	int y, x;
 	double dist, dy, dx;
@@ -26,7 +26,7 @@ void makeFOV(Player* player)
 	}
 }
 
-void clearFOV(Player* player) 
+void clearFOV(Entity* player) 
 {
 	int y, x;
 
