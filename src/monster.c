@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-MonsterTemplate goblin = {'g', 10, 2, 0, true, "goblin"};
+MonsterTemplate goblin = {'g', 10, 10, 2, 0, true, "goblin"};
 
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 {
@@ -12,10 +12,11 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->entity->position.y = y;
 	monster->entity->position.x = x;
 	monster->entity->ch = template.ch;
-	monster->fighter->hp = template.hp;
-	monster->fighter->max_hp = template.hp;
-	monster->fighter->attack = template.attack;
-	monster->fighter->defense = template.defense;
+	monster->entity->fov_radius = template.fov_radius;
+	monster->fighter->hp = template.hp * xpLevel;
+	monster->fighter->max_hp = template.hp * xpLevel;
+	monster->fighter->attack = template.attack * xpLevel;
+	monster->fighter->defense = template.defense * xpLevel;
 	monster->fighter->ai = template.ai;
 	monster->name = template.name;
 

@@ -10,6 +10,7 @@ Actor* playerSetUp(Room* room)
 	newPlayer->entity->position.x = room->center->x;
 	newPlayer->entity->position.y = room->center->y;
 	newPlayer->entity->ch = '@';
+	newPlayer->entity->fov_radius = 12;
 	newPlayer->fighter->hp = 20;
 	newPlayer->fighter->max_hp = 20;
 	newPlayer->fighter->attack = 5;

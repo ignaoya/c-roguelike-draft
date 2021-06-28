@@ -1,12 +1,12 @@
 #include "rogue.h"
 
 
-int RADIUS = 5;
-
 void makeFOV(Entity* player) 
 {
 	int y, x;
 	double dist, dy, dx;
+	int RADIUS = player->fov_radius;
+
 
 	for (y = player->position.y - RADIUS; y < player->position.y + RADIUS; y++)
 	{
@@ -30,6 +30,7 @@ void makeFOV(Entity* player)
 void clearFOV(Entity* player) 
 {
 	int y, x;
+	int RADIUS = player->fov_radius;
 
 	for (y = player->position.y - RADIUS; y < player->position.y + RADIUS; y++)
 	{

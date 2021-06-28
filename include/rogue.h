@@ -41,6 +41,7 @@ typedef struct Entity
 {
 	Position position;
 	char ch;
+	int fov_radius;
 } Entity;
 
 typedef struct Fighter
@@ -62,6 +63,7 @@ typedef struct Actor
 typedef struct MonsterTemplate
 {
 	char ch;
+	int fov_radius;
 	int hp;
 	int attack;
 	int defense;
