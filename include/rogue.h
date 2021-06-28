@@ -105,5 +105,7 @@ void connectRoomCenters(Position* centerOne, Position* centerTwo);
 void makeFOV(Entity* player);
 void clearFOV(Entity* player);
 bool isInMap(int y, int x);
+bool lineOfSight(Entity* origin, int target_y, int target_x);
+int getSign(int a);
 
 #endif
