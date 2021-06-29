@@ -98,6 +98,10 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
 void drawEntity(Entity* entity);
 void drawAllMonsters(void);
 
+// ai.c functions
+void takeTurn(Actor* actor, Actor* player);
+void allMonstersTakeTurns(Actor* player);
+
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
 void drawRoom(Room* room);
@@ -110,5 +114,10 @@ void clearFOV(Entity* player);
 bool isInMap(int y, int x);
 bool lineOfSight(Entity* origin, int target_y, int target_x);
 int getSign(int a);
+
+// log.c exports
+void addMessage(char* text);
+void printMessages(void);
+
 
 #endif

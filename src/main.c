@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-const int GAMEMAP_HEIGHT = 40;
+const int GAMEMAP_HEIGHT = 35;
 const int GAMEMAP_WIDTH = 120;
 Tile** level;
 Actor* actors[15] = { NULL };
@@ -32,6 +32,9 @@ int main(void)
 		{
 			newPosition = handleInput(ch, player->entity);
 			checkPosition(newPosition, player->entity);
+			allMonstersTakeTurns(player);
+			printMessages();
+			move(player->entity->position.y, player->entity->position.x);
 		}
 
 		clear();
