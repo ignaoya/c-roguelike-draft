@@ -8,6 +8,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster = malloc(sizeof(Actor));
 	monster->entity = malloc(sizeof(Entity));
 	monster->fighter = malloc(sizeof(Fighter));
+	monster->ai = malloc(sizeof(AI));
 
 	monster->entity->position.y = y;
 	monster->entity->position.x = x;
@@ -17,7 +18,9 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->fighter->max_hp = template.hp * xpLevel;
 	monster->fighter->attack = template.attack * xpLevel;
 	monster->fighter->defense = template.defense * xpLevel;
-	monster->fighter->ai = template.ai;
+	monster->ai->seen_player = false;
+	monster->ai->last_player_position.y = -1;
+	monster->ai->last_player_position.x = -1;
 	monster->name = template.name;
 
 	return monster;
@@ -25,7 +28,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 
 void drawEntity(Entity* entity)
 {
-	mvaddch(entity->position.y, entity->position.x, entity->ch);
+	mvaddch(entity->position.y, entity->position.x, entity->ch | COLOR_PAIR(GREEN_COLOR));
 }
 
 void drawAllMonsters(void)

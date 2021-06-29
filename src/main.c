@@ -61,6 +61,7 @@ bool screenSetUp(void)
 		init_pair(PLAYER_COLOR, COLOR_BLACK, COLOR_WHITE);
 		init_pair(VISIBLE_COLOR, COLOR_WHITE, COLOR_BLACK);
 		init_pair(SEEN_COLOR, COLOR_BLUE, COLOR_BLACK);
+		init_pair(GREEN_COLOR, COLOR_GREEN, COLOR_BLACK);
 
 		move(20, 60);
 		printw("Your terminal supports %d colors.\n", COLORS);

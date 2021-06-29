@@ -6,6 +6,7 @@ Actor* playerSetUp(Room* room)
 	newPlayer = malloc(sizeof(Actor));
 	newPlayer->entity = malloc(sizeof(Entity));
 	newPlayer->fighter = malloc(sizeof(Fighter));
+	newPlayer->ai = NULL;
 
 	newPlayer->entity->position.x = room->center->x;
 	newPlayer->entity->position.y = room->center->y;
@@ -15,7 +16,6 @@ Actor* playerSetUp(Room* room)
 	newPlayer->fighter->max_hp = 20;
 	newPlayer->fighter->attack = 5;
 	newPlayer->fighter->defense = 1;
-	newPlayer->fighter->ai = false;
 	newPlayer->name = "player";
 
 	playerDraw(newPlayer->entity);

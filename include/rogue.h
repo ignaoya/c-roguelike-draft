@@ -10,6 +10,7 @@
 #define PLAYER_COLOR 1
 #define VISIBLE_COLOR 2
 #define SEEN_COLOR 3
+#define GREEN_COLOR 4
 
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
@@ -50,13 +51,19 @@ typedef struct Fighter
 	int max_hp;
 	int attack;
 	int defense;
-	bool ai;
 } Fighter;
+
+typedef struct AI
+{
+	bool seen_player;
+	Position last_player_position;
+} AI;
 
 typedef struct Actor
 {
 	Entity* entity;
 	Fighter* fighter;
+	AI* ai;
 	char* name;
 } Actor;
 	
@@ -101,6 +108,9 @@ void drawAllMonsters(void);
 // ai.c functions
 void takeTurn(Actor* actor, Actor* player);
 void allMonstersTakeTurns(Actor* player);
+void moveTowards(Actor* actor, Actor* target);
+void monsterMove(Position direction, Entity* entity);
+void monsterAttack(Fighter* monster, Fighter* target);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
