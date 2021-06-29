@@ -16,6 +16,10 @@ void takeTurn(Actor* actor, Actor* player)
 
 		moveTowards(actor, player);
 	}
+	else if (actor->ai->seen_player)
+	{
+		moveTowards(actor, player);
+	}
 }
 
 void allMonstersTakeTurns(Actor* player)
@@ -70,8 +74,19 @@ void moveTowards(Actor* actor, Actor* target)
 
 void monsterMove(Position direction, Entity* entity)
 {
-	entity->position.y = direction.y;
-	entity->position.x = direction.x;
+	bool occupied = false;
+	for (int i = 0; i < n_actors; i++)
+	{
+		if (actors[i]->entity->position.y == direction.y && actors[i]->entity->position.x == direction.x)
+		{
+			occupied = true;
+		}
+	}
+	if (!occupied)
+	{
+		entity->position.y = direction.y;
+		entity->position.x = direction.x;
+	}
 }
 
 void monsterAttack(Fighter* monster, Fighter* target)
