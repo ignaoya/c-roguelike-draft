@@ -57,13 +57,26 @@ Position* handleInput(int input, Entity* player)
 			newPosition->y = player->position.y;
 			newPosition->x = player->position.x + 1;
 			break;
+		case 'u':
+			newPosition->y = player->position.y - 1;
+			newPosition->x = player->position.x - 1;
+			break;
+		case 'i':
+			newPosition->y = player->position.y - 1;
+			newPosition->x = player->position.x + 1;
+			break;
+		case 'n':
+			newPosition->y = player->position.y + 1;
+			newPosition->x = player->position.x - 1;
+			break;
+		case 'm':
+			newPosition->y = player->position.y + 1;
+			newPosition->x = player->position.x + 1;
+			break;
 
-		//TODO: View All Map Cheat(for development)
+		// View All Map Cheat(for development)
 		case 'v':
 			showWholeMap();
-			break;
-		//TODO: Open seen map
-		case 'm':
 			break;
 
 		default:

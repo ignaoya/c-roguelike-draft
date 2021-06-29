@@ -104,6 +104,7 @@ void drawRoom(Room* room);
 void connectRoomCenters(Position* centerOne, Position* centerTwo);
 
 // fov.c functions
+int getDistance(Position origin, Position target);
 void makeFOV(Entity* player);
 void clearFOV(Entity* player);
 bool isInMap(int y, int x);

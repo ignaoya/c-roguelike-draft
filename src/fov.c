@@ -1,21 +1,32 @@
 #include "rogue.h"
 
 
+int getDistance(Position origin, Position target)
+{
+	double dy, dx;
+	int distance;
+	dx = target.x - origin.x;
+	dy = target.y - origin.y;
+	distance = floor(sqrt((dx * dx) + (dy * dy)));
+
+	return distance;
+}
+
 void makeFOV(Entity* player) 
 {
-	int y, x;
-	double dist, dy, dx;
+	int y, x, distance;
 	int RADIUS = player->fov_radius;
-
+	Position target;
 
 	for (y = player->position.y - RADIUS; y < player->position.y + RADIUS; y++)
 	{
 		for (x = player->position.x - RADIUS; x < player->position.x + RADIUS; x++)
 		{
-			dx = x - player->position.x;
-			dy = y - player->position.y;
-			dist = sqrt((dx * dx) + (dy * dy));
-			if (floor(dist) < RADIUS)
+			target.y = y;
+			target.x = x;
+			distance = getDistance(player->position, target);
+
+			if (distance < RADIUS)
 			{
 				if (isInMap(y, x) && lineOfSight(player, y, x))
 				{
@@ -44,7 +55,7 @@ void clearFOV(Entity* player)
 
 bool isInMap(int y, int x)
 {
-	if ((0 < y && y < GAMEMAP_HEIGHT) && (0 < x && x < GAMEMAP_WIDTH))
+	if ((0 < y && y < GAMEMAP_HEIGHT - 1) && (0 < x && x < GAMEMAP_WIDTH - 1))
 	{
 		return true;
 	}
