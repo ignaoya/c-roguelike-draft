@@ -1,22 +1,31 @@
 #include "rogue.h"
 
-typedef struct Message
+Message** createLog(void)
 {
-	char* text;
-} Message;
+	Message** new_log;
+	new_log = malloc(sizeof(Message) * 10);
 
-Message message_log[10] = { "" };
-int message_count = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		Message* newMessage;
+		newMessage = malloc(sizeof(Message));
+		snprintf(newMessage->text, sizeof(newMessage->text), " ");
+		new_log[i] = newMessage;
+	}
 
-void addMessage(char* text)
+	return new_log;
+}
+
+void addMessage(char text[1024])
 {
 	for (int i = 0; i < message_count; i++)
 	{
-		message_log[message_count - i] = message_log[message_count - i - 1];
+		memcpy(message_log[message_count - i]->text, 
+				   message_log[message_count - i - 1]->text, 
+					 sizeof(char) * 1024);
 	}
 
-	Message newMessage = { text };
-	message_log[0] = newMessage;
+	memcpy(message_log[0]->text, text, sizeof(char) * 1024);
 
 	if (message_count < 4)
 	{
@@ -30,7 +39,7 @@ void printMessages(void)
 	{
 		move(37 - i, 5);
 		clrtoeol();
-		mvprintw(37 - i, 5, message_log[i].text);
+		mvprintw(37 - i, 5, message_log[i]->text);
 	}
 }
 

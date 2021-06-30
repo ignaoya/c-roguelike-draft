@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include <math.h>
 
@@ -11,17 +12,22 @@
 #define VISIBLE_COLOR 2
 #define SEEN_COLOR 3
 #define GREEN_COLOR 4
+#define RED_COLOR 5
 
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
 
-typedef struct Position 
+struct Actor;
+typedef struct Actor Actor;
+
+
+typedef struct 
 {
 	int x;
 	int y;
 } Position;
 
-typedef struct Tile
+typedef struct
 {
 	char* ch;
 	bool walkable;
@@ -30,7 +36,7 @@ typedef struct Tile
 	bool seen;
 } Tile;
 
-typedef struct Room
+typedef struct
 {
 	Position position;
 	int height;
@@ -38,38 +44,44 @@ typedef struct Room
 	Position* center;
 } Room;
 
-typedef struct Entity
+typedef struct
 {
 	Position position;
 	char ch;
+	int color;
 	int fov_radius;
+	Actor* owner;
 } Entity;
 
-typedef struct Fighter
+typedef struct
 {
 	int hp;
 	int max_hp;
 	int attack;
 	int defense;
+	Actor* owner;
 } Fighter;
 
-typedef struct AI
+typedef struct
 {
 	bool seen_player;
 	Position last_player_position;
+	Actor* owner;
 } AI;
 
-typedef struct Actor
+struct Actor
 {
 	Entity* entity;
 	Fighter* fighter;
 	AI* ai;
 	char* name;
-} Actor;
+	bool dead;
+};
 	
-typedef struct MonsterTemplate
+typedef struct
 {
 	char ch;
+	int color;
 	int fov_radius;
 	int hp;
 	int attack;
@@ -78,10 +90,17 @@ typedef struct MonsterTemplate
 	char* name;
 } MonsterTemplate;
 
+typedef struct
+{
+	char text[1024];
+} Message;
+
 // global variables
 extern Tile** level;
 extern Actor* actors[];
 extern int n_actors;
+extern Message** message_log;
+extern int message_count;
 extern MonsterTemplate goblin;
 
 // main.c functions
@@ -105,12 +124,16 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
 void drawEntity(Entity* entity);
 void drawAllMonsters(void);
 
+// fighter.c functions
+void attack(Fighter* attacker, Fighter* defender);
+void takeDamage(Fighter* fighter, int damage);
+void die(Fighter* fighter);
+
 // ai.c functions
 void takeTurn(Actor* actor, Actor* player);
 void allMonstersTakeTurns(Actor* player);
 void moveTowards(Actor* actor, Actor* target);
 void monsterMove(Position direction, Entity* entity);
-void monsterAttack(Fighter* monster, Fighter* target);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
@@ -126,8 +149,13 @@ bool lineOfSight(Entity* origin, int target_y, int target_x);
 int getSign(int a);
 
 // log.c exports
-void addMessage(char* text);
+Message** createLog();
+void addMessage(char text[1024]);
 void printMessages(void);
+
+// utils.c functions
+int maxInt(int a, int b);
+int minInt(int a, int b);
 
 
 #endif

@@ -11,12 +11,16 @@ Actor* playerSetUp(Room* room)
 	newPlayer->entity->position.x = room->center->x;
 	newPlayer->entity->position.y = room->center->y;
 	newPlayer->entity->ch = '@';
+	newPlayer->entity->color = COLOR_PAIR(PLAYER_COLOR);
 	newPlayer->entity->fov_radius = 12;
+	newPlayer->entity->owner = newPlayer;
 	newPlayer->fighter->hp = 20;
 	newPlayer->fighter->max_hp = 20;
 	newPlayer->fighter->attack = 5;
 	newPlayer->fighter->defense = 1;
+	newPlayer->fighter->owner = newPlayer;
 	newPlayer->name = "player";
+	newPlayer->dead = false;
 
 	playerDraw(newPlayer->entity);
 
@@ -88,14 +92,28 @@ Position* handleInput(int input, Entity* player)
 
 void checkPosition(Position* newPosition, Entity* player)
 {
-	switch (mvinch(newPosition->y, newPosition->x) & A_CHARTEXT) // Using A_CHARTEXT mask to separate the char from color info.
+	bool occupied = false;
+	for (int i = 0; i < n_actors; i++)
 	{
-		case '.':
-			playerMove(newPosition, player);
+		if (!actors[i]->dead && 
+				actors[i]->entity->position.y == newPosition->y && 
+				actors[i]->entity->position.x == newPosition->x)
+		{
+			attack(player->owner->fighter, actors[i]->fighter);
+			occupied = true;
 			break;
-		default:
-			move(player->position.y, player->position.x);
-			break;
+		}
+	}
+	if (!occupied)
+	{
+		switch (*(level[newPosition->y][newPosition->x].ch))
+		{
+			case '.':
+				playerMove(newPosition, player);
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -115,6 +133,6 @@ void playerMove(Position* newPosition, Entity* player)
 
 void playerDraw(Entity* player)
 {
-	mvaddch(player->position.y, player->position.x, player->ch | COLOR_PAIR(PLAYER_COLOR));
+	mvaddch(player->position.y, player->position.x, player->ch | player->color);
 	move(player->position.y, player->position.x);
 }

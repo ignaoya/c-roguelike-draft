@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-MonsterTemplate goblin = {'g', 10, 10, 2, 0, true, "goblin"};
+MonsterTemplate goblin = {'g', COLOR_PAIR(GREEN_COLOR), 10, 10, 2, 0, true, "goblin"};
 
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 {
@@ -13,22 +13,27 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->entity->position.y = y;
 	monster->entity->position.x = x;
 	monster->entity->ch = template.ch;
+	monster->entity->color = template.color;
 	monster->entity->fov_radius = template.fov_radius;
+	monster->entity->owner = monster;
 	monster->fighter->hp = template.hp * xpLevel;
 	monster->fighter->max_hp = template.hp * xpLevel;
 	monster->fighter->attack = template.attack * xpLevel;
 	monster->fighter->defense = template.defense * xpLevel;
+	monster->fighter->owner = monster;
 	monster->ai->seen_player = false;
 	monster->ai->last_player_position.y = -1;
 	monster->ai->last_player_position.x = -1;
+	monster->ai->owner = monster;
 	monster->name = template.name;
+	monster->dead = false;
 
 	return monster;
 }
 
 void drawEntity(Entity* entity)
 {
-	mvaddch(entity->position.y, entity->position.x, entity->ch | COLOR_PAIR(GREEN_COLOR));
+	mvaddch(entity->position.y, entity->position.x, entity->ch | entity->color);
 }
 
 void drawAllMonsters(void)

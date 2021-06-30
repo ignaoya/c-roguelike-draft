@@ -8,7 +8,7 @@ void takeTurn(Actor* actor, Actor* player)
 	{
 		if (!actor->ai->seen_player)
 		{
-			addMessage("The enemy has seen you!");
+			//addMessage("The enemy has seen you!");
 			actor->ai->seen_player = true;
 		}
 		//actor->ai->last_player_position.y = player->entity->position.y;
@@ -26,7 +26,10 @@ void allMonstersTakeTurns(Actor* player)
 {
 	for (int i = 0; i < n_actors; i++)
 	{
-		takeTurn(actors[i], player);
+		if (!(actors[i]->dead))
+		{
+			takeTurn(actors[i], player);
+		}
 	}
 	drawAllMonsters();
 }
@@ -45,7 +48,7 @@ void moveTowards(Actor* actor, Actor* target)
 
 	if (abs(dy) < 2 && abs(dx) < 2)
 	{
-		monsterAttack(actor->fighter, target->fighter);
+		attack(actor->fighter, target->fighter);
 	}
 	else
 	{
@@ -61,7 +64,7 @@ void moveTowards(Actor* actor, Actor* target)
 		direction.y = actor_y + dy;
 		direction.x = actor_x + dx;
 
-		switch(mvinch(direction.y, direction.x) & A_CHARTEXT)
+		switch(*(level[direction.y][direction.x].ch))
 		{
 			case '.':
 				monsterMove(direction, actor->entity);
@@ -77,7 +80,9 @@ void monsterMove(Position direction, Entity* entity)
 	bool occupied = false;
 	for (int i = 0; i < n_actors; i++)
 	{
-		if (actors[i]->entity->position.y == direction.y && actors[i]->entity->position.x == direction.x)
+		if (!actors[i]->dead && 
+				actors[i]->entity->position.y == direction.y && 
+				actors[i]->entity->position.x == direction.x)
 		{
 			occupied = true;
 		}
@@ -88,31 +93,4 @@ void monsterMove(Position direction, Entity* entity)
 		entity->position.x = direction.x;
 	}
 }
-
-void monsterAttack(Fighter* monster, Fighter* target)
-{
-	char* text;
-
-	switch(rand() % 3)
-	{
-		case 0:
-			text = "The goblin is beating your ankle with a chicken bone!";
-			break;
-		case 1:
-			text = "The goblin is throwing boogers at you!";
-			break;
-		case 2:
-			text = "A goblin is trying to sell you a counterfeit Rolex!";
-			break;
-		default:
-			text = "The goblin is asking if you've seen his grandmother!";
-			break;
-	}
-
-	addMessage(text);
-}
-
-
-
-
 
