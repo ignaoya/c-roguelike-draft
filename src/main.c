@@ -24,6 +24,8 @@ int main(void)
 	player = playerSetUp(rooms[0]);
 	message_log = createLog();
 
+	intro();
+
 	makeFOV(player->entity);
 	mapDraw();
 	drawAllMonsters();
@@ -36,7 +38,12 @@ int main(void)
 		{
 			if (player->dead)
 			{
-				getch();
+				lostGame();
+				break;
+			}
+			else if (checkVictory())
+			{
+				wonGame();
 				break;
 			}
 			newPosition = handleInput(ch, player->entity);
@@ -81,4 +88,51 @@ bool screenSetUp(void)
 	}
 	printf("Your system does not support colors. Cannot start game!");
 	return false;
+}
+
+void intro(void)
+{
+	clear();
+	mvprintw(10, 50, "####################################");
+	mvprintw(11, 50, "######## THE MOURNING ABYSS ########");
+	mvprintw(12, 50, "####################################");
+	mvprintw(13, 50, "# a roguelike by Ignacio Oyarzabal #");
+	mvprintw(17, 50, "###### Press Any Key to Start ######");
+
+	getch();
+}
+
+void wonGame(void)
+{
+	mvprintw(10, 50, "####################################");
+	mvprintw(11, 50, "######### CONGRATULATIONS! #########");
+	mvprintw(12, 50, "####################################");
+	mvprintw(13, 50, "# You have killed all the goblins! #");
+	mvprintw(17, 50, "###### Press Any Key to Leave ######");
+
+	getch();
+}
+
+void lostGame(void)
+{
+	mvprintw(10, 50, "####################################");
+	mvprintw(11, 50, "#########     YOU LOST!    #########");
+	mvprintw(12, 50, "####################################");
+	mvprintw(13, 50, "### Your soul has been claimed!! ###");
+	mvprintw(17, 50, "###### Press Any Key to Leave ######");
+
+	getch();
+}
+
+bool checkVictory(void)
+{
+	for (int i = 0; i < n_actors; i++)
+	{
+		if (!actors[i]->dead)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }

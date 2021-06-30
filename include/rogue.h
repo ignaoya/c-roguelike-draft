@@ -105,6 +105,10 @@ extern MonsterTemplate goblin;
 
 // main.c functions
 bool screenSetUp(void);
+void intro(void);
+void wonGame(void);
+void lostGame(void);
+bool checkVictory(void);
 
 // level.c functions 
 Room** mapSetUp(void);
