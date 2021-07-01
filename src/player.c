@@ -14,8 +14,8 @@ Actor* playerSetUp(Room* room)
 	newPlayer->entity->color = COLOR_PAIR(PLAYER_COLOR);
 	newPlayer->entity->fov_radius = 12;
 	newPlayer->entity->owner = newPlayer;
-	newPlayer->fighter->hp = 20;
-	newPlayer->fighter->max_hp = 20;
+	newPlayer->fighter->hp = 50;
+	newPlayer->fighter->max_hp = 50;
 	newPlayer->fighter->attack = 5;
 	newPlayer->fighter->defense = 1;
 	newPlayer->fighter->owner = newPlayer;
