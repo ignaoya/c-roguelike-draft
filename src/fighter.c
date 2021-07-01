@@ -19,6 +19,52 @@ void takeDamage(Fighter* fighter, int damage)
 	{
 		die(fighter);
 	}
+
+	if (damage > 0)
+	{
+		drawBlood(fighter->owner->entity);
+	}
+}
+
+void drawBlood(Entity* entity)
+{
+	int blood_spot = rand() % 9;
+	Position temp;
+	temp.y = entity->position.y;
+	temp.x = entity->position.x;
+
+	switch(blood_spot)
+	{
+		case 0:
+			level[temp.y - 1][temp.x - 1].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 1:
+			level[temp.y - 1][temp.x].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 2:
+			level[temp.y - 1][temp.x + 1].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 3:
+			level[temp.y][temp.x - 1].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 4:
+			level[temp.y][temp.x].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 5:
+			level[temp.y][temp.x + 1].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 6:
+			level[temp.y + 1][temp.x - 1].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 7:
+			level[temp.y + 1][temp.x].color = COLOR_PAIR(RED_COLOR);
+			break;
+		case 8:
+			level[temp.y + 1][temp.x + 1].color = COLOR_PAIR(RED_COLOR);
+			break;
+		default:
+			break;
+	}
 }
 
 void die(Fighter* fighter)

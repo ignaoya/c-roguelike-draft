@@ -11,8 +11,6 @@ void takeTurn(Actor* actor, Actor* player)
 			//addMessage("The enemy has seen you!");
 			actor->ai->seen_player = true;
 		}
-		//actor->ai->last_player_position.y = player->entity->position.y;
-		//actor->ai->last_player_position.x = player->entity->position.x;
 
 		moveTowards(actor, player);
 	}
@@ -63,7 +61,7 @@ void moveTowards(Actor* actor, Actor* target)
 		direction.y = actor_y + dy;
 		direction.x = actor_x + dx;
 
-		switch(*(level[direction.y][direction.x].ch))
+		switch(level[direction.y][direction.x].ch)
 		{
 			case '.':
 				monsterMove(direction, actor->entity);

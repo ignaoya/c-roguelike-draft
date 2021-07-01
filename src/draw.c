@@ -40,15 +40,15 @@ void mapDraw(void)
 		{
 			if (level[y][x].visible)
 			{
-				mvaddch(y, x, level[y][x].ch[0] | COLOR_PAIR(VISIBLE_COLOR));
+				mvaddch(y, x, level[y][x].ch | level[y][x].color);
 			}
 			else if (level[y][x].seen)
 			{
-				mvaddch(y, x, level[y][x].ch[0] | COLOR_PAIR(SEEN_COLOR));
+				mvaddch(y, x, level[y][x].ch | COLOR_PAIR(SEEN_COLOR));
 			}
 			else
 			{
-				mvprintw(y, x, " ");
+				mvaddch(y, x, ' ');
 			}
 		}
 	}
@@ -61,7 +61,7 @@ void showWholeMap(void)
 	{
 		for (x = 0; x < GAMEMAP_WIDTH; x++)
 		{
-			mvprintw(y, x, level[y][x].ch);
+			mvaddch(y, x, level[y][x].ch);
 		}
 	}
 }

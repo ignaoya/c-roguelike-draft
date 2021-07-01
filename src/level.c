@@ -69,7 +69,8 @@ Tile** createLevelTiles(void)
 		tiles[y] = malloc(sizeof(Tile) * GAMEMAP_WIDTH);
 		for (x = 0; x < GAMEMAP_WIDTH; x++)
 		{
-			tiles[y][x].ch = "#";
+			tiles[y][x].ch = '#';
+			tiles[y][x].color = COLOR_PAIR(VISIBLE_COLOR);
 			tiles[y][x].walkable = false;
 			tiles[y][x].transparent = false;
 			tiles[y][x].visible = false;

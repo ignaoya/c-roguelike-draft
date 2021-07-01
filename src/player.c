@@ -106,7 +106,7 @@ void checkPosition(Position* newPosition, Entity* player)
 	}
 	if (!occupied)
 	{
-		switch (*(level[newPosition->y][newPosition->x].ch))
+		switch (level[newPosition->y][newPosition->x].ch)
 		{
 			case '.':
 				playerMove(newPosition, player);

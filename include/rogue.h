@@ -37,7 +37,8 @@ typedef struct
 
 typedef struct
 {
-	char* ch;
+	char ch;
+	int color;
 	bool walkable;
 	bool transparent;
 	bool visible;
@@ -136,6 +137,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
 // fighter.c functions
 void attack(Fighter* attacker, Fighter* defender);
 void takeDamage(Fighter* fighter, int damage);
+void drawBlood(Entity* entity);
 void die(Fighter* fighter);
 
 // ai.c functions
