@@ -86,7 +86,6 @@ typedef struct
 	int hp;
 	int attack;
 	int defense;
-	bool ai;
 	char* name;
 } MonsterTemplate;
 
@@ -102,6 +101,8 @@ extern int n_actors;
 extern Message** message_log;
 extern int message_count;
 extern MonsterTemplate goblin;
+extern MonsterTemplate orc;
+extern MonsterTemplate troll;
 
 // main.c functions
 bool screenSetUp(void);

@@ -22,6 +22,7 @@ Room** mapSetUp(void)
 		rooms[i] = createRoom(y, x, height, width);
 		for (int j = 0; j < n_monsters; j++)
 		{
+			MonsterTemplate template;
 			if (n_actors >= 15 || i == 0)
 			{
 				break;
@@ -29,7 +30,20 @@ Room** mapSetUp(void)
 			int monster_y = rand() % height + y;
 			int monster_x = rand() % width + x;
 			int monster_level = rand() % 3;
-			actors[n_actors] = createMonster(monster_y, monster_x, goblin, monster_level);
+			int monster_type = rand() % 10;
+			if (monster_type < 4)
+			{
+				template = goblin;
+			}
+			else if (monster_type < 9)
+			{
+				template = orc;
+			}
+			else
+			{
+				template = troll;
+			}
+			actors[n_actors] = createMonster(monster_y, monster_x, template, monster_level);
 			n_actors++;
 		}
 

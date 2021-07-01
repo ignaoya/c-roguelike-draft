@@ -1,6 +1,8 @@
 #include "rogue.h"
 
-MonsterTemplate goblin = {'g', COLOR_PAIR(GREEN_COLOR), 10, 10, 2, 0, true, "goblin"};
+MonsterTemplate goblin = {'g', COLOR_PAIR(GREEN_COLOR), 15, 6, 2, 0, "goblin"};
+MonsterTemplate orc = {'o', COLOR_PAIR(GREEN_COLOR), 10, 10, 3, 1, "orc"};
+MonsterTemplate troll = {'T', COLOR_PAIR(GREEN_COLOR), 7, 20, 5, 2, "troll"}; 
 
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 {
