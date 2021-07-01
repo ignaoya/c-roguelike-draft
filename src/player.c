@@ -81,6 +81,7 @@ Position* handleInput(int input, Entity* player)
 		// View All Map Cheat(for development)
 		case 'v':
 			showWholeMap();
+			getch();
 			break;
 
 		default:
@@ -127,8 +128,6 @@ void playerMove(Position* newPosition, Entity* player)
 	player->position.y = newPosition->y;
 	player->position.x = newPosition->x;
 	makeFOV(player);
-	mapDraw();
-	playerDraw(player);
 }
 
 void playerDraw(Entity* player)

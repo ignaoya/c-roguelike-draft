@@ -31,7 +31,6 @@ void allMonstersTakeTurns(Actor* player)
 			takeTurn(actors[i], player);
 		}
 	}
-	drawAllMonsters();
 }
 
 void moveTowards(Actor* actor, Actor* target)

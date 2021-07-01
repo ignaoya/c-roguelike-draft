@@ -49,9 +49,10 @@ int main(void)
 			newPosition = handleInput(ch, player->entity);
 			checkPosition(newPosition, player->entity);
 			allMonstersTakeTurns(player);
-			printMessages();
+			mapDraw();
+			drawAllMonsters();
 			playerDraw(player->entity);
-			move(0, 0);
+			printMessages();
 		}
 		clear();
 		move(20, 60);
