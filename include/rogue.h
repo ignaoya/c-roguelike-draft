@@ -15,9 +15,15 @@
 #define GREEN_COLOR 4
 #define RED_COLOR 5
 
+// draw order
+#define CORPSE 0
+#define ITEM 1
+#define ACTOR 2
+
 
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
+extern const int MAX_MONSTERS;
 
 struct Actor;
 typedef struct Actor Actor;
@@ -51,6 +57,7 @@ typedef struct
 	Position position;
 	char ch;
 	int color;
+	int draw_order;
 	int fov_radius;
 	Actor* owner;
 } Entity;
@@ -156,9 +163,9 @@ void addMessage(char text[1024]);
 void printMessages(void);
 
 // draw.c functions
-void playerDraw(Entity* player);
+void drawEverything(void);
 void drawEntity(Entity* entity);
-void drawAllMonsters(void);
+void drawAllEntities(void);
 void mapDraw(void);
 void showWholeMap(void);
 

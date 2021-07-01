@@ -16,6 +16,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->entity->position.x = x;
 	monster->entity->ch = template.ch;
 	monster->entity->color = template.color;
+	monster->entity->draw_order = ACTOR;
 	monster->entity->fov_radius = template.fov_radius;
 	monster->entity->owner = monster;
 	monster->fighter->hp = template.hp * xpLevel;

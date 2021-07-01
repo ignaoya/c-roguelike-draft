@@ -12,6 +12,7 @@ Actor* playerSetUp(Room* room)
 	newPlayer->entity->position.y = room->center->y;
 	newPlayer->entity->ch = '@';
 	newPlayer->entity->color = COLOR_PAIR(PLAYER_COLOR);
+	newPlayer->entity->draw_order = ACTOR;
 	newPlayer->entity->fov_radius = 10;
 	newPlayer->entity->owner = newPlayer;
 	newPlayer->fighter->hp = 50;
@@ -21,8 +22,6 @@ Actor* playerSetUp(Room* room)
 	newPlayer->fighter->owner = newPlayer;
 	newPlayer->name = "player";
 	newPlayer->dead = false;
-
-	playerDraw(newPlayer->entity);
 
 	return newPlayer;
 }

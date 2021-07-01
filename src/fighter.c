@@ -27,6 +27,7 @@ void die(Fighter* fighter)
 	fighter->owner->dead = true;
 	fighter->owner->entity->ch = '%';
 	fighter->owner->entity->color = COLOR_PAIR(RED_COLOR);
+	fighter->owner->entity->draw_order = CORPSE;
 
 
 	if (!strcmp(fighter->owner->name, "player"))

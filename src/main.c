@@ -2,8 +2,9 @@
 
 const int GAMEMAP_HEIGHT = 35;
 const int GAMEMAP_WIDTH = 120;
+const int MAX_MONSTERS = 15;
 Tile** level;
-Actor* actors[15] = { NULL };
+Actor* actors[16] = { NULL };
 int n_actors = 0;
 Message** message_log;
 int message_count = 0;
@@ -22,14 +23,13 @@ int main(void)
 	compatibleTerminal = screenSetUp();
 	rooms = mapSetUp();
 	player = playerSetUp(rooms[0]);
+	actors[n_actors] = player;
 	message_log = createLog();
 
 	intro();
 
 	makeFOV(player->entity);
-	mapDraw();
-	drawAllMonsters();
-	playerDraw(player->entity);
+	drawEverything();
 
 	/* main game loop */
 	if (compatibleTerminal)
@@ -49,9 +49,7 @@ int main(void)
 			newPosition = handleInput(ch, player->entity);
 			checkPosition(newPosition, player->entity);
 			allMonstersTakeTurns(player);
-			mapDraw();
-			drawAllMonsters();
-			playerDraw(player->entity);
+			drawEverything();
 			printMessages();
 		}
 		clear();

@@ -2,7 +2,7 @@
 
 int MIN_SIZE = 4;
 int MAX_SIZE = 9;
-int MAX_MONSTERS = 3;
+int MAX_MONSTERS_PER_ROOM = 3;
 
 Room** mapSetUp(void)
 {
@@ -17,13 +17,13 @@ Room** mapSetUp(void)
 		x = rand() % (GAMEMAP_WIDTH - 15) + 1;
 		height = rand() % MAX_SIZE + MIN_SIZE;
 		width = rand() % MAX_SIZE + MIN_SIZE;
-		n_monsters = rand() % MAX_MONSTERS;
+		n_monsters = rand() % MAX_MONSTERS_PER_ROOM;
 
 		rooms[i] = createRoom(y, x, height, width);
 		for (int j = 0; j < n_monsters; j++)
 		{
 			MonsterTemplate template;
-			if (n_actors >= 15 || i == 0)
+			if (n_actors >= MAX_MONSTERS || i == 0)
 			{
 				break;
 			}

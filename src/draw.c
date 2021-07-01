@@ -1,8 +1,9 @@
 #include "rogue.h"
 
-void playerDraw(Entity* player)
+void drawEverything(void)
 {
-	mvaddch(player->position.y, player->position.x, player->ch | player->color);
+	mapDraw();
+	drawAllEntities();
 }
 
 void drawEntity(Entity* entity)
@@ -10,16 +11,22 @@ void drawEntity(Entity* entity)
 	mvaddch(entity->position.y, entity->position.x, entity->ch | entity->color);
 }
 
-void drawAllMonsters(void)
+void drawAllEntities(void)
 {
 	int x, y;
-	for (int i = 0; i < n_actors; i++)
+	for (int j = 0; j < ACTOR + 1; j++)
 	{
-		y = actors[i]->entity->position.y;
-		x = actors[i]->entity->position.x;
-		if (level[y][x].visible)
+		for (int i = 0; i <= n_actors; i++)
 		{
-			drawEntity(actors[i]->entity);
+			if (actors[i]->entity->draw_order == j)
+			{
+				y = actors[i]->entity->position.y;
+				x = actors[i]->entity->position.x;
+				if (level[y][x].visible)
+				{
+					drawEntity(actors[i]->entity);
+				}
+			}
 		}
 	}
 }
