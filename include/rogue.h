@@ -7,12 +7,14 @@
 #include <time.h>
 #include <math.h>
 
+// color pairs
 #define BLACK_COLOR 0
 #define PLAYER_COLOR 1
 #define VISIBLE_COLOR 2
 #define SEEN_COLOR 3
 #define GREEN_COLOR 4
 #define RED_COLOR 5
+
 
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
@@ -113,8 +115,6 @@ bool checkVictory(void);
 
 // level.c functions 
 Room** mapSetUp(void);
-void mapDraw(void);
-void showWholeMap(void);
 Tile** createLevelTiles(void);
 
 // player.c functions
@@ -122,12 +122,9 @@ Actor* playerSetUp(Room* room);
 Position* handleInput(int input, Entity* player);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
-void playerDraw(Entity* player);
 
 // monster.c functions
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
-void drawEntity(Entity* entity);
-void drawAllMonsters(void);
 
 // fighter.c functions
 void attack(Fighter* attacker, Fighter* defender);
@@ -157,6 +154,13 @@ int getSign(int a);
 Message** createLog();
 void addMessage(char text[1024]);
 void printMessages(void);
+
+// draw.c functions
+void playerDraw(Entity* player);
+void drawEntity(Entity* entity);
+void drawAllMonsters(void);
+void mapDraw(void);
+void showWholeMap(void);
 
 // utils.c functions
 int maxInt(int a, int b);

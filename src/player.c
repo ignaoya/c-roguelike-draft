@@ -130,8 +130,3 @@ void playerMove(Position* newPosition, Entity* player)
 	makeFOV(player);
 }
 
-void playerDraw(Entity* player)
-{
-	mvaddch(player->position.y, player->position.x, player->ch | player->color);
-	move(player->position.y, player->position.x);
-}

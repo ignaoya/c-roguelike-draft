@@ -58,42 +58,6 @@ Room** mapSetUp(void)
 	return rooms;
 }
 
-void mapDraw(void)
-{
-	int x, y;
-	for (y = 0; y < GAMEMAP_HEIGHT; y++)
-	{
-		for (x = 0; x < GAMEMAP_WIDTH; x++)
-		{
-			if (level[y][x].visible)
-			{
-				mvaddch(y, x, level[y][x].ch[0] | COLOR_PAIR(VISIBLE_COLOR));
-			}
-			else if (level[y][x].seen)
-			{
-				mvaddch(y, x, level[y][x].ch[0] | COLOR_PAIR(SEEN_COLOR));
-			}
-			else
-			{
-				mvprintw(y, x, " ");
-			}
-		}
-	}
-}
-
-void showWholeMap(void)
-{
-	int x, y;
-	for (y = 0; y < GAMEMAP_HEIGHT; y++)
-	{
-		for (x = 0; x < GAMEMAP_WIDTH; x++)
-		{
-			mvprintw(y, x, level[y][x].ch);
-		}
-	}
-}
-
-
 Tile** createLevelTiles(void)
 {
 	int x, y;

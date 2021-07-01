@@ -33,22 +33,3 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	return monster;
 }
 
-void drawEntity(Entity* entity)
-{
-	mvaddch(entity->position.y, entity->position.x, entity->ch | entity->color);
-}
-
-void drawAllMonsters(void)
-{
-	int x, y;
-	for (int i = 0; i < n_actors; i++)
-	{
-		y = actors[i]->entity->position.y;
-		x = actors[i]->entity->position.x;
-		if (level[y][x].visible)
-		{
-			drawEntity(actors[i]->entity);
-		}
-	}
-}
-
