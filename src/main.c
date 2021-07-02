@@ -50,7 +50,6 @@ int main(void)
 			checkPosition(newPosition, player->entity);
 			allMonstersTakeTurns(player);
 			drawEverything();
-			printMessages();
 		}
 		clear();
 		move(20, 60);

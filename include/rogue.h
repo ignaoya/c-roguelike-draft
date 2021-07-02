@@ -164,6 +164,9 @@ Message** createLog();
 void addMessage(char text[1024]);
 void printMessages(void);
 
+// ui.c functions
+void drawUI(void);
+
 // draw.c functions
 void drawEverything(void);
 void drawEntity(Entity* entity);

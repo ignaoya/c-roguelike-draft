@@ -4,6 +4,8 @@ void drawEverything(void)
 {
 	mapDraw();
 	drawAllEntities();
+	printMessages();
+	drawUI();
 }
 
 void drawEntity(Entity* entity)
