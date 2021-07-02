@@ -27,8 +27,8 @@ Room** mapSetUp(void)
 			{
 				break;
 			}
-			int monster_y = rand() % height + y;
-			int monster_x = rand() % width + x;
+			int monster_y = rand() % (height - 2) + y + 1;
+			int monster_x = rand() % (width - 2) + x + 1;
 			int monster_level = rand() % 3;
 			int monster_type = rand() % 10;
 			if (monster_type < 4)
@@ -44,7 +44,28 @@ Room** mapSetUp(void)
 				template = troll;
 			}
 			actors[n_actors] = createMonster(monster_y, monster_x, template, monster_level);
+			entities[n_entities] = actors[n_actors]->entity;
 			n_actors++;
+			n_entities++;
+		}
+
+		if (n_items < MAX_ITEMS)
+		{
+			for (int k = 0; k < 1; k++)
+			{
+				ItemTemplate itemTemp;
+				int item_y = rand() % (height - 2) + y + 1;
+				int item_x = rand() % (width - 2) + x + 1;
+				int item_type = rand() % 10;
+				if (true)
+				{
+					itemTemp = health_potion;
+				}
+				items[n_items] = createItem(item_y, item_x, itemTemp);
+				entities[n_entities] = items[n_items]->entity;
+				n_items++;
+				n_entities++;
+			}
 		}
 
 		drawRoom(rooms[i]);

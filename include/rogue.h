@@ -24,10 +24,12 @@
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
 extern const int MAX_MONSTERS;
+extern const int MAX_ITEMS;
 
 struct Actor;
 typedef struct Actor Actor;
-
+struct Item;
+typedef struct Item Item;
 
 typedef struct 
 {
@@ -60,7 +62,10 @@ typedef struct
 	int color;
 	int draw_order;
 	int fov_radius;
-	Actor* owner;
+	union {
+		Actor* owner;
+		Item* item;
+	};
 } Entity;
 
 typedef struct
@@ -87,6 +92,12 @@ struct Actor
 	char* name;
 	bool dead;
 };
+
+struct Item
+{
+	Entity* entity;
+	char* name;
+};
 	
 typedef struct
 {
@@ -101,18 +112,30 @@ typedef struct
 
 typedef struct
 {
+	char ch;
+	int color;
+	char* name;
+} ItemTemplate;
+
+typedef struct
+{
 	char text[1024];
 } Message;
 
 // global variables
 extern Tile** level;
 extern Actor* actors[];
+extern Item* items[];
+extern Entity* entities[];
 extern int n_actors;
+extern int n_items;
+extern int n_entities;
 extern Message** message_log;
 extern int message_count;
 extern MonsterTemplate goblin;
 extern MonsterTemplate orc;
 extern MonsterTemplate troll;
+extern ItemTemplate health_potion;
 
 // main.c functions
 bool screenSetUp(void);
@@ -145,6 +168,9 @@ void takeTurn(Actor* actor, Actor* player);
 void allMonstersTakeTurns(Actor* player);
 void moveTowards(Actor* actor, Actor* target);
 void monsterMove(Position direction, Entity* entity);
+
+// item.c functions
+Item* createItem(int y, int x, ItemTemplate template);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);

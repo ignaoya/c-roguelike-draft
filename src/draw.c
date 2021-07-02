@@ -18,15 +18,15 @@ void drawAllEntities(void)
 	int x, y;
 	for (int j = 0; j < ACTOR + 1; j++)
 	{
-		for (int i = 0; i <= n_actors; i++)
+		for (int i = 0; i <= n_entities; i++)
 		{
-			if (actors[i]->entity->draw_order == j)
+			if (entities[i]->draw_order == j)
 			{
-				y = actors[i]->entity->position.y;
-				x = actors[i]->entity->position.x;
+				y = entities[i]->position.y;
+				x = entities[i]->position.x;
 				if (level[y][x].visible)
 				{
-					drawEntity(actors[i]->entity);
+					drawEntity(entities[i]);
 				}
 			}
 		}
@@ -64,6 +64,17 @@ void showWholeMap(void)
 		for (x = 0; x < GAMEMAP_WIDTH; x++)
 		{
 			mvaddch(y, x, level[y][x].ch);
+			level[y][x].visible = true;
 		}
 	}
+	drawAllEntities();
+
+	for (y = 0; y < GAMEMAP_HEIGHT; y++)
+	{
+		for (x = 0; x < GAMEMAP_WIDTH; x++)
+		{
+			level[y][x].visible = false;
+		}
+	}
+	makeFOV(entities[n_entities]);
 }

@@ -29,6 +29,17 @@ void drawUI(void)
 			seen_counter++;
 		}
 	}
+	for (int i = 0; i < n_items; i++)
+	{
+		Position temp = items[i]->entity->position;
+		if (level[temp.y][temp.x].visible)
+		{
+			mvaddch(10 + seen_counter, 122, items[i]->entity->ch | items[i]->entity->color);
+			mvprintw(10 + seen_counter, 124, items[i]->name);
+
+			seen_counter++;
+		}
+	}
 
 	if (!seen_counter)
 	{
