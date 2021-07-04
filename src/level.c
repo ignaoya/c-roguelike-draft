@@ -2,7 +2,7 @@
 
 int MIN_SIZE = 4;
 int MAX_SIZE = 9;
-int MAX_MONSTERS_PER_ROOM = 3;
+int MAX_MONSTERS_PER_ROOM = 2;
 
 Room** mapSetUp(void)
 {
@@ -57,9 +57,13 @@ Room** mapSetUp(void)
 				int item_y = rand() % (height - 2) + y + 1;
 				int item_x = rand() % (width - 2) + x + 1;
 				int item_type = rand() % 10;
-				if (true)
+				if (item_type > 5)
 				{
 					itemTemp = health_potion;
+				}
+				else
+				{
+					itemTemp = mana_potion;
 				}
 				items[n_items] = createItem(item_y, item_x, itemTemp);
 				entities[n_entities] = items[n_items]->entity;

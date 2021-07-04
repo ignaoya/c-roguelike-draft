@@ -11,6 +11,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->entity = malloc(sizeof(Entity));
 	monster->fighter = malloc(sizeof(Fighter));
 	monster->ai = malloc(sizeof(AI));
+	monster->inventory = NULL;
 
 	monster->entity->position.y = y;
 	monster->entity->position.x = x;

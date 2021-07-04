@@ -14,6 +14,7 @@
 #define SEEN_COLOR 3
 #define GREEN_COLOR 4
 #define RED_COLOR 5
+#define BLUE_COLOR 6
 
 // draw order
 #define CORPSE 0
@@ -30,6 +31,8 @@ struct Actor;
 typedef struct Actor Actor;
 struct Item;
 typedef struct Item Item;
+struct Inventory;
+typedef struct Inventory Inventory;
 
 typedef struct 
 {
@@ -89,6 +92,7 @@ struct Actor
 	Entity* entity;
 	Fighter* fighter;
 	AI* ai;
+	Inventory* inventory;
 	char* name;
 	bool dead;
 };
@@ -97,6 +101,12 @@ struct Item
 {
 	Entity* entity;
 	char* name;
+};
+
+struct Inventory
+{
+	Item* items[10];
+	int n_items;
 };
 	
 typedef struct
@@ -136,6 +146,7 @@ extern MonsterTemplate goblin;
 extern MonsterTemplate orc;
 extern MonsterTemplate troll;
 extern ItemTemplate health_potion;
+extern ItemTemplate mana_potion;
 
 // main.c functions
 bool screenSetUp(void);
@@ -153,6 +164,7 @@ Actor* playerSetUp(Room* room);
 Position* handleInput(int input, Entity* player);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
+void grabItem(Entity* player);
 
 // monster.c functions
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
@@ -171,6 +183,9 @@ void monsterMove(Position direction, Entity* entity);
 
 // item.c functions
 Item* createItem(int y, int x, ItemTemplate template);
+
+// inventory.c functions
+void useInventory(Inventory* inventory);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);
@@ -203,6 +218,7 @@ void showWholeMap(void);
 // utils.c functions
 int maxInt(int a, int b);
 int minInt(int a, int b);
+void clrRect(Position a, Position b);
 
 
 #endif

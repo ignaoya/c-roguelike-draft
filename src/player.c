@@ -7,6 +7,8 @@ Actor* playerSetUp(Room* room)
 	newPlayer->entity = malloc(sizeof(Entity));
 	newPlayer->fighter = malloc(sizeof(Fighter));
 	newPlayer->ai = NULL;
+	newPlayer->inventory = malloc(sizeof(Inventory));
+
 
 	newPlayer->entity->position.x = room->center->x;
 	newPlayer->entity->position.y = room->center->y;
@@ -20,6 +22,8 @@ Actor* playerSetUp(Room* room)
 	newPlayer->fighter->attack = 5;
 	newPlayer->fighter->defense = 1;
 	newPlayer->fighter->owner = newPlayer;
+	newPlayer->inventory->items[0] = createItem(0, 0, health_potion);
+	newPlayer->inventory->n_items = 1;
 	newPlayer->name = "player";
 	newPlayer->dead = false;
 
@@ -77,6 +81,14 @@ Position* handleInput(int input, Entity* player)
 			newPosition->x = player->position.x + 1;
 			break;
 
+		// Grab an Item
+		case 'g':
+			grabItem(player);
+			break;
+		// Use Inventory
+		case 'I':
+			useInventory(player->owner->inventory);
+			break;
 		// View All Map Cheat(for development)
 		case 'v':
 			showWholeMap();
@@ -128,4 +140,30 @@ void playerMove(Position* newPosition, Entity* player)
 	player->position.x = newPosition->x;
 	makeFOV(player);
 }
+
+void grabItem(Entity* player)
+{
+	for (int i = 0; i < n_items; i++)
+	{
+		if (items[i]->entity->position.y == player->position.y &&
+				items[i]->entity->position.x == player->position.x)
+		{
+			if (player->owner->inventory->n_items < 10)
+			{
+				player->owner->inventory->items[player->owner->inventory->n_items] = items[i];
+				player->owner->inventory->n_items++;
+				items[i]->entity->position.y = 0;
+				items[i]->entity->position.x = 0;
+				addMessage("You pick up an item.");
+			}
+			else
+			{
+				addMessage("Your inventory is full.");
+			}
+			return;
+		}
+	}
+	addMessage("There's nothing to pick up.");
+}
+
 

@@ -1,6 +1,7 @@
 #include "rogue.h"
 
 ItemTemplate health_potion = {'!', COLOR_PAIR(RED_COLOR), "Life Potion"};
+ItemTemplate mana_potion = {'!', COLOR_PAIR(BLUE_COLOR), "Mana Potion"};
 
 Item* createItem(int y, int x, ItemTemplate template)
 {
