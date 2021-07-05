@@ -24,14 +24,15 @@ void takeDamage(Fighter* fighter, int damage)
 		die(fighter);
 	}
 
-	if (damage > 0)
-	{
-		drawBlood(fighter->owner->entity);
-	}
-
 	if (!strcmp(fighter->owner->name, "player"))
 	{
 		gainXP(fighter, damage);
+	}
+
+	while (damage > 0)
+	{
+		drawBlood(fighter->owner->entity);
+		damage -= 5;
 	}
 }
 
@@ -80,6 +81,7 @@ void die(Fighter* fighter)
 {
 	char text[1024];
 	fighter->owner->dead = true;
+	fighter->owner->name = "corpse";
 	fighter->owner->entity->ch = '%';
 	fighter->owner->entity->color = COLOR_PAIR(RED_COLOR);
 	fighter->owner->entity->draw_order = CORPSE;
