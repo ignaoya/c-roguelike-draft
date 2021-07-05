@@ -13,12 +13,14 @@ void drawUI(void)
 	clrtoeol();
 	snprintf(text, sizeof(char)*1024, "HP:%i/%i", hp, max_hp);
 	mvprintw(3, 122, text);
-	snprintf(text, sizeof(char)*1024, "ATK: %i", player->attack);
+	snprintf(text, sizeof(char)*1024, "MP:%i/%i", player->mana, player->max_mana);
 	mvprintw(4, 122, text);
-	snprintf(text, sizeof(char)*1024, "DEF: %i", player->defense);
+	snprintf(text, sizeof(char)*1024, "ATK: %i", player->attack);
 	mvprintw(5, 122, text);
-	snprintf(text, sizeof(char)*1024, "XP:%i/%i", player->xp, player->xp_to_next_level);
+	snprintf(text, sizeof(char)*1024, "DEF: %i", player->defense);
 	mvprintw(6, 122, text);
+	snprintf(text, sizeof(char)*1024, "XP:%i/%i", player->xp, player->xp_to_next_level);
+	mvprintw(7, 122, text);
 	mvprintw(9, 122, "Player sees:");
 	for (int i = 0; i < 10; i++)
 	{

@@ -15,6 +15,7 @@
 #define GREEN_COLOR 4
 #define RED_COLOR 5
 #define BLUE_COLOR 6
+#define CYAN_COLOR 7
 
 // draw order
 #define CORPSE 0
@@ -78,6 +79,8 @@ typedef struct
 	int xp_to_next_level;
 	int hp;
 	int max_hp;
+	int mana;
+	int max_mana;
 	int attack;
 	int defense;
 	Actor* owner;
@@ -103,7 +106,7 @@ struct Actor
 struct Item
 {
 	Entity* entity;
-	void (*useFunction)(Item* self, Actor* drinker);
+	bool (*useFunction)(Item* self, Actor* drinker);
 	char* name;
 };
 
@@ -128,7 +131,7 @@ typedef struct
 {
 	char ch;
 	int color;
-	void (*useFunction)(Item* self, Actor* drinker);
+	bool (*useFunction)(Item* self, Actor* drinker);
 	char* name;
 } ItemTemplate;
 
@@ -152,6 +155,7 @@ extern MonsterTemplate orc;
 extern MonsterTemplate troll;
 extern ItemTemplate health_potion;
 extern ItemTemplate mana_potion;
+extern ItemTemplate lightning_scroll;
 
 // main.c functions
 bool screenSetUp(void);
@@ -190,8 +194,9 @@ void monsterMove(Position direction, Entity* entity);
 
 // item.c functions
 Item* createItem(int y, int x, ItemTemplate template);
-void useHealthPotion(Item* self, Actor* drinker);
-void useManaPotion(Item* self, Actor* drinker);
+bool useHealthPotion(Item* self, Actor* drinker);
+bool useManaPotion(Item* self, Actor* drinker);
+bool castLightning(Item* self, Actor* caster);
 void consumeItem(Inventory* inventory, int index);
 
 // inventory.c functions

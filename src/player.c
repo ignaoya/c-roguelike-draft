@@ -22,6 +22,8 @@ Actor* playerSetUp(Room* room)
 	newPlayer->fighter->xp_to_next_level = 25;
 	newPlayer->fighter->hp = 50;
 	newPlayer->fighter->max_hp = 50;
+	newPlayer->fighter->mana = 10;
+	newPlayer->fighter->max_mana = 10;
 	newPlayer->fighter->attack = 5;
 	newPlayer->fighter->defense = 1;
 	newPlayer->fighter->owner = newPlayer;
@@ -184,7 +186,10 @@ void levelUp(Fighter* player)
 
 	player->level++;
 	player->xp_to_next_level = player->xp_to_next_level * 2;
+	player->hp += player->max_hp / 5;
 	player->max_hp += player->max_hp / 5;
+	player->mana += player->max_mana / 5;
+	player->max_mana += player->max_mana / 5;
 	addMessage("### LEVEL UP ###");
 	addMessage("Choose bonus: (a): attack | (d): defense");
 	printMessages();

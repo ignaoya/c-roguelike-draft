@@ -25,6 +25,8 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->fighter->xp_to_next_level = 25;
 	monster->fighter->hp = template.hp * xpLevel;
 	monster->fighter->max_hp = template.hp * xpLevel;
+	monster->fighter->mana = 0;
+	monster->fighter->max_mana = 0;
 	monster->fighter->attack = template.attack * xpLevel;
 	monster->fighter->defense = template.defense * xpLevel;
 	monster->fighter->owner = monster;
