@@ -5,6 +5,7 @@ void useInventory(Inventory* inventory)
 	int ch;
 	int cursorPos = 0;
 	int itemOffset = 0;
+	int itemIndex;
 	bool showInventory = true;
 	Position clr_a = {51, 13};
 	Position clr_b = {85, 18};
@@ -37,7 +38,16 @@ void useInventory(Inventory* inventory)
 		switch(ch)
 		{
 			case ' ':
-				addMessage("You used an item!");
+				itemIndex = cursorPos + itemOffset;
+				if (itemIndex < inventory->n_items)
+				{
+					inventory->items[itemIndex]->useFunction(inventory->items[itemIndex], actors[n_actors]);
+					consumeItem(inventory, itemIndex);
+				}
+				else
+				{
+					addMessage("Not an option!");
+				}
 				showInventory = false;
 				break;
 			case 'j':

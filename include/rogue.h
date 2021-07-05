@@ -100,6 +100,7 @@ struct Actor
 struct Item
 {
 	Entity* entity;
+	void (*useFunction)(Item* self, Actor* drinker);
 	char* name;
 };
 
@@ -124,6 +125,7 @@ typedef struct
 {
 	char ch;
 	int color;
+	void (*useFunction)(Item* self, Actor* drinker);
 	char* name;
 } ItemTemplate;
 
@@ -183,6 +185,9 @@ void monsterMove(Position direction, Entity* entity);
 
 // item.c functions
 Item* createItem(int y, int x, ItemTemplate template);
+void useHealthPotion(Item* self, Actor* drinker);
+void useManaPotion(Item* self, Actor* drinker);
+void consumeItem(Inventory* inventory, int index);
 
 // inventory.c functions
 void useInventory(Inventory* inventory);
