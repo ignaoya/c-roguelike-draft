@@ -73,6 +73,9 @@ typedef struct
 
 typedef struct
 {
+	int level;
+	int xp;
+	int xp_to_next_level;
 	int hp;
 	int max_hp;
 	int attack;
@@ -167,6 +170,8 @@ Position* handleInput(int input, Entity* player);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
 void grabItem(Entity* player);
+void gainXP(Fighter* player, int amount);
+void levelUp(Fighter* player);
 
 // monster.c functions
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);

@@ -57,7 +57,7 @@ Room** mapSetUp(void)
 				int item_y = rand() % (height - 2) + y + 1;
 				int item_x = rand() % (width - 2) + x + 1;
 				int item_type = rand() % 10;
-				if (item_type > 5)
+				if (item_type > 1)
 				{
 					itemTemp = health_potion;
 				}

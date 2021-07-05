@@ -20,6 +20,9 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->entity->draw_order = ACTOR;
 	monster->entity->fov_radius = template.fov_radius;
 	monster->entity->owner = monster;
+	monster->fighter->level = xpLevel;
+	monster->fighter->xp = 0;
+	monster->fighter->xp_to_next_level = 25;
 	monster->fighter->hp = template.hp * xpLevel;
 	monster->fighter->max_hp = template.hp * xpLevel;
 	monster->fighter->attack = template.attack * xpLevel;

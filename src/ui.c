@@ -7,11 +7,18 @@ void drawUI(void)
 	int seen_counter = 0;
 	int hp = player->hp;
 	int max_hp = player->max_hp;
-	mvprintw(5, 122, "Player Lvl 1");
-	move(7, 122);
+	mvprintw(1, 122, "Player Lvl");
+	mvaddch(1, 134, player->level + '0'); 
+	move(3, 122);
 	clrtoeol();
 	snprintf(text, sizeof(char)*1024, "HP:%i/%i", hp, max_hp);
-	mvprintw(7, 122, text);
+	mvprintw(3, 122, text);
+	snprintf(text, sizeof(char)*1024, "ATK: %i", player->attack);
+	mvprintw(4, 122, text);
+	snprintf(text, sizeof(char)*1024, "DEF: %i", player->defense);
+	mvprintw(5, 122, text);
+	snprintf(text, sizeof(char)*1024, "XP:%i/%i", player->xp, player->xp_to_next_level);
+	mvprintw(6, 122, text);
 	mvprintw(9, 122, "Player sees:");
 	for (int i = 0; i < 10; i++)
 	{

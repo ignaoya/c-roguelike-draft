@@ -17,6 +17,9 @@ Actor* playerSetUp(Room* room)
 	newPlayer->entity->draw_order = ACTOR;
 	newPlayer->entity->fov_radius = 12;
 	newPlayer->entity->owner = newPlayer;
+	newPlayer->fighter->level = 1;
+	newPlayer->fighter->xp = 0;
+	newPlayer->fighter->xp_to_next_level = 25;
 	newPlayer->fighter->hp = 50;
 	newPlayer->fighter->max_hp = 50;
 	newPlayer->fighter->attack = 5;
@@ -164,6 +167,42 @@ void grabItem(Entity* player)
 		}
 	}
 	addMessage("There's nothing to pick up.");
+}
+
+void gainXP(Fighter* player, int amount)
+{
+	player->xp += amount;
+	if (player->xp >= player->xp_to_next_level)
+	{
+		levelUp(player);
+	}
+}
+
+void levelUp(Fighter* player)
+{
+	int ch = '0';
+
+	player->level++;
+	player->xp_to_next_level = player->xp_to_next_level * 2;
+	player->max_hp += player->max_hp / 5;
+	addMessage("### LEVEL UP ###");
+	addMessage("Choose bonus: (a): attack | (d): defense");
+	printMessages();
+	while (ch != 'a' && ch != 'd')
+	{
+		ch = getch();
+		switch(ch)
+		{
+			case 'a':
+				player->attack += 2;
+				break;
+			case 'd':
+				player->defense++;
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 

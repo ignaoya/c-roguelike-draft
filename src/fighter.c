@@ -9,6 +9,10 @@ void attack(Fighter* attacker, Fighter* defender)
 	snprintf(text, sizeof(text), "The %s attacks the %s for %i damage!", att_name, def_name, damage); 
 	addMessage(text);
 	takeDamage(defender, damage);
+	if (!strcmp(attacker->owner->name, "player"))
+	{
+		gainXP(attacker, damage);
+	}
 }
 
 
@@ -23,6 +27,11 @@ void takeDamage(Fighter* fighter, int damage)
 	if (damage > 0)
 	{
 		drawBlood(fighter->owner->entity);
+	}
+
+	if (!strcmp(fighter->owner->name, "player"))
+	{
+		gainXP(fighter, damage);
 	}
 }
 
