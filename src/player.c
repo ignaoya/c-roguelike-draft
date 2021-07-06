@@ -190,8 +190,16 @@ void levelUp(Fighter* player)
 	player->max_hp += player->max_hp / 5;
 	player->mana += player->max_mana / 5;
 	player->max_mana += player->max_mana / 5;
+	drawEverything();
+
+	mvprintw(10, 50, "####################################");
+	mvprintw(11, 50, "############# LEVEL UP #############");
+	mvprintw(12, 50, "####################################");
+	mvprintw(13, 50, "#####       Choose a bonus:    #####");
+	mvprintw(14, 50, "#           (a): Attack +2         #");
+	mvprintw(15, 50, "#           (d): Defense +1        #");
+	mvprintw(16, 50, "####################################");
 	addMessage("### LEVEL UP ###");
-	addMessage("Choose bonus: (a): attack | (d): defense");
 	printMessages();
 	while (ch != 'a' && ch != 'd')
 	{

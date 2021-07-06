@@ -115,9 +115,9 @@ void wonGame(void)
 	mvprintw(11, 50, "######### CONGRATULATIONS! #########");
 	mvprintw(12, 50, "####################################");
 	mvprintw(13, 50, "# You have killed all the goblins! #");
-	mvprintw(17, 50, "###### Press Any Key to Leave ######");
+	mvprintw(17, 50, "###### Press 'q' Key to Leave ######");
 
-	getch();
+	while (getch() != 'q'){;}
 }
 
 void lostGame(void)
@@ -126,9 +126,9 @@ void lostGame(void)
 	mvprintw(11, 50, "#########     YOU LOST!    #########");
 	mvprintw(12, 50, "####################################");
 	mvprintw(13, 50, "### Your soul has been claimed!! ###");
-	mvprintw(17, 50, "###### Press Any Key to Leave ######");
+	mvprintw(17, 50, "###### Press 'q' Key to Leave ######");
 
-	getch();
+	while (getch() != 'q'){;}
 }
 
 bool checkVictory(void)
