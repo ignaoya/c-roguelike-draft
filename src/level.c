@@ -61,9 +61,13 @@ Room** mapSetUp(void)
 				{
 					itemTemp = health_potion;
 				}
-				else if (item_type > 1)
+				else if (item_type > 4)
 				{
 					itemTemp = lightning_scroll;
+				}
+				else if (item_type > 1)
+				{
+					itemTemp = fireball_scroll;
 				}
 				else
 				{

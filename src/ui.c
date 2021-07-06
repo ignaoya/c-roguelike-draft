@@ -7,10 +7,11 @@ void drawUI(void)
 	int seen_counter = 0;
 	int hp = player->hp;
 	int max_hp = player->max_hp;
+	Position clear_a = { 122, 3 };
+	Position clear_b = { 137, 7 };
 	mvprintw(1, 122, "Player Lvl");
 	mvaddch(1, 134, player->level + '0'); 
-	move(3, 122);
-	clrtoeol();
+	clrRect(clear_a, clear_b);
 	snprintf(text, sizeof(char)*1024, "HP:%i/%i", hp, max_hp);
 	mvprintw(3, 122, text);
 	snprintf(text, sizeof(char)*1024, "MP:%i/%i", player->mana, player->max_mana);

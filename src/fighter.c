@@ -80,12 +80,6 @@ void drawBlood(Entity* entity)
 void die(Fighter* fighter)
 {
 	char text[1024];
-	fighter->owner->dead = true;
-	fighter->owner->name = "corpse";
-	fighter->owner->entity->ch = '%';
-	fighter->owner->entity->color = COLOR_PAIR(RED_COLOR);
-	fighter->owner->entity->draw_order = CORPSE;
-
 
 	if (!strcmp(fighter->owner->name, "player"))
 	{
@@ -96,6 +90,12 @@ void die(Fighter* fighter)
 		snprintf(text, sizeof(text), "You killed the %s!", fighter->owner->name);
 	}
 	addMessage(text);
+
+	fighter->owner->dead = true;
+	fighter->owner->name = "corpse";
+	fighter->owner->entity->ch = '%';
+	fighter->owner->entity->color = COLOR_PAIR(RED_COLOR);
+	fighter->owner->entity->draw_order = CORPSE;
 }
 
 

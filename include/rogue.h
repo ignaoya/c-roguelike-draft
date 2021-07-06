@@ -16,6 +16,7 @@
 #define RED_COLOR 5
 #define BLUE_COLOR 6
 #define CYAN_COLOR 7
+#define FIRE_COLOR 8
 
 // draw order
 #define CORPSE 0
@@ -156,6 +157,7 @@ extern MonsterTemplate troll;
 extern ItemTemplate health_potion;
 extern ItemTemplate mana_potion;
 extern ItemTemplate lightning_scroll;
+extern ItemTemplate fireball_scroll;
 
 // main.c functions
 bool screenSetUp(void);
@@ -197,6 +199,7 @@ Item* createItem(int y, int x, ItemTemplate template);
 bool useHealthPotion(Item* self, Actor* drinker);
 bool useManaPotion(Item* self, Actor* drinker);
 bool castLightning(Item* self, Actor* caster);
+bool castFireball(Item* self, Actor* caster);
 void consumeItem(Inventory* inventory, int index);
 
 // inventory.c functions

@@ -4,6 +4,7 @@ ItemTemplate health_potion = {'!', COLOR_PAIR(RED_COLOR), useHealthPotion, "Life
 ItemTemplate mana_potion = {'!', COLOR_PAIR(BLUE_COLOR), useManaPotion, "Mana Potion"};
 
 ItemTemplate lightning_scroll = {'=', COLOR_PAIR(CYAN_COLOR), castLightning, "Bolt Scroll"};
+ItemTemplate fireball_scroll = {'=', COLOR_PAIR(RED_COLOR), castFireball, "Fire Scroll"};
 
 Item* createItem(int y, int x, ItemTemplate template)
 {
@@ -98,6 +99,107 @@ bool castLightning(Item* self, Actor* caster)
 		return false;
 	}
 }
+
+bool castFireball(Item* self, Actor* caster)
+{
+	char text[1024];
+	int ch = '0';
+	int damage;
+	char temp;
+	Position cursor;
+
+	if (caster->fighter->mana >= 3)
+	{
+		cursor.y = caster->entity->position.y;
+		cursor.x = caster->entity->position.x;
+
+		while (true)
+		{
+			drawEverything();
+			if (cursor.y > GAMEMAP_HEIGHT) cursor.y = GAMEMAP_HEIGHT;
+			if (cursor.y < 0) cursor.y = 0;
+			if (cursor.x > GAMEMAP_WIDTH) cursor.x = GAMEMAP_WIDTH;
+			if (cursor.x < 0) cursor.x = 0;
+
+			for (int y = -1; y < 2; y++)
+			{
+				for (int x = -1; x < 2; x++)
+				{
+					temp = mvinch(cursor.y + y, cursor.x + x) & A_CHARTEXT;
+					mvaddch(cursor.y + y, cursor.x + x, temp | COLOR_PAIR(FIRE_COLOR));
+				}
+			}
+
+			
+			ch = getch();
+			switch(ch)
+			{
+				case 'j':
+					cursor.y++;
+					break;
+				case 'k':
+					cursor.y--;
+					break;
+				case 'h':
+					cursor.x--;
+					break;
+				case 'l':
+					cursor.x++;
+					break;
+				case 'q':
+					addMessage("You stopped casting!");
+					return false;
+					break;
+				case ' ':
+					if (level[cursor.y][cursor.x].visible)
+					{
+						snprintf(text, sizeof(text), "You cast a fireball!");
+						addMessage(text);
+						for (int y = -1; y < 2; y++)
+						{
+							for (int x = -1; x < 2; x++)
+							{
+								for (int i = 0; i <= n_actors; i++)
+								{
+									if (actors[i]->entity->position.y == cursor.y + y &&
+											actors[i]->entity->position.x == cursor.x + x)
+									{
+										if (y == 0 && x == 0)
+										{
+											damage = 20;
+										}
+										else
+										{
+											damage = 10;
+										}
+										snprintf(text, sizeof(text), "The %s takes %i damage!", actors[i]->name, damage);
+										addMessage(text);
+										takeDamage(actors[i]->fighter, damage);
+									}
+								}
+							}
+						}
+						caster->fighter->mana -= 3;
+						gainXP(caster->fighter, 15);
+						return true;
+					}
+					else
+					{
+						addMessage("You cannot cast a fireball where you can't see!");
+					}
+					break;
+				default:
+					break;
+			}
+		}
+	}
+	else
+	{
+		addMessage("You don't have enough mana!");
+		return false;
+	}
+}
+
 
 void consumeItem(Inventory* inventory, int index)
 {
