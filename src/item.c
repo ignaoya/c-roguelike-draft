@@ -20,7 +20,7 @@ Item* createItem(int y, int x, ItemTemplate template)
 	item->entity->fov_radius = 0;
 	item->entity->item = item;
 	item->useFunction = template.useFunction;
-	item->name = template.name;
+	memcpy(item->name, template.name, sizeof(char) * 64);
 
 	return item;
 }

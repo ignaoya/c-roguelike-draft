@@ -18,21 +18,62 @@ int main(void)
 {
 	srand(time(NULL));
 	bool compatibleTerminal;
+	bool load_successful;
 	Actor* player;
 	int ch;
 	Position* newPosition;
 	Room** rooms;
 
 
-	level = createLevelTiles();
 	compatibleTerminal = screenSetUp();
-	rooms = mapSetUp();
-	player = playerSetUp(rooms[0]);
-	actors[n_actors] = player;
-	entities[n_entities] = player->entity;
-	message_log = createLog();
+	load_successful = intro();
 
-	intro();
+	if (load_successful)
+	{
+		for (int y = 0; y < GAMEMAP_HEIGHT; y++)
+		{
+			for (int x = 0; x < GAMEMAP_WIDTH; x++)
+			{
+				mvaddch(y, x, level[y][x].ch);
+			}
+		}
+		getch();
+
+		for (int i = 0; i < n_items; i++)
+		{
+			mvaddch(items[i]->entity->position.y, items[i]->entity->position.x, items[i]->entity->ch | items[i]->entity->color);
+			mvprintw(1, 10 * i, items[i]->name);
+		}
+		getch();
+
+		for (int i = 0; i <= n_actors; i++)
+		{
+			drawEntity(actors[i]->entity);
+		}
+		getch();
+		player = actors[n_actors];
+		n_entities = n_actors + n_items;
+		
+		for (int i = 0; i < n_items; i++)
+		{
+			entities[i] = items[i]->entity;
+		}
+
+		for (int i = 0; i <= n_actors; i++)
+		{
+			entities[i + n_items] = actors[i]->entity;
+		}
+	}
+	else
+	{
+		level = createLevelTiles();
+		rooms = mapSetUp();
+		player = playerSetUp(rooms[0]);
+		actors[n_actors] = player;
+		entities[n_entities] = player->entity;
+		message_log = createLog();
+	}
+
 
 	makeFOV(player->entity);
 	drawEverything();
@@ -40,7 +81,7 @@ int main(void)
 	/* main game loop */
 	if (compatibleTerminal)
 	{
-		while ((ch = getch()) != 'q')
+		while (ch = getch())
 		{
 			if (player->dead)
 			{
@@ -50,6 +91,11 @@ int main(void)
 			else if (checkVictory())
 			{
 				wonGame();
+				break;
+			}
+			else if (ch == 'q')
+			{
+				saveGame();
 				break;
 			}
 			newPosition = handleInput(ch, player->entity);
@@ -97,16 +143,33 @@ bool screenSetUp(void)
 	return false;
 }
 
-void intro(void)
+bool intro(void)
 {
+	int ch;
+	bool loadSuccessful;
+
 	clear();
 	mvprintw(10, 50, "####################################");
 	mvprintw(11, 50, "######## THE MOURNING ABYSS ########");
 	mvprintw(12, 50, "####################################");
 	mvprintw(13, 50, "# a roguelike by Ignacio Oyarzabal #");
-	mvprintw(17, 50, "###### Press Any Key to Start ######");
+	mvprintw(14, 50, "####################################");
+	mvprintw(15, 50, "####################################");
+	mvprintw(16, 50, "######  (s) Start New Game    ######");
+	mvprintw(17, 50, "######  (l) Load Saved Game   ######");
 
-	getch();
+	while (ch = getch())
+	{
+		if (ch == 's')
+		{
+			return false;
+		}
+		else if (ch == 'l')
+		{
+			loadSuccessful = loadGame();
+			return loadSuccessful;
+		}
+	}
 }
 
 void wonGame(void)

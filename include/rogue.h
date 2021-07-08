@@ -91,7 +91,7 @@ typedef struct
 {
 	bool seen_player;
 	Position last_player_position;
-	Actor* owner;
+	//Actor* owner;
 } AI;
 
 struct Actor
@@ -100,7 +100,7 @@ struct Actor
 	Fighter* fighter;
 	AI* ai;
 	Inventory* inventory;
-	char* name;
+	char name[64];
 	bool dead;
 };
 
@@ -108,7 +108,7 @@ struct Item
 {
 	Entity* entity;
 	bool (*useFunction)(Item* self, Actor* drinker);
-	char* name;
+	char name[64];
 };
 
 struct Inventory
@@ -133,13 +133,15 @@ typedef struct
 	char ch;
 	int color;
 	bool (*useFunction)(Item* self, Actor* drinker);
-	char* name;
+	char name[64];
 } ItemTemplate;
 
 typedef struct
 {
 	char text[1024];
 } Message;
+
+
 
 // global variables
 extern Tile** level;
@@ -161,7 +163,7 @@ extern ItemTemplate fireball_scroll;
 
 // main.c functions
 bool screenSetUp(void);
-void intro(void);
+bool intro(void);
 void wonGame(void);
 void lostGame(void);
 bool checkVictory(void);
@@ -237,6 +239,10 @@ void showWholeMap(void);
 int maxInt(int a, int b);
 int minInt(int a, int b);
 void clrRect(Position a, Position b);
+
+// save_load.c functions
+void saveGame(void);
+bool loadGame(void);
 
 
 #endif

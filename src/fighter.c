@@ -92,7 +92,7 @@ void die(Fighter* fighter)
 	addMessage(text);
 
 	fighter->owner->dead = true;
-	fighter->owner->name = "corpse";
+	memcpy(fighter->owner->name, "corpse", sizeof(char) * 64);
 	fighter->owner->entity->ch = '%';
 	fighter->owner->entity->color = COLOR_PAIR(RED_COLOR);
 	fighter->owner->entity->draw_order = CORPSE;
