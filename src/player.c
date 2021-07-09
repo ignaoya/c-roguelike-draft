@@ -39,6 +39,8 @@ Position* handleInput(int input, Entity* player)
 {
 	Position* newPosition;
 	newPosition = malloc(sizeof(Position));
+	newPosition->y = player->position.y;
+	newPosition->x = player->position.x;
 	switch (input)
 	{
 		// move up
@@ -136,10 +138,6 @@ void checkPosition(Position* newPosition, Entity* player)
 
 void playerMove(Position* newPosition, Entity* player)
 {
-	//char buffer[8];
-	//sprintf(buffer, "%c", level[user->position.y][user->position.x].ch);
-	//mvprintw(user->position.y, user->position.x, level[user->position.y][user->position.x].ch);
-
 	clearFOV(player);
 	player->position.y = newPosition->y;
 	player->position.x = newPosition->x;

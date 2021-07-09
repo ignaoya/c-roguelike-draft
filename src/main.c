@@ -30,39 +30,7 @@ int main(void)
 
 	if (load_successful)
 	{
-		for (int y = 0; y < GAMEMAP_HEIGHT; y++)
-		{
-			for (int x = 0; x < GAMEMAP_WIDTH; x++)
-			{
-				mvaddch(y, x, level[y][x].ch);
-			}
-		}
-		getch();
-
-		for (int i = 0; i < n_items; i++)
-		{
-			mvaddch(items[i]->entity->position.y, items[i]->entity->position.x, items[i]->entity->ch | items[i]->entity->color);
-			mvprintw(1, 10 * i, items[i]->name);
-		}
-		getch();
-
-		for (int i = 0; i <= n_actors; i++)
-		{
-			drawEntity(actors[i]->entity);
-		}
-		getch();
 		player = actors[n_actors];
-		n_entities = n_actors + n_items;
-		
-		for (int i = 0; i < n_items; i++)
-		{
-			entities[i] = items[i]->entity;
-		}
-
-		for (int i = 0; i <= n_actors; i++)
-		{
-			entities[i + n_items] = actors[i]->entity;
-		}
 	}
 	else
 	{

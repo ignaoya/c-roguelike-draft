@@ -3,6 +3,18 @@
 void saveGame(void)
 {
 	FILE* outfile;
+	int eraser = 0;
+
+	outfile = fopen("save/game.sav", "wb");
+	if (outfile == NULL)
+	{
+		fprintf(stderr, "\nError opening file\n");
+		exit(1);
+	}
+
+	// overwrite anything previously written in a pre-existing save file
+	fwrite(&eraser, sizeof(int), 1, outfile);
+	fclose(outfile);
 
 	outfile = fopen("save/game.sav", "ab");
 	if (outfile == NULL)
@@ -34,7 +46,7 @@ void saveGame(void)
 		fwrite(actors[i]->entity, sizeof(Entity), 1, outfile);
 		fwrite(actors[i]->fighter, sizeof(Fighter), 1, outfile);
 		fwrite(actors[i]->ai, sizeof(AI), 1, outfile);
-		fwrite(actors[i]->inventory, sizeof(Inventory), 1, outfile);
+		//fwrite(actors[i]->inventory, sizeof(Inventory), 1, outfile);
 		fwrite(actors[i]->name, sizeof(char) * 64, 1, outfile);
 		fwrite(&(actors[i]->dead), sizeof(bool), 1, outfile);
 	}
@@ -49,7 +61,7 @@ void saveGame(void)
 
 	fwrite(&message_count, sizeof(int), 1, outfile);
 
-	for (int i = 0; i < message_count; i++)
+	for (int i = message_count - 1 ; i >= 0; i--)
 	{
 		fwrite(message_log[i]->text, sizeof(char) * 1024, 1, outfile);
 	}
@@ -74,6 +86,7 @@ bool loadGame(void)
 {
 	FILE * infile;
 	Tile temp;
+	int eraserCatcher;
 
 	infile = fopen("save/game.sav", "rb");
 	if (infile == NULL)
@@ -83,6 +96,8 @@ bool loadGame(void)
 		getch();
 		return false;
 	}
+
+	fread(&eraserCatcher, sizeof(int), 1, infile);
 
 	level = malloc(sizeof(Tile*) * GAMEMAP_HEIGHT);
 	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
@@ -133,7 +148,7 @@ bool loadGame(void)
 		fread(actors[i]->entity, sizeof(Entity), 1, infile);
 		fread(actors[i]->fighter, sizeof(Fighter), 1, infile);
 		fread(actors[i]->ai, sizeof(AI), 1, infile);
-		fread(actors[i]->inventory, sizeof(Inventory), 1, infile);
+		//fread(actors[i]->inventory, sizeof(Inventory), 1, infile);
 		fread(actors[i]->name, sizeof(char) * 64, 1, infile);
 		fread(&(actors[i]->dead), sizeof(bool), 1, infile);
 
@@ -168,11 +183,21 @@ bool loadGame(void)
 		}
 	}
 
+	n_entities = n_actors + n_items;
+	for (int i = 0; i < n_items; i++)
+	{
+		entities[i] = items[i]->entity;
+	}
+
+	for (int i = 0; i <= n_actors; i++)
+	{
+		entities[i + n_items] = actors[i]->entity;
+	}
 
 
 	fread(&message_count, sizeof(int), 1, infile);
 	message_log = createLog();
-	for (int i = message_count; i > 0; i--)
+	for (int i = 0; i < message_count; i++)
 	{
 		char temp[1024];
 		fread(temp, sizeof(char) * 1024, 1, infile);
