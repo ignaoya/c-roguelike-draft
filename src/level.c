@@ -88,6 +88,11 @@ Room** mapSetUp(void)
 			addDownStairs(rooms[i]->center);
 		}
 	}
+	
+	if (dungeon_level > 1)
+	{
+		addUpStairs(rooms[0]->center);
+	}
 	return rooms;
 }
 
@@ -96,6 +101,13 @@ void addDownStairs(Position* center)
 	level[center->y][center->x].ch = '>';
 	down_stairs.y = center->y;
 	down_stairs.x = center->x;
+}
+
+void addUpStairs(Position* center)
+{
+	level[center->y][center->x].ch = '<';
+	up_stairs.y = center->y;
+	up_stairs.x = center->x;
 }
 
 Tile** createLevelTiles(void)

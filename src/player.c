@@ -92,6 +92,10 @@ Position* handleInput(int input, Entity* player)
 		case '>':
 			newPosition = goDownStairs(player);
 			break;
+		// Go up stairs
+		case '<':
+			newPosition = goUpStairs(player);
+			break;
 		// Grab an Item
 		case 'g':
 			grabItem(player);
@@ -129,10 +133,9 @@ void checkPosition(Position* newPosition, Entity* player)
 	}
 	if (!occupied)
 	{
-		switch (level[newPosition->y][newPosition->x].ch)
+		switch (level[newPosition->y][newPosition->x].walkable)
 		{
-			case '.':
-			case '>':
+			case true:
 				playerMove(newPosition, player);
 				break;
 			default:
@@ -155,6 +158,7 @@ Position* goDownStairs(Entity* player)
 
 	if (level[player->position.y][player->position.x].ch == '>')
 	{
+		dungeon_level++;
 		clearLevel();
 		temp = createNewLevel();
 		actors[n_actors] = player->owner;
@@ -163,9 +167,29 @@ Position* goDownStairs(Entity* player)
 	}
 	else
 	{
-		addMessage("There are no stairs here!");
-		temp->y = player->position.y;
-		temp->x = player->position.x;
+		addMessage("There are no DOWN stairs here!");
+		temp = &(player->position);
+		return temp;
+	}
+}
+
+Position* goUpStairs(Entity* player)
+{
+	Position* temp;
+
+	if (level[player->position.y][player->position.x].ch == '<')
+	{
+		dungeon_level--;
+		clearLevel();
+		temp = createNewLevel();
+		actors[n_actors] = player->owner;
+		addMessage("You go up the levels of the dungeon!");
+		return temp;
+	}
+	else
+	{
+		addMessage("There are no UP stairs here!");
+		temp = &(player->position);
 		return temp;
 	}
 }

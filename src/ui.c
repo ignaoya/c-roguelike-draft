@@ -7,11 +7,13 @@ void drawUI(void)
 	int seen_counter = 0;
 	int hp = player->hp;
 	int max_hp = player->max_hp;
-	Position clear_a = { 122, 3 };
+	Position clear_a = { 122, 0 };
 	Position clear_b = { 137, 7 };
-	mvprintw(1, 122, "Player Lvl");
-	mvaddch(1, 134, player->level + '0'); 
 	clrRect(clear_a, clear_b);
+	snprintf(text, sizeof(char)*1024, "Dungeon Lvl %i", dungeon_level);
+	mvprintw(0, 122, text);
+	snprintf(text, sizeof(char)*1024, "Player Lvl %i", player->level);
+	mvprintw(1, 122, text);
 	snprintf(text, sizeof(char)*1024, "HP:%i/%i", hp, max_hp);
 	mvprintw(3, 122, text);
 	snprintf(text, sizeof(char)*1024, "MP:%i/%i", player->mana, player->max_mana);
@@ -55,6 +57,13 @@ void drawUI(void)
 	{
 		mvaddch(10 + seen_counter, 122, level[down_stairs.y][down_stairs.x].ch | level[down_stairs.y][down_stairs.x].color);
 		mvprintw(10 + seen_counter, 124, "Down Stairs");
+
+		seen_counter++;
+	}
+	if (level[up_stairs.y][up_stairs.x].visible)
+	{
+		mvaddch(10 + seen_counter, 122, level[up_stairs.y][up_stairs.x].ch | level[up_stairs.y][up_stairs.x].color);
+		mvprintw(10 + seen_counter, 124, "Up Stairs");
 
 		seen_counter++;
 	}

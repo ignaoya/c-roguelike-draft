@@ -11,7 +11,9 @@ int n_actors = 0;
 int n_items = 0;
 Message** message_log;
 int message_count = 0;
+int dungeon_level;
 Position down_stairs;
+Position up_stairs;
 
 int main(void)
 {
@@ -33,6 +35,7 @@ int main(void)
 	}
 	else
 	{
+		dungeon_level = 1;
 		level = createLevelTiles();
 		rooms = mapSetUp();
 		player = playerSetUp(rooms[0]);

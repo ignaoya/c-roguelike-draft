@@ -205,7 +205,6 @@ void consumeItem(Inventory* inventory, int index)
 {
 	for (int i = index; i < inventory->n_items - 1; i++)
 	{
-		free(inventory->items[i]);
 		inventory->items[i] = inventory->items[i + 1];
 	}
 	inventory->n_items--;

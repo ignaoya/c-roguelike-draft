@@ -23,6 +23,10 @@ void saveGame(void)
 		exit(1);
 	}
 
+	fwrite(&dungeon_level, sizeof(int), 1, outfile);
+
+	fwrite(&down_stairs, sizeof(Position), 1, outfile);
+
 	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
 	{
 		for (int x = 0; x < GAMEMAP_WIDTH; x++)
@@ -98,6 +102,10 @@ bool loadGame(void)
 	}
 
 	fread(&eraserCatcher, sizeof(int), 1, infile);
+
+	fread(&dungeon_level, sizeof(int), 1, infile);
+
+	fread(&down_stairs, sizeof(Position), 1, infile);
 
 	level = malloc(sizeof(Tile*) * GAMEMAP_HEIGHT);
 	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
