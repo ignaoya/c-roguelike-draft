@@ -175,7 +175,7 @@ void addDownStairs(Position* center);
 void addUpStairs(Position* center);
 Tile** createLevelTiles(void);
 void clearLevel(void);
-Position* createNewLevel(void);
+void createNewLevel(void);
 
 // player.c functions
 Actor* playerSetUp(Room* room);

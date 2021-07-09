@@ -150,12 +150,10 @@ void clearLevel(void)
 	free(level);
 }
 
-Position* createNewLevel(void)
+void createNewLevel(void)
 {
 	Room** rooms;
 	level = createLevelTiles();
 	rooms = mapSetUp();
-
-	return rooms[0]->center;
 }
 

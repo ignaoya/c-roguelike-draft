@@ -154,42 +154,48 @@ void playerMove(Position* newPosition, Entity* player)
 
 Position* goDownStairs(Entity* player)
 {
-	Position* temp;
+	Position* temp = malloc(sizeof(Position));
 
 	if (level[player->position.y][player->position.x].ch == '>')
 	{
 		dungeon_level++;
 		clearLevel();
-		temp = createNewLevel();
+		createNewLevel();
 		actors[n_actors] = player->owner;
 		addMessage("You go deeper into the dungeon!");
+		temp->y = up_stairs.y;	
+		temp->x = up_stairs.x;
 		return temp;
 	}
 	else
 	{
 		addMessage("There are no DOWN stairs here!");
-		temp = &(player->position);
+		temp->y = player->position.y;
+		temp->x = player->position.x;
 		return temp;
 	}
 }
 
 Position* goUpStairs(Entity* player)
 {
-	Position* temp;
+	Position* temp = malloc(sizeof(Position));
 
 	if (level[player->position.y][player->position.x].ch == '<')
 	{
 		dungeon_level--;
 		clearLevel();
-		temp = createNewLevel();
+		createNewLevel();
 		actors[n_actors] = player->owner;
 		addMessage("You go up the levels of the dungeon!");
+		temp->y = down_stairs.y;
+		temp->x = down_stairs.x;
 		return temp;
 	}
 	else
 	{
 		addMessage("There are no UP stairs here!");
-		temp = &(player->position);
+		temp->y = player->position.y;
+		temp->x = player->position.x;
 		return temp;
 	}
 }
