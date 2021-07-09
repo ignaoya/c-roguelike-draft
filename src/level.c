@@ -29,19 +29,21 @@ Room** mapSetUp(void)
 			}
 			int monster_y = rand() % (height - 2) + y + 1;
 			int monster_x = rand() % (width - 2) + x + 1;
-			int monster_level = rand() % 3;
-			int monster_type = rand() % 10;
-			if (monster_type < 4)
+			int monster_level = rand() % dungeon_level + 1;
+			int monster_type = rand() % 100;
+			if (monster_type < 80 - dungeon_level * dungeon_level)
 			{
 				template = goblin;
 			}
-			else if (monster_type < 9)
+			else if (monster_type < 99 - dungeon_level * 2)
 			{
 				template = orc;
+				monster_level = maxInt(1, monster_level / 2);
 			}
 			else
 			{
 				template = troll;
+				monster_level = maxInt(1, monster_level / 3);
 			}
 			actors[n_actors] = createMonster(monster_y, monster_x, template, monster_level);
 			n_actors++;

@@ -6,7 +6,7 @@ void attack(Fighter* attacker, Fighter* defender)
 	int damage = maxInt(0, attacker->attack - defender->defense);
 	char* att_name = attacker->owner->name;
 	char* def_name = defender->owner->name;
-	snprintf(text, sizeof(text), "The %s attacks the %s for %i damage!", att_name, def_name, damage); 
+	snprintf(text, sizeof(text), "The %s attacks the lvl %i %s for %i damage!", att_name, defender->level, def_name, damage); 
 	addMessage(text);
 	takeDamage(defender, damage);
 	if (!strcmp(attacker->owner->name, "player"))
@@ -87,7 +87,7 @@ void die(Fighter* fighter)
 	}
 	else
 	{
-		snprintf(text, sizeof(text), "You killed the %s!", fighter->owner->name);
+		snprintf(text, sizeof(text), "You killed the lvl %i %s!", fighter->level, fighter->owner->name);
 	}
 	addMessage(text);
 

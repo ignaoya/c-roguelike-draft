@@ -91,7 +91,6 @@ typedef struct
 {
 	bool seen_player;
 	Position last_player_position;
-	//Actor* owner;
 } AI;
 
 struct Actor
