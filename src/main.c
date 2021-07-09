@@ -165,6 +165,7 @@ void lostGame(void)
 
 bool checkVictory(void)
 {
+	/*
 	for (int i = 0; i < n_actors; i++)
 	{
 		if (!actors[i]->dead)
@@ -174,4 +175,6 @@ bool checkVictory(void)
 	}
 
 	return true;
+	*/
+	return false; // Need to define win condition
 }
