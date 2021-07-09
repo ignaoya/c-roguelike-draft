@@ -87,8 +87,17 @@ Room** mapSetUp(void)
 		{
 			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
 		}
+		if (i == max_rooms - 1)
+		{
+			addDownStairs(rooms[i]->center);
+		}
 	}
 	return rooms;
+}
+
+void addDownStairs(Position* center)
+{
+	level[center->y][center->x].ch = '>';
 }
 
 Tile** createLevelTiles(void)

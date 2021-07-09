@@ -170,6 +170,7 @@ bool checkVictory(void);
 
 // level.c functions 
 Room** mapSetUp(void);
+void addDownStairs(Position* center);
 Tile** createLevelTiles(void);
 
 // player.c functions
