@@ -88,6 +88,10 @@ Position* handleInput(int input, Entity* player)
 			newPosition->x = player->position.x + 1;
 			break;
 
+		// Go down stairs
+		case '>':
+			newPosition = goDownStairs(player);
+			break;
 		// Grab an Item
 		case 'g':
 			grabItem(player);
@@ -128,6 +132,7 @@ void checkPosition(Position* newPosition, Entity* player)
 		switch (level[newPosition->y][newPosition->x].ch)
 		{
 			case '.':
+			case '>':
 				playerMove(newPosition, player);
 				break;
 			default:
@@ -144,6 +149,28 @@ void playerMove(Position* newPosition, Entity* player)
 	makeFOV(player);
 }
 
+Position* goDownStairs(Entity* player)
+{
+	Position* temp;
+
+	if (level[player->position.y][player->position.x].ch == '>')
+	{
+		clearLevel();
+		temp = createNewLevel();
+		actors[n_actors] = player->owner;
+		addMessage("You go deeper into the dungeon!");
+		return temp;
+	}
+	else
+	{
+		addMessage("There are no stairs here!");
+		temp->y = player->position.y;
+		temp->x = player->position.x;
+		return temp;
+	}
+}
+
+
 void grabItem(Entity* player)
 {
 	for (int i = 0; i < n_items; i++)
@@ -157,6 +184,7 @@ void grabItem(Entity* player)
 				player->owner->inventory->n_items++;
 				items[i]->entity->position.y = 0;
 				items[i]->entity->position.x = 0;
+				removeItemFromItems(i);
 				addMessage("You pick up an item.");
 			}
 			else

@@ -44,9 +44,7 @@ Room** mapSetUp(void)
 				template = troll;
 			}
 			actors[n_actors] = createMonster(monster_y, monster_x, template, monster_level);
-			entities[n_entities] = actors[n_actors]->entity;
 			n_actors++;
-			n_entities++;
 		}
 
 		if (n_items < MAX_ITEMS)
@@ -74,9 +72,7 @@ Room** mapSetUp(void)
 					itemTemp = mana_potion;
 				}
 				items[n_items] = createItem(item_y, item_x, itemTemp);
-				entities[n_entities] = items[n_items]->entity;
 				n_items++;
-				n_entities++;
 			}
 		}
 
@@ -98,6 +94,8 @@ Room** mapSetUp(void)
 void addDownStairs(Position* center)
 {
 	level[center->y][center->x].ch = '>';
+	down_stairs.y = center->y;
+	down_stairs.x = center->x;
 }
 
 Tile** createLevelTiles(void)
@@ -122,3 +120,30 @@ Tile** createLevelTiles(void)
 
 	return tiles;
 }
+
+void clearLevel(void)
+{
+	for (int i = 0; i < n_actors; i++)
+	{
+		free(actors[i]);
+	}
+	n_actors = 0;
+
+	for (int i = 0; i < n_items; i++)
+	{
+		free(items[i]);
+	}
+	n_items = 0;
+
+	free(level);
+}
+
+Position* createNewLevel(void)
+{
+	Room** rooms;
+	level = createLevelTiles();
+	rooms = mapSetUp();
+
+	return rooms[0]->center;
+}
+

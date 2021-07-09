@@ -205,9 +205,18 @@ void consumeItem(Inventory* inventory, int index)
 {
 	for (int i = index; i < inventory->n_items - 1; i++)
 	{
-		//free(inventory->items[i]);
-		inventory->items[i]= inventory->items[i + 1];
+		free(inventory->items[i]);
+		inventory->items[i] = inventory->items[i + 1];
 	}
 	inventory->n_items--;
+}
+
+void removeItemFromItems(int index)
+{
+	for (int i = index; i < n_items - 1; i++)
+	{
+		items[i] = items[i + 1];
+	}
+	n_items--;
 }
 

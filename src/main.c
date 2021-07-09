@@ -7,12 +7,11 @@ const int MAX_ITEMS = 15;
 Tile** level;
 Actor* actors[16] = { NULL };
 Item* items[15] = { NULL };
-Entity* entities[31] = { NULL };
 int n_actors = 0;
 int n_items = 0;
-int n_entities = 0;
 Message** message_log;
 int message_count = 0;
+Position down_stairs;
 
 int main(void)
 {
@@ -38,7 +37,6 @@ int main(void)
 		rooms = mapSetUp();
 		player = playerSetUp(rooms[0]);
 		actors[n_actors] = player;
-		entities[n_entities] = player->entity;
 		message_log = createLog();
 	}
 

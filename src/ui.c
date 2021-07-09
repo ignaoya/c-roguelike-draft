@@ -51,6 +51,14 @@ void drawUI(void)
 		}
 	}
 
+	if (level[down_stairs.y][down_stairs.x].visible)
+	{
+		mvaddch(10 + seen_counter, 122, level[down_stairs.y][down_stairs.x].ch | level[down_stairs.y][down_stairs.x].color);
+		mvprintw(10 + seen_counter, 124, "Down Stairs");
+
+		seen_counter++;
+	}
+
 	if (!seen_counter)
 	{
 		mvprintw(10, 122, "Nothing");

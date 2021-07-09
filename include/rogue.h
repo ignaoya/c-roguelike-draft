@@ -147,12 +147,11 @@ typedef struct
 extern Tile** level;
 extern Actor* actors[];
 extern Item* items[];
-extern Entity* entities[];
 extern int n_actors;
 extern int n_items;
-extern int n_entities;
 extern Message** message_log;
 extern int message_count;
+extern Position down_stairs;
 extern MonsterTemplate goblin;
 extern MonsterTemplate orc;
 extern MonsterTemplate troll;
@@ -172,12 +171,15 @@ bool checkVictory(void);
 Room** mapSetUp(void);
 void addDownStairs(Position* center);
 Tile** createLevelTiles(void);
+void clearLevel(void);
+Position* createNewLevel(void);
 
 // player.c functions
 Actor* playerSetUp(Room* room);
 Position* handleInput(int input, Entity* player);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
+Position* goDownStairs(Entity* player);
 void grabItem(Entity* player);
 void gainXP(Fighter* player, int amount);
 void levelUp(Fighter* player);
@@ -204,6 +206,7 @@ bool useManaPotion(Item* self, Actor* drinker);
 bool castLightning(Item* self, Actor* caster);
 bool castFireball(Item* self, Actor* caster);
 void consumeItem(Inventory* inventory, int index);
+void removeItemFromItems(int index);
 
 // inventory.c functions
 void useInventory(Inventory* inventory);
