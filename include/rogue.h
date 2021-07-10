@@ -35,6 +35,8 @@ struct Item;
 typedef struct Item Item;
 struct Inventory;
 typedef struct Inventory Inventory;
+struct Equipment;
+typedef struct Equipment Equipment;
 
 typedef struct 
 {
@@ -99,6 +101,7 @@ struct Actor
 	Fighter* fighter;
 	AI* ai;
 	Inventory* inventory;
+	Equipment* equipment;
 	char name[64];
 	bool dead;
 };
@@ -108,12 +111,27 @@ struct Item
 	Entity* entity;
 	bool (*useFunction)(Item* self, Actor* drinker);
 	char name[64];
+	bool weapon;
+	bool shield;
+	bool armor;
+	bool helm;
+	bool boots;
+	int bonus;
 };
 
 struct Inventory
 {
 	Item* items[10];
 	int n_items;
+};
+
+struct Equipment
+{
+	Item* weapon;
+	Item* shield;
+	Item* armor;
+	Item* helm;
+	Item* boots;
 };
 	
 typedef struct
@@ -133,6 +151,12 @@ typedef struct
 	int color;
 	bool (*useFunction)(Item* self, Actor* drinker);
 	char name[64];
+	bool weapon;
+	bool shield;
+	bool armor;
+	bool helm;
+	bool boots;
+	int bonus;
 } ItemTemplate;
 
 typedef struct
@@ -160,6 +184,11 @@ extern ItemTemplate health_potion;
 extern ItemTemplate mana_potion;
 extern ItemTemplate lightning_scroll;
 extern ItemTemplate fireball_scroll;
+extern ItemTemplate short_sword;
+extern ItemTemplate small_shield;
+extern ItemTemplate light_armor;
+extern ItemTemplate light_helm;
+extern ItemTemplate light_boots;
 
 // main.c functions
 bool screenSetUp(void);
@@ -210,6 +239,8 @@ bool castLightning(Item* self, Actor* caster);
 bool castFireball(Item* self, Actor* caster);
 void consumeItem(Inventory* inventory, int index);
 void removeItemFromItems(int index);
+bool equipItem(Item* self, Actor* equiper);
+void unequipItem(Item* equipment, Actor* actor);
 
 // inventory.c functions
 void useInventory(Inventory* inventory);

@@ -1,10 +1,16 @@
 #include "rogue.h"
 
-ItemTemplate health_potion = {'!', COLOR_PAIR(RED_COLOR), useHealthPotion, "Life Potion"};
-ItemTemplate mana_potion = {'!', COLOR_PAIR(BLUE_COLOR), useManaPotion, "Mana Potion"};
+ItemTemplate health_potion = {'!', COLOR_PAIR(RED_COLOR), useHealthPotion, "Life Potion", false, false, false, false, false, 0};
+ItemTemplate mana_potion = {'!', COLOR_PAIR(BLUE_COLOR), useManaPotion, "Mana Potion", false, false, false, false, false, 0};
 
-ItemTemplate lightning_scroll = {'=', COLOR_PAIR(CYAN_COLOR), castLightning, "Bolt Scroll"};
-ItemTemplate fireball_scroll = {'=', COLOR_PAIR(RED_COLOR), castFireball, "Fire Scroll"};
+ItemTemplate lightning_scroll = {'=', COLOR_PAIR(CYAN_COLOR), castLightning, "Bolt Scroll", false, false, false, false, false, 0};
+ItemTemplate fireball_scroll = {'=', COLOR_PAIR(RED_COLOR), castFireball, "Fire Scroll", false, false, false, false, false, 0};
+
+ItemTemplate short_sword = {'/', COLOR_PAIR(CYAN_COLOR), equipItem, "Short Sword", true, false, false, false, false, 3};
+ItemTemplate small_shield = {'0', COLOR_PAIR(CYAN_COLOR), equipItem, "Small Shield", false, true, false, false, false, 2};
+ItemTemplate light_armor = {'H', COLOR_PAIR(CYAN_COLOR), equipItem, "Light Armor", false, false, true, false, false, 2};
+ItemTemplate light_helm = {'^', COLOR_PAIR(CYAN_COLOR), equipItem, "Light Helm", false, false, false, true, false, 1};
+ItemTemplate ligth_boots = {';', COLOR_PAIR(CYAN_COLOR), equipItem, "Light Boots", false, false, false, false, true, 1};
 
 Item* createItem(int y, int x, ItemTemplate template)
 {
@@ -21,6 +27,12 @@ Item* createItem(int y, int x, ItemTemplate template)
 	item->entity->item = item;
 	item->useFunction = template.useFunction;
 	memcpy(item->name, template.name, sizeof(char) * 64);
+	item->weapon = template.weapon;
+	item->shield = template.shield;
+	item->armor = template.armor;
+	item->helm = template.helm;
+	item->boots = template.boots;
+	item->bonus = template.bonus;
 
 	return item;
 }
@@ -218,4 +230,73 @@ void removeItemFromItems(int index)
 	}
 	n_items--;
 }
+
+bool equipItem(Item* self, Actor* equiper)
+{
+	if (self->weapon)
+	{
+		if (equiper->equipment->weapon)
+		{
+			equiper->fighter->attack -= equiper->equipment->weapon->bonus;
+			unequipItem(equiper->equipment->weapon, equiper);
+		}
+		equiper->equipment->weapon = self;
+		equiper->fighter->attack += self->bonus;
+	}
+	else if (self->shield)
+	{
+		if (equiper->equipment->shield)
+		{
+			equiper->fighter->defense -= equiper->equipment->shield->bonus;
+			unequipItem(equiper->equipment->shield, equiper);
+		}
+		equiper->equipment->shield = self;
+		equiper->fighter->defense += self->bonus;
+	}
+	else if (self->armor)
+	{
+		if (equiper->equipment->armor)
+		{
+			equiper->fighter->defense -= equiper->equipment->armor->bonus;
+			unequipItem(equiper->equipment->armor, equiper);
+		}
+		equiper->equipment->armor = self;
+		equiper->fighter->defense += self->bonus;
+	}
+	else if (self->helm)
+	{
+		if (equiper->equipment->helm)
+		{
+			equiper->fighter->defense -= equiper->equipment->helm->bonus;
+			unequipItem(equiper->equipment->helm, equiper);
+		}
+		equiper->equipment->helm = self;
+		equiper->fighter->defense += self->bonus;
+	}
+	else if (self->boots)
+	{
+		if (equiper->equipment->boots)
+		{
+			equiper->fighter->defense -= equiper->equipment->boots->bonus;
+			unequipItem(equiper->equipment->boots, equiper);
+		}
+		equiper->equipment->boots = self;
+		equiper->fighter->defense += self->bonus;
+	}
+
+	addMessage("Successfully equipped!");
+	return true;
+}
+
+void unequipItem(Item* equipment, Actor* actor)
+{
+	items[n_items] = equipment;
+	n_items++;
+
+	equipment->entity->position.y = actor->entity->position.y;
+	equipment->entity->position.x = actor->entity->position.x;
+}
+
+
+
 

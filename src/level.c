@@ -63,15 +63,15 @@ Room** mapSetUp(void)
 				}
 				else if (item_type > 4)
 				{
-					itemTemp = lightning_scroll;
+					itemTemp = short_sword;
 				}
 				else if (item_type > 1)
 				{
-					itemTemp = fireball_scroll;
+					itemTemp = small_shield;
 				}
 				else
 				{
-					itemTemp = mana_potion;
+					itemTemp = light_helm;
 				}
 				items[n_items] = createItem(item_y, item_x, itemTemp);
 				n_items++;

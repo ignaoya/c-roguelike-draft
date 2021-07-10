@@ -12,6 +12,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->fighter = malloc(sizeof(Fighter));
 	monster->ai = malloc(sizeof(AI));
 	monster->inventory = malloc(sizeof(Inventory));
+	monster->equipment = malloc(sizeof(Equipment));
 
 	monster->entity->position.y = y;
 	monster->entity->position.x = x;
@@ -35,6 +36,11 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	monster->ai->last_player_position.x = -1;
 	monster->inventory->n_items = 0;
 	memcpy(monster->name, template.name, sizeof(char) * 64);
+	monster->equipment->weapon = NULL;
+	monster->equipment->shield = NULL;
+	monster->equipment->armor = NULL;
+	monster->equipment->helm = NULL;
+	monster->equipment->boots = NULL;
 	monster->dead = false;
 
 	return monster;

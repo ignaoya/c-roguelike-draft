@@ -8,6 +8,7 @@ Actor* playerSetUp(Room* room)
 	newPlayer->fighter = malloc(sizeof(Fighter));
 	newPlayer->ai = malloc(sizeof(AI));
 	newPlayer->inventory = malloc(sizeof(Inventory));
+	newPlayer->equipment = malloc(sizeof(Equipment));
 
 
 	newPlayer->entity->position.x = room->center->x;
@@ -29,6 +30,12 @@ Actor* playerSetUp(Room* room)
 	newPlayer->fighter->owner = newPlayer;
 	newPlayer->inventory->items[0] = createItem(0, 0, health_potion);
 	newPlayer->inventory->n_items = 1;
+	newPlayer->equipment->weapon = NULL;
+	newPlayer->equipment->shield = NULL;
+	newPlayer->equipment->armor = NULL;
+	newPlayer->equipment->helm = NULL;
+	newPlayer->equipment->boots = NULL;
+
 	memcpy(newPlayer->name, "player", sizeof(char) * 64);
 	newPlayer->dead = false;
 
