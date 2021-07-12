@@ -109,7 +109,7 @@ struct Actor
 struct Item
 {
 	Entity* entity;
-	bool (*useFunction)(Item* self, Actor* drinker);
+	bool (*useFunction)(Item* self, Actor* user);
 	char name[64];
 	bool weapon;
 	bool shield;
@@ -149,7 +149,7 @@ typedef struct
 {
 	char ch;
 	int color;
-	bool (*useFunction)(Item* self, Actor* drinker);
+	bool (*useFunction)(Item* self, Actor* user);
 	char name[64];
 	bool weapon;
 	bool shield;
@@ -164,12 +164,22 @@ typedef struct
 	char text[1024];
 } Message;
 
+typedef struct List
+{
+	union {
+		Actor* actor;
+		Item* item;
+	};
+	struct List* next;
+} List;
+
+
 
 
 // global variables
 extern Tile** level;
 extern Actor* actors[];
-extern Item* items[];
+extern List* items;
 extern int n_actors;
 extern int n_items;
 extern Message** message_log;
@@ -277,6 +287,8 @@ void showWholeMap(void);
 int maxInt(int a, int b);
 int minInt(int a, int b);
 void clrRect(Position a, Position b);
+void appendItem(List* head, Item* item);
+void appendActor(List* head, Actor* actor);
 
 // save_load.c functions
 void saveGame(void);

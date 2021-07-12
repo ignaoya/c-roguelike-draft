@@ -32,13 +32,15 @@ void drawAllEntities(void)
 		}
 		if (j == ITEM)
 		{
-			for (int i = 0; i < n_items; i++)
+			List* temp = items;
+
+			while (temp = temp->next)
 			{
-				y = items[i]->entity->position.y;
-				x = items[i]->entity->position.x;
+				y = temp->item->entity->position.y;
+				x = temp->item->entity->position.x;
 				if (level[y][x].visible)
 				{
-					drawEntity(items[i]->entity);
+					drawEntity(temp->item->entity);
 				}
 			}
 		}

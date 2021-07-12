@@ -3,8 +3,10 @@
 void saveGame(void)
 {
 	FILE* outfile;
+	List* temp;
 	int eraser = 0;
 	bool hasEquipment;
+
 
 	outfile = fopen("save/game.sav", "wb");
 	if (outfile == NULL)
@@ -38,11 +40,12 @@ void saveGame(void)
 
 	fwrite(&n_items, sizeof(int), 1, outfile);
 
-	for (int i = 0; i < n_items; i++)
+	temp = items;
+	while (temp = temp->next)
 	{
-		fwrite(items[i], sizeof(Item), 1, outfile);
-		fwrite(items[i]->entity, sizeof(Entity), 1, outfile);
-		fwrite(items[i]->name, sizeof(char) * 64, 1, outfile);
+		fwrite(temp->item, sizeof(Item), 1, outfile);
+		fwrite(temp->item->entity, sizeof(Entity), 1, outfile);
+		fwrite(temp->item->name, sizeof(char) * 64, 1, outfile);
 	}
 
 	fwrite(&n_actors, sizeof(int), 1, outfile);
@@ -162,7 +165,7 @@ void saveGame(void)
 bool loadGame(void)
 {
 	FILE * infile;
-	Tile temp;
+	List* temp;
 	int eraserCatcher;
 	bool hasEquipment;
 
@@ -192,35 +195,38 @@ bool loadGame(void)
 	}
 
 	fread(&n_items, sizeof(int), 1, infile);
+
 	for (int i = 0; i < n_items; i++)
 	{
-		items[i] = malloc(sizeof(Item));
-		fread(items[i], sizeof(Item), 1, infile);
-		items[i]->entity = malloc(sizeof(Entity));
-		fread(items[i]->entity, sizeof(Entity), 1, infile);
-		fread(items[i]->name, sizeof(char) * 64, 1, infile);
-		items[i]->entity->item = items[i];
+		Item* item = malloc(sizeof(Item));
+		fread(item, sizeof(Item), 1, infile);
+		item->entity = malloc(sizeof(Entity));
+		fread(item->entity, sizeof(Entity), 1, infile);
+		fread(item->name, sizeof(char) * 64, 1, infile);
+		item->entity->item = item;
 
-		if (!strcmp(items[i]->name, "Life Potion"))
+		if (!strcmp(item->name, "Life Potion"))
 		{
-			items[i]->useFunction = useHealthPotion;
+			item->useFunction = useHealthPotion;
 		}
-		else if (!strcmp(items[i]->name, "Mana Potion"))
+		else if (!strcmp(item->name, "Mana Potion"))
 		{
-			items[i]->useFunction = useManaPotion;
+			item->useFunction = useManaPotion;
 		}
-		else if (!strcmp(items[i]->name, "Bolt Scroll"))
+		else if (!strcmp(item->name, "Bolt Scroll"))
 		{
-			items[i]->useFunction = castLightning;
+			item->useFunction = castLightning;
 		}
-		else if (!strcmp(items[i]->name, "Fire Scroll"))
+		else if (!strcmp(item->name, "Fire Scroll"))
 		{
-			items[i]->useFunction = castFireball;
+			item->useFunction = castFireball;
 		}
 		else
 		{
-			items[i]->useFunction = equipItem;
+			item->useFunction = equipItem;
 		}
+
+		appendItem(items, item);
 	}
 
 	fread(&n_actors, sizeof(int), 1, infile);
@@ -367,9 +373,9 @@ bool loadGame(void)
 	message_log = createLog();
 	for (int i = 0; i < message_count; i++)
 	{
-		char temp[1024];
-		fread(temp, sizeof(char) * 1024, 1, infile);
-		addMessage(temp);
+		char text[1024];
+		fread(text, sizeof(char) * 1024, 1, infile);
+		addMessage(text);
 	}
 
 	fclose(infile);

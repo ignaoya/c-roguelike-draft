@@ -224,9 +224,16 @@ void consumeItem(Inventory* inventory, int index)
 
 void removeItemFromItems(int index)
 {
-	for (int i = index; i < n_items - 1; i++)
+	int counter = 0;
+	List* temp = items;
+
+	while (temp = temp->next)
 	{
-		items[i] = items[i + 1];
+		if (counter == index - 1)
+		{
+			temp->next = temp->next->next;
+		}
+		counter++;
 	}
 	n_items--;
 }
@@ -290,7 +297,7 @@ bool equipItem(Item* self, Actor* equiper)
 
 void unequipItem(Item* equipment, Actor* actor)
 {
-	items[n_items] = equipment;
+	appendItem(items, equipment);
 	n_items++;
 
 	equipment->entity->position.y = actor->entity->position.y;

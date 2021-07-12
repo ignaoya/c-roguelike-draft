@@ -6,7 +6,7 @@ const int MAX_MONSTERS = 15;
 const int MAX_ITEMS = 15;
 Tile** level;
 Actor* actors[16] = { NULL };
-Item* items[15] = { NULL };
+List* items;
 int n_actors = 0;
 int n_items = 0;
 Message** message_log;
@@ -24,6 +24,10 @@ int main(void)
 	int ch;
 	Position* newPosition;
 	Room** rooms;
+
+	items = malloc(sizeof(List));
+	items->item = NULL;
+	items->next = NULL;
 
 
 	compatibleTerminal = screenSetUp();

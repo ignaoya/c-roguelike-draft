@@ -210,17 +210,20 @@ Position* goUpStairs(Entity* player)
 
 void grabItem(Entity* player)
 {
-	for (int i = 0; i < n_items; i++)
+	List* temp = items;
+	int i = 0;
+
+	while (temp = temp->next)
 	{
-		if (items[i]->entity->position.y == player->position.y &&
-				items[i]->entity->position.x == player->position.x)
+		if (temp->item->entity->position.y == player->position.y &&
+				temp->item->entity->position.x == player->position.x)
 		{
 			if (player->owner->inventory->n_items < 10)
 			{
-				player->owner->inventory->items[player->owner->inventory->n_items] = items[i];
+				player->owner->inventory->items[player->owner->inventory->n_items] = temp->item;
 				player->owner->inventory->n_items++;
-				items[i]->entity->position.y = 0;
-				items[i]->entity->position.x = 0;
+				temp->item->entity->position.y = 0;
+				temp->item->entity->position.x = 0;
 				removeItemFromItems(i);
 				addMessage("You pick up an item.");
 			}
@@ -230,6 +233,8 @@ void grabItem(Entity* player)
 			}
 			return;
 		}
+
+		i++;
 	}
 	addMessage("There's nothing to pick up.");
 }

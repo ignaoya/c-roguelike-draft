@@ -73,7 +73,7 @@ Room** mapSetUp(void)
 				{
 					itemTemp = light_helm;
 				}
-				items[n_items] = createItem(item_y, item_x, itemTemp);
+				appendItem(items, createItem(item_y, item_x, itemTemp));
 				n_items++;
 			}
 		}
@@ -137,17 +137,23 @@ Tile** createLevelTiles(void)
 
 void clearLevel(void)
 {
+	List* temp;
+
 	for (int i = 0; i < n_actors; i++)
 	{
 		free(actors[i]);
 	}
 	n_actors = 0;
 
-	for (int i = 0; i < n_items; i++)
+	temp = items;
+	while (temp = temp->next)
 	{
-		free(items[i]);
+		free(temp->item);
 	}
 	n_items = 0;
+
+	items->item = NULL;
+	items->next = NULL;
 
 	free(level);
 }

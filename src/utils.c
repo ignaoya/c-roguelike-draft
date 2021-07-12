@@ -20,3 +20,31 @@ void clrRect(Position a, Position b)
 		}
 	}
 }
+
+void appendItem(List* head, Item* item)
+{
+	List* temp = head;
+	
+	while(temp->next)
+	{
+		temp = temp->next;
+	}
+	temp->next = malloc(sizeof(List));
+	temp = temp->next;
+	temp->item = item;
+	temp->next = NULL;
+}
+	
+void appendActor(List* head, Actor* actor)
+{
+	List* temp = head;
+	
+	while(temp->next)
+	{
+		temp = temp->next;
+	}
+	temp->next = malloc(sizeof(List));
+	temp = temp->next;
+	temp->actor = actor;
+	temp->next = NULL;
+}

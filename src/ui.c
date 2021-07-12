@@ -3,12 +3,14 @@
 void drawUI(void)
 {
 	Fighter* player = actors[n_actors]->fighter;
+	List* temp;
 	char text[1024];
 	int seen_counter = 0;
 	int hp = player->hp;
 	int max_hp = player->max_hp;
 	Position clear_a = { 122, 0 };
 	Position clear_b = { 137, 7 };
+
 	clrRect(clear_a, clear_b);
 	snprintf(text, sizeof(char)*1024, "Dungeon Lvl %i", dungeon_level);
 	mvprintw(0, 122, text);
@@ -41,13 +43,14 @@ void drawUI(void)
 			seen_counter++;
 		}
 	}
-	for (int i = 0; i < n_items; i++)
+	temp = items;
+	while (temp = temp->next)
 	{
-		Position temp = items[i]->entity->position;
-		if (level[temp.y][temp.x].visible)
+		Position pos = temp->item->entity->position;
+		if (level[pos.y][pos.x].visible)
 		{
-			mvaddch(10 + seen_counter, 122, items[i]->entity->ch | items[i]->entity->color);
-			mvprintw(10 + seen_counter, 124, items[i]->name);
+			mvaddch(10 + seen_counter, 122, temp->item->entity->ch | temp->item->entity->color);
+			mvprintw(10 + seen_counter, 124, temp->item->name);
 
 			seen_counter++;
 		}
