@@ -38,8 +38,14 @@ void saveGame(void)
 		}
 	}
 
+	n_items = 0;
+	temp = items;
+	while (temp = temp->next)
+	{
+		n_items++;
+	}
 	fwrite(&n_items, sizeof(int), 1, outfile);
-
+	
 	temp = items;
 	while (temp = temp->next)
 	{
@@ -195,7 +201,6 @@ bool loadGame(void)
 	}
 
 	fread(&n_items, sizeof(int), 1, infile);
-
 	for (int i = 0; i < n_items; i++)
 	{
 		Item* item = malloc(sizeof(Item));
@@ -254,9 +259,8 @@ bool loadGame(void)
 		actors[i]->equipment->armor = NULL;
 		actors[i]->equipment->helm = NULL;
 		actors[i]->equipment->boots = NULL;
-
 	}
-
+	
 	fread(&(actors[n_actors]->inventory->n_items), sizeof(int), 1, infile);
 	for (int i = 0; i < actors[n_actors]->inventory->n_items; i++)
 	{

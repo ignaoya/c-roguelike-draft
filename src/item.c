@@ -232,6 +232,7 @@ void removeItemFromItems(int index)
 		if (counter == index - 1)
 		{
 			temp->next = temp->next->next;
+			break;
 		}
 		counter++;
 	}
