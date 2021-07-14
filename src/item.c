@@ -222,23 +222,6 @@ void consumeItem(Inventory* inventory, int index)
 	inventory->n_items--;
 }
 
-void removeItemFromItems(int index)
-{
-	int counter = 0;
-	List* temp = items;
-
-	while (temp = temp->next)
-	{
-		if (counter == index - 1)
-		{
-			temp->next = temp->next->next;
-			break;
-		}
-		counter++;
-	}
-	n_items--;
-}
-
 bool equipItem(Item* self, Actor* equiper)
 {
 	if (self->weapon)
@@ -299,7 +282,6 @@ bool equipItem(Item* self, Actor* equiper)
 void unequipItem(Item* equipment, Actor* actor)
 {
 	appendItem(items, equipment);
-	n_items++;
 
 	equipment->entity->position.y = actor->entity->position.y;
 	equipment->entity->position.x = actor->entity->position.x;

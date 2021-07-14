@@ -6,6 +6,7 @@ void saveGame(void)
 	List* temp;
 	int eraser = 0;
 	bool hasEquipment;
+	int n_items;
 
 
 	outfile = fopen("save/game.sav", "wb");
@@ -174,6 +175,7 @@ bool loadGame(void)
 	List* temp;
 	int eraserCatcher;
 	bool hasEquipment;
+	int n_items;
 
 	infile = fopen("save/game.sav", "rb");
 	if (infile == NULL)

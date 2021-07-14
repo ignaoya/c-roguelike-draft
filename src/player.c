@@ -224,7 +224,7 @@ void grabItem(Entity* player)
 				player->owner->inventory->n_items++;
 				temp->item->entity->position.y = 0;
 				temp->item->entity->position.x = 0;
-				removeItemFromItems(i);
+				removeItem(items, temp->item, false);;
 				addMessage("You pick up an item.");
 			}
 			else

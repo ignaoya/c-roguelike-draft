@@ -49,38 +49,33 @@ Room** mapSetUp(void)
 			n_actors++;
 		}
 
-		if (n_items < MAX_ITEMS)
+		for (int k = 0; k < 1; k++)
 		{
-			for (int k = 0; k < 1; k++)
+			ItemTemplate itemTemp;
+			int item_y = rand() % (height - 2) + y + 1;
+			int item_x = rand() % (width - 2) + x + 1;
+			int item_type = rand() % 10;
+			if (item_type > 6)
 			{
-				ItemTemplate itemTemp;
-				int item_y = rand() % (height - 2) + y + 1;
-				int item_x = rand() % (width - 2) + x + 1;
-				int item_type = rand() % 10;
-				if (item_type > 6)
-				{
-					itemTemp = health_potion;
-				}
-				else if (item_type > 4)
-				{
-					itemTemp = short_sword;
-				}
-				else if (item_type > 1)
-				{
-					itemTemp = small_shield;
-				}
-				else
-				{
-					itemTemp = light_helm;
-				}
-				appendItem(items, createItem(item_y, item_x, itemTemp));
-				n_items++;
+				itemTemp = health_potion;
 			}
+			else if (item_type > 4)
+			{
+				itemTemp = short_sword;
+			}
+			else if (item_type > 1)
+			{
+				itemTemp = small_shield;
+			}
+			else
+			{
+				itemTemp = light_helm;
+			}
+			appendItem(items, createItem(item_y, item_x, itemTemp));
 		}
 
 		drawRoom(rooms[i]);
 		
-
 		if (i > 0) 
 		{
 			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
@@ -150,7 +145,6 @@ void clearLevel(void)
 	{
 		free(temp->item);
 	}
-	n_items = 0;
 
 	items->item = NULL;
 	items->next = NULL;

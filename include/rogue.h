@@ -24,10 +24,6 @@
 #define ACTOR 2
 
 
-extern const int GAMEMAP_HEIGHT;
-extern const int GAMEMAP_WIDTH;
-extern const int MAX_MONSTERS;
-extern const int MAX_ITEMS;
 
 struct Actor;
 typedef struct Actor Actor;
@@ -176,12 +172,16 @@ typedef struct List
 
 
 
+// global constants
+extern const int GAMEMAP_HEIGHT;
+extern const int GAMEMAP_WIDTH;
+extern const int MAX_MONSTERS;
+
 // global variables
 extern Tile** level;
 extern Actor* actors[];
 extern List* items;
 extern int n_actors;
-extern int n_items;
 extern Message** message_log;
 extern int message_count;
 extern int dungeon_level;
@@ -248,7 +248,6 @@ bool useManaPotion(Item* self, Actor* drinker);
 bool castLightning(Item* self, Actor* caster);
 bool castFireball(Item* self, Actor* caster);
 void consumeItem(Inventory* inventory, int index);
-void removeItemFromItems(int index);
 bool equipItem(Item* self, Actor* equiper);
 void unequipItem(Item* equipment, Actor* actor);
 
@@ -289,6 +288,8 @@ int minInt(int a, int b);
 void clrRect(Position a, Position b);
 void appendItem(List* head, Item* item);
 void appendActor(List* head, Actor* actor);
+void removeItem(List* head, Item* item, bool cleanUp);
+void removeActor(List* head, Actor* actor, bool cleanUp);
 
 // save_load.c functions
 void saveGame(void);

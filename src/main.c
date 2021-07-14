@@ -3,12 +3,10 @@
 const int GAMEMAP_HEIGHT = 35;
 const int GAMEMAP_WIDTH = 120;
 const int MAX_MONSTERS = 15;
-const int MAX_ITEMS = 15;
 Tile** level;
 Actor* actors[16] = { NULL };
 List* items;
 int n_actors = 0;
-int n_items = 0;
 Message** message_log;
 int message_count = 0;
 int dungeon_level;
