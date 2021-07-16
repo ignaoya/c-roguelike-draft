@@ -32,9 +32,7 @@ Actor* playerSetUp(Room* room)
 	newPlayer->inventory->n_items = 1;
 	newPlayer->equipment->weapon = NULL;
 	newPlayer->equipment->shield = NULL;
-	newPlayer->equipment->armor = NULL;
 	newPlayer->equipment->helm = NULL;
-	newPlayer->equipment->boots = NULL;
 
 	memcpy(newPlayer->name, "player", sizeof(char) * 64);
 	newPlayer->dead = false;

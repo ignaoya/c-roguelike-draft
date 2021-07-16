@@ -111,20 +111,6 @@ void saveGame(void)
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
 	}
 
-	if (player->equipment->armor)
-	{
-		hasEquipment = true;
-		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(player->equipment->armor, sizeof(Item), 1, outfile);
-		fwrite(player->equipment->armor->entity, sizeof(Entity), 1, outfile);
-		fwrite(player->equipment->armor->name, sizeof(char) * 64, 1, outfile);
-	}
-	else
-	{
-		hasEquipment = false;
-		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-	}
-	
 	if (player->equipment->helm)
 	{
 		hasEquipment = true;
@@ -138,21 +124,6 @@ void saveGame(void)
 		hasEquipment = false;
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
 	}
-
-	if (player->equipment->boots)
-	{
-		hasEquipment = true;
-		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(player->equipment->boots, sizeof(Item), 1, outfile);
-		fwrite(player->equipment->boots->entity, sizeof(Entity), 1, outfile);
-		fwrite(player->equipment->boots->name, sizeof(char) * 64, 1, outfile);
-	}
-	else
-	{
-		hasEquipment = false;
-		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-	}
-
 
 	fwrite(&message_count, sizeof(int), 1, outfile);
 
@@ -267,9 +238,7 @@ bool loadGame(void)
 
 		actor->equipment->weapon = NULL;
 		actor->equipment->shield = NULL;
-		actor->equipment->armor = NULL;
 		actor->equipment->helm = NULL;
-		actor->equipment->boots = NULL;
 
 		if (i == n_actors - 1)
 		{
@@ -342,22 +311,6 @@ bool loadGame(void)
 	{
 		player->equipment->shield = NULL;
 	}
-
-	fread(&hasEquipment, sizeof(bool), 1, infile);
-	if (hasEquipment)
-	{
-		player->equipment->armor = malloc(sizeof(Item));
-		fread(player->equipment->armor, sizeof(Item), 1, infile);
-		player->equipment->armor->entity = malloc(sizeof(Entity));
-		fread(player->equipment->armor->entity, sizeof(Entity), 1, infile);
-		fread(player->equipment->armor->name, sizeof(char) * 64, 1, infile);
-		player->equipment->armor->entity->item = player->equipment->armor;
-		player->equipment->armor->useFunction = equipItem;
-	}
-	else
-	{
-		player->equipment->armor = NULL;
-	}
 	
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
@@ -373,22 +326,6 @@ bool loadGame(void)
 	else
 	{
 		player->equipment->helm = NULL;
-	}
-
-	fread(&hasEquipment, sizeof(bool), 1, infile);
-	if (hasEquipment)
-	{
-		player->equipment->boots = malloc(sizeof(Item));
-		fread(player->equipment->boots, sizeof(Item), 1, infile);
-		player->equipment->boots->entity = malloc(sizeof(Entity));
-		fread(player->equipment->boots->entity, sizeof(Entity), 1, infile);
-		fread(player->equipment->boots->name, sizeof(char) * 64, 1, infile);
-		player->equipment->boots->entity->item = player->equipment->boots;
-		player->equipment->boots->useFunction = equipItem;
-	}
-	else
-	{
-		player->equipment->boots = NULL;
 	}
 
 	fread(&message_count, sizeof(int), 1, infile);

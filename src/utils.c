@@ -107,9 +107,7 @@ void freeActor(Actor* actor)
 
 	free(actor->equipment->weapon);
 	free(actor->equipment->shield);
-	free(actor->equipment->armor);
 	free(actor->equipment->helm);
-	free(actor->equipment->boots);
 	free(actor->equipment);
 
 	free(actor);

@@ -109,9 +109,7 @@ struct Item
 	char name[64];
 	bool weapon;
 	bool shield;
-	bool armor;
 	bool helm;
-	bool boots;
 	int bonus;
 };
 
@@ -125,9 +123,7 @@ struct Equipment
 {
 	Item* weapon;
 	Item* shield;
-	Item* armor;
 	Item* helm;
-	Item* boots;
 };
 	
 typedef struct
@@ -149,9 +145,7 @@ typedef struct
 	char name[64];
 	bool weapon;
 	bool shield;
-	bool armor;
 	bool helm;
-	bool boots;
 	int bonus;
 } ItemTemplate;
 
@@ -196,9 +190,7 @@ extern ItemTemplate lightning_scroll;
 extern ItemTemplate fireball_scroll;
 extern ItemTemplate short_sword;
 extern ItemTemplate small_shield;
-extern ItemTemplate light_armor;
 extern ItemTemplate light_helm;
-extern ItemTemplate light_boots;
 
 // main.c functions
 bool screenSetUp(void);

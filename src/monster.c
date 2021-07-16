@@ -38,9 +38,7 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 	memcpy(monster->name, template.name, sizeof(char) * 64);
 	monster->equipment->weapon = NULL;
 	monster->equipment->shield = NULL;
-	monster->equipment->armor = NULL;
 	monster->equipment->helm = NULL;
-	monster->equipment->boots = NULL;
 	monster->dead = false;
 
 	return monster;
