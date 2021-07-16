@@ -133,19 +133,28 @@ void clearLevel(void)
 {
 	List* node;
 
+	node = actors;
+	while ((node = node->next) && (node->actor != player))
+	{
+		freeActor(node->actor);
+	}
+
 	actors->actor = NULL;
 	actors->next = NULL;
 
 	node = items;
 	while (node = node->next)
 	{
-		free(node->item);
+		freeItem(node->item);
 	}
 
 	items->item = NULL;
 	items->next = NULL;
 
-	free(level);
+	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
+	{
+		free(level[y]);
+	}
 }
 
 void createNewLevel(void)

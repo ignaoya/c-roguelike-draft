@@ -291,6 +291,8 @@ void appendItem(List* head, Item* item);
 void appendActor(List* head, Actor* actor);
 void removeItem(List* head, Item* item, bool cleanUp);
 void removeActor(List* head, Actor* actor, bool cleanUp);
+void freeActor(Actor* actor);
+void freeItem(Item* item);
 
 // save_load.c functions
 void saveGame(void);

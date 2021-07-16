@@ -91,4 +91,35 @@ void removeActor(List* head, Actor* actor, bool cleanUp)
 	}
 }
 
+void freeActor(Actor* actor)
+{
+	free(actor->entity);
+
+	free(actor->fighter);
+
+	free(actor->ai);
+
+	for (int i = 0; i < actor->inventory->n_items; i++)
+	{
+		freeItem(actor->inventory->items[i]);
+	}
+	free(actor->inventory);
+
+	free(actor->equipment->weapon);
+	free(actor->equipment->shield);
+	free(actor->equipment->armor);
+	free(actor->equipment->helm);
+	free(actor->equipment->boots);
+	free(actor->equipment);
+
+	free(actor);
+}
+
+void freeItem(Item* item)
+{
+	free(item->entity);
+	
+	free(item);
+}
+
 
