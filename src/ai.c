@@ -62,13 +62,9 @@ void moveTowards(Actor* actor, Actor* target)
 		direction.y = actor_y + dy;
 		direction.x = actor_x + dx;
 
-		switch(level[direction.y][direction.x].ch)
+		if (level[direction.y][direction.x].walkable)
 		{
-			case '.':
-				monsterMove(direction, actor->entity);
-				break;
-			default:
-				break;
+			monsterMove(direction, actor->entity);
 		}
 	}
 }

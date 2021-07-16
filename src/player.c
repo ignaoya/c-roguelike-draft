@@ -140,16 +140,9 @@ void checkPosition(Position* newPosition, Entity* player)
 			break;
 		}
 	}
-	if (!occupied)
+	if ((!occupied) && (level[newPosition->y][newPosition->x].walkable))
 	{
-		switch (level[newPosition->y][newPosition->x].walkable)
-		{
-			case true:
-				playerMove(newPosition, player);
-				break;
-			default:
-				break;
-		}
+		playerMove(newPosition, player);
 	}
 }
 
