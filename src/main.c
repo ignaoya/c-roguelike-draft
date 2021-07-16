@@ -1,7 +1,7 @@
 #include "rogue.h"
 
-const int GAMEMAP_HEIGHT = 35;
-const int GAMEMAP_WIDTH = 120;
+const int GAMEMAP_HEIGHT = 30;
+const int GAMEMAP_WIDTH = 110;
 const int MAX_MONSTERS = 15;
 Actor* player;
 Tile** level;
@@ -165,16 +165,5 @@ void lostGame(void)
 
 bool checkVictory(void)
 {
-	/*
-	for (int i = 0; i < n_actors; i++)
-	{
-		if (!actors[i]->dead)
-		{
-			return false;
-		}
-	}
-
-	return true;
-	*/
 	return false; // Need to define win condition
 }
