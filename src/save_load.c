@@ -7,6 +7,7 @@ void saveGame(void)
 	int eraser = 0;
 	bool hasEquipment;
 	int n_items;
+	int n_actors;
 
 
 	outfile = fopen("save/game.sav", "wb");
@@ -183,6 +184,7 @@ bool loadGame(void)
 	int eraserCatcher;
 	bool hasEquipment;
 	int n_items;
+	int n_actors;
 
 	infile = fopen("save/game.sav", "rb");
 	if (infile == NULL)

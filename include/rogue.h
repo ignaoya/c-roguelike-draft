@@ -182,7 +182,6 @@ extern Actor* player;
 extern Tile** level;
 extern List* actors;
 extern List* items;
-extern int n_actors;
 extern Message** message_log;
 extern int message_count;
 extern int dungeon_level;

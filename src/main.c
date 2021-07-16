@@ -7,7 +7,6 @@ Actor* player;
 Tile** level;
 List* actors;
 List* items;
-int n_actors = 0;
 Message** message_log;
 int message_count = 0;
 int dungeon_level;
