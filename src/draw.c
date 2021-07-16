@@ -15,32 +15,34 @@ void drawEntity(Entity* entity)
 
 void drawAllEntities(void)
 {
+	List* node;
 	int x, y;
-	for (int j = 0; j < ACTOR + 1; j++)
+	for (int j = 0; j <= ACTOR; j++)
 	{
-		for (int i = 0; i <= n_actors; i++)
+		node = actors;
+		while (node = node->next)
 		{
-			if (actors[i]->entity->draw_order == j)
+			if (node->actor->entity->draw_order == j)
 			{
-				y = actors[i]->entity->position.y;
-				x = actors[i]->entity->position.x;
+				y = node->actor->entity->position.y;
+				x = node->actor->entity->position.x;
 				if (level[y][x].visible)
 				{
-					drawEntity(actors[i]->entity);
+					drawEntity(node->actor->entity);
 				}
 			}
 		}
 		if (j == ITEM)
 		{
-			List* temp = items;
+			node = items;
 
-			while (temp = temp->next)
+			while (node = node->next)
 			{
-				y = temp->item->entity->position.y;
-				x = temp->item->entity->position.x;
+				y = node->item->entity->position.y;
+				x = node->item->entity->position.x;
 				if (level[y][x].visible)
 				{
-					drawEntity(temp->item->entity);
+					drawEntity(node->item->entity);
 				}
 			}
 		}
@@ -90,5 +92,5 @@ void showWholeMap(void)
 			level[y][x].visible = false;
 		}
 	}
-	makeFOV(actors[n_actors]->entity);
+	makeFOV(player->entity);
 }

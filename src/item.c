@@ -74,18 +74,20 @@ bool castLightning(Item* self, Actor* caster)
 	int farthest = 200;
 	int temp;
 	char text[1024];
+	List* node;
 
 	if (caster->fighter->mana >= 2)
 	{
-		for (int i = 0; i < n_actors; i++)
+		node = actors;
+		while ((node = node->next) && (node->actor != caster))
 		{
-			if (level[actors[i]->entity->position.y][actors[i]->entity->position.x].visible)
+			if (level[node->actor->entity->position.y][node->actor->entity->position.x].visible)
 			{
-				temp = getDistance(caster->entity->position, actors[i]->entity->position);
-				if (temp < farthest && !actors[i]->dead)
+				temp = getDistance(caster->entity->position, node->actor->entity->position);
+				if (temp < farthest && !node->actor->dead)
 				{
 					farthest = temp;
-					target = actors[i];
+					target = node->actor;
 				}
 			}
 		}
@@ -119,6 +121,7 @@ bool castFireball(Item* self, Actor* caster)
 	int damage;
 	char temp;
 	Position cursor;
+	List* node;
 
 	if (caster->fighter->mana >= 3)
 	{
@@ -171,10 +174,11 @@ bool castFireball(Item* self, Actor* caster)
 						{
 							for (int x = -1; x < 2; x++)
 							{
-								for (int i = 0; i <= n_actors; i++)
+								node = actors;
+								while (node = node->next)
 								{
-									if (actors[i]->entity->position.y == cursor.y + y &&
-											actors[i]->entity->position.x == cursor.x + x)
+									if (node->actor->entity->position.y == cursor.y + y &&
+											node->actor->entity->position.x == cursor.x + x)
 									{
 										if (y == 0 && x == 0)
 										{
@@ -184,9 +188,9 @@ bool castFireball(Item* self, Actor* caster)
 										{
 											damage = 10;
 										}
-										snprintf(text, sizeof(text), "The %s takes %i damage!", actors[i]->name, damage);
+										snprintf(text, sizeof(text), "The %s takes %i damage!", node->actor->name, damage);
 										addMessage(text);
-										takeDamage(actors[i]->fighter, damage);
+										takeDamage(node->actor->fighter, damage);
 									}
 								}
 							}

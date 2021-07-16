@@ -55,33 +55,40 @@ void saveGame(void)
 		fwrite(temp->item->name, sizeof(char) * 64, 1, outfile);
 	}
 
+	n_actors = 0;
+	temp = actors;
+	while (temp = temp->next)
+	{
+		n_actors++;
+	}
 	fwrite(&n_actors, sizeof(int), 1, outfile);
 
-	for (int i = 0; i <= n_actors; i++)
+	temp = actors;
+	while (temp = temp->next)
 	{
-		fwrite(actors[i]->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[i]->fighter, sizeof(Fighter), 1, outfile);
-		fwrite(actors[i]->ai, sizeof(AI), 1, outfile);
-		//fwrite(actors[i]->inventory, sizeof(Inventory), 1, outfile);
-		fwrite(actors[i]->name, sizeof(char) * 64, 1, outfile);
-		fwrite(&(actors[i]->dead), sizeof(bool), 1, outfile);
+		fwrite(temp->actor->entity, sizeof(Entity), 1, outfile);
+		fwrite(temp->actor->fighter, sizeof(Fighter), 1, outfile);
+		fwrite(temp->actor->ai, sizeof(AI), 1, outfile);
+		//fwrite(temp->actor->inventory, sizeof(Inventory), 1, outfile);
+		fwrite(temp->actor->name, sizeof(char) * 64, 1, outfile);
+		fwrite(&(temp->actor->dead), sizeof(bool), 1, outfile);
 	}
 
-	fwrite(&(actors[n_actors]->inventory->n_items), sizeof(int), 1, outfile);
-	for (int i = 0; i < actors[n_actors]->inventory->n_items; i++)
+	fwrite(&(player->inventory->n_items), sizeof(int), 1, outfile);
+	for (int i = 0; i < player->inventory->n_items; i++)
 	{
-		fwrite(actors[n_actors]->inventory->items[i], sizeof(Item), 1, outfile);
-		fwrite(actors[n_actors]->inventory->items[i]->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[n_actors]->inventory->items[i]->name, sizeof(char) * 64, 1, outfile);
+		fwrite(player->inventory->items[i], sizeof(Item), 1, outfile);
+		fwrite(player->inventory->items[i]->entity, sizeof(Entity), 1, outfile);
+		fwrite(player->inventory->items[i]->name, sizeof(char) * 64, 1, outfile);
 	}
 
-	if (actors[n_actors]->equipment->weapon)
+	if (player->equipment->weapon)
 	{
 		hasEquipment = true;
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(actors[n_actors]->equipment->weapon, sizeof(Item), 1, outfile);
-		fwrite(actors[n_actors]->equipment->weapon->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[n_actors]->equipment->weapon->name, sizeof(char) * 64, 1, outfile);
+		fwrite(player->equipment->weapon, sizeof(Item), 1, outfile);
+		fwrite(player->equipment->weapon->entity, sizeof(Entity), 1, outfile);
+		fwrite(player->equipment->weapon->name, sizeof(char) * 64, 1, outfile);
 	}
 	else
 	{
@@ -89,13 +96,13 @@ void saveGame(void)
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
 	}
 
-	if (actors[n_actors]->equipment->shield)
+	if (player->equipment->shield)
 	{
 		hasEquipment = true;
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(actors[n_actors]->equipment->shield, sizeof(Item), 1, outfile);
-		fwrite(actors[n_actors]->equipment->shield->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[n_actors]->equipment->shield->name, sizeof(char) * 64, 1, outfile);
+		fwrite(player->equipment->shield, sizeof(Item), 1, outfile);
+		fwrite(player->equipment->shield->entity, sizeof(Entity), 1, outfile);
+		fwrite(player->equipment->shield->name, sizeof(char) * 64, 1, outfile);
 	}
 	else
 	{
@@ -103,13 +110,13 @@ void saveGame(void)
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
 	}
 
-	if (actors[n_actors]->equipment->armor)
+	if (player->equipment->armor)
 	{
 		hasEquipment = true;
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(actors[n_actors]->equipment->armor, sizeof(Item), 1, outfile);
-		fwrite(actors[n_actors]->equipment->armor->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[n_actors]->equipment->armor->name, sizeof(char) * 64, 1, outfile);
+		fwrite(player->equipment->armor, sizeof(Item), 1, outfile);
+		fwrite(player->equipment->armor->entity, sizeof(Entity), 1, outfile);
+		fwrite(player->equipment->armor->name, sizeof(char) * 64, 1, outfile);
 	}
 	else
 	{
@@ -117,13 +124,13 @@ void saveGame(void)
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
 	}
 	
-	if (actors[n_actors]->equipment->helm)
+	if (player->equipment->helm)
 	{
 		hasEquipment = true;
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(actors[n_actors]->equipment->helm, sizeof(Item), 1, outfile);
-		fwrite(actors[n_actors]->equipment->helm->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[n_actors]->equipment->helm->name, sizeof(char) * 64, 1, outfile);
+		fwrite(player->equipment->helm, sizeof(Item), 1, outfile);
+		fwrite(player->equipment->helm->entity, sizeof(Entity), 1, outfile);
+		fwrite(player->equipment->helm->name, sizeof(char) * 64, 1, outfile);
 	}
 	else
 	{
@@ -131,13 +138,13 @@ void saveGame(void)
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
 	}
 
-	if (actors[n_actors]->equipment->boots)
+	if (player->equipment->boots)
 	{
 		hasEquipment = true;
 		fwrite(&hasEquipment, sizeof(bool), 1, outfile);
-		fwrite(actors[n_actors]->equipment->boots, sizeof(Item), 1, outfile);
-		fwrite(actors[n_actors]->equipment->boots->entity, sizeof(Entity), 1, outfile);
-		fwrite(actors[n_actors]->equipment->boots->name, sizeof(char) * 64, 1, outfile);
+		fwrite(player->equipment->boots, sizeof(Item), 1, outfile);
+		fwrite(player->equipment->boots->entity, sizeof(Entity), 1, outfile);
+		fwrite(player->equipment->boots->name, sizeof(char) * 64, 1, outfile);
 	}
 	else
 	{
@@ -237,142 +244,149 @@ bool loadGame(void)
 	}
 
 	fread(&n_actors, sizeof(int), 1, infile);
-	for (int i = 0; i <= n_actors; i++)
+	for (int i = 0; i < n_actors; i++)
 	{
-		actors[i] = malloc(sizeof(Actor));
-		actors[i]->entity = malloc(sizeof(Entity));
-		actors[i]->fighter = malloc(sizeof(Fighter));
-		actors[i]->ai = malloc(sizeof(AI));
-		actors[i]->inventory = malloc(sizeof(Inventory));
-		actors[i]->equipment = malloc(sizeof(Equipment));
+		Actor* actor = malloc(sizeof(Actor));
+		actor->entity = malloc(sizeof(Entity));
+		actor->fighter = malloc(sizeof(Fighter));
+		actor->ai = malloc(sizeof(AI));
+		actor->inventory = malloc(sizeof(Inventory));
+		actor->equipment = malloc(sizeof(Equipment));
 
-		fread(actors[i]->entity, sizeof(Entity), 1, infile);
-		fread(actors[i]->fighter, sizeof(Fighter), 1, infile);
-		fread(actors[i]->ai, sizeof(AI), 1, infile);
-		//fread(actors[i]->inventory, sizeof(Inventory), 1, infile);
-		fread(actors[i]->name, sizeof(char) * 64, 1, infile);
-		fread(&(actors[i]->dead), sizeof(bool), 1, infile);
+		fread(actor->entity, sizeof(Entity), 1, infile);
+		fread(actor->fighter, sizeof(Fighter), 1, infile);
+		fread(actor->ai, sizeof(AI), 1, infile);
+		//fread(actor->inventory, sizeof(Inventory), 1, infile);
+		fread(actor->name, sizeof(char) * 64, 1, infile);
+		fread(&(actor->dead), sizeof(bool), 1, infile);
 
-		actors[i]->entity->owner = actors[i];
-		actors[i]->fighter->owner = actors[i];
+		actor->entity->owner = actor;
+		actor->fighter->owner = actor;
 
-		actors[i]->equipment->weapon = NULL;
-		actors[i]->equipment->shield = NULL;
-		actors[i]->equipment->armor = NULL;
-		actors[i]->equipment->helm = NULL;
-		actors[i]->equipment->boots = NULL;
+		actor->equipment->weapon = NULL;
+		actor->equipment->shield = NULL;
+		actor->equipment->armor = NULL;
+		actor->equipment->helm = NULL;
+		actor->equipment->boots = NULL;
+
+		if (i == n_actors - 1)
+		{
+			player = actor;
+		}
+
+		appendActor(actors, actor);
 	}
 	
-	fread(&(actors[n_actors]->inventory->n_items), sizeof(int), 1, infile);
-	for (int i = 0; i < actors[n_actors]->inventory->n_items; i++)
+	fread(&(player->inventory->n_items), sizeof(int), 1, infile);
+	for (int i = 0; i < player->inventory->n_items; i++)
 	{
-		actors[n_actors]->inventory->items[i] = malloc(sizeof(Item));
-		fread(actors[n_actors]->inventory->items[i], sizeof(Item), 1, infile);
-		actors[n_actors]->inventory->items[i]->entity = malloc(sizeof(Entity));
-		fread(actors[n_actors]->inventory->items[i]->entity, sizeof(Entity), 1, infile);
-		fread(actors[n_actors]->inventory->items[i]->name, sizeof(char) * 64, 1, infile);
-		actors[n_actors]->inventory->items[i]->entity->item = actors[n_actors]->inventory->items[i];
+		player->inventory->items[i] = malloc(sizeof(Item));
+		fread(player->inventory->items[i], sizeof(Item), 1, infile);
+		player->inventory->items[i]->entity = malloc(sizeof(Entity));
+		fread(player->inventory->items[i]->entity, sizeof(Entity), 1, infile);
+		fread(player->inventory->items[i]->name, sizeof(char) * 64, 1, infile);
+		player->inventory->items[i]->entity->item = player->inventory->items[i];
 
-		if (!strcmp(actors[n_actors]->inventory->items[i]->name, "Life Potion"))
+		if (!strcmp(player->inventory->items[i]->name, "Life Potion"))
 		{
-			actors[n_actors]->inventory->items[i]->useFunction = useHealthPotion;
+			player->inventory->items[i]->useFunction = useHealthPotion;
 		}
-		else if (!strcmp(actors[n_actors]->inventory->items[i]->name, "Mana Potion"))
+		else if (!strcmp(player->inventory->items[i]->name, "Mana Potion"))
 		{
-			actors[n_actors]->inventory->items[i]->useFunction = useManaPotion;
+			player->inventory->items[i]->useFunction = useManaPotion;
 		}
-		else if (!strcmp(actors[n_actors]->inventory->items[i]->name, "Bolt Scroll"))
+		else if (!strcmp(player->inventory->items[i]->name, "Bolt Scroll"))
 		{
-			actors[n_actors]->inventory->items[i]->useFunction = castLightning;
+			player->inventory->items[i]->useFunction = castLightning;
 		}
-		else if (!strcmp(actors[n_actors]->inventory->items[i]->name, "Fire Scroll"))
+		else if (!strcmp(player->inventory->items[i]->name, "Fire Scroll"))
 		{
-			actors[n_actors]->inventory->items[i]->useFunction = castFireball;
+			player->inventory->items[i]->useFunction = castFireball;
 		}
 		else
 		{
-			actors[n_actors]->inventory->items[i]->useFunction = equipItem;
+			player->inventory->items[i]->useFunction = equipItem;
 		}
 	}
 
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		actors[n_actors]->equipment->weapon = malloc(sizeof(Item));
-		fread(actors[n_actors]->equipment->weapon, sizeof(Item), 1, infile);
-		actors[n_actors]->equipment->weapon->entity = malloc(sizeof(Entity));
-		fread(actors[n_actors]->equipment->weapon->entity, sizeof(Entity), 1, infile);
-		fread(actors[n_actors]->equipment->weapon->name, sizeof(char) * 64, 1, infile);
-		actors[n_actors]->equipment->weapon->entity->item = actors[n_actors]->equipment->weapon;
-		actors[n_actors]->equipment->weapon->useFunction = equipItem;
+		player->equipment->weapon = malloc(sizeof(Item));
+		fread(player->equipment->weapon, sizeof(Item), 1, infile);
+		player->equipment->weapon->entity = malloc(sizeof(Entity));
+		fread(player->equipment->weapon->entity, sizeof(Entity), 1, infile);
+		fread(player->equipment->weapon->name, sizeof(char) * 64, 1, infile);
+		player->equipment->weapon->entity->item = player->equipment->weapon;
+		player->equipment->weapon->useFunction = equipItem;
 	}
 	else
 	{
-		actors[n_actors]->equipment->weapon = NULL;
+		player->equipment->weapon = NULL;
 	}
 
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		actors[n_actors]->equipment->shield = malloc(sizeof(Item));
-		fread(actors[n_actors]->equipment->shield, sizeof(Item), 1, infile);
-		actors[n_actors]->equipment->shield->entity = malloc(sizeof(Entity));
-		fread(actors[n_actors]->equipment->shield->entity, sizeof(Entity), 1, infile);
-		fread(actors[n_actors]->equipment->shield->name, sizeof(char) * 64, 1, infile);
-		actors[n_actors]->equipment->shield->entity->item = actors[n_actors]->equipment->shield;
-		actors[n_actors]->equipment->shield->useFunction = equipItem;
+		player->equipment->shield = malloc(sizeof(Item));
+		fread(player->equipment->shield, sizeof(Item), 1, infile);
+		player->equipment->shield->entity = malloc(sizeof(Entity));
+		fread(player->equipment->shield->entity, sizeof(Entity), 1, infile);
+		fread(player->equipment->shield->name, sizeof(char) * 64, 1, infile);
+		player->equipment->shield->entity->item = player->equipment->shield;
+		player->equipment->shield->useFunction = equipItem;
 	}
 	else
 	{
-		actors[n_actors]->equipment->shield = NULL;
+		player->equipment->shield = NULL;
 	}
 
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		actors[n_actors]->equipment->armor = malloc(sizeof(Item));
-		fread(actors[n_actors]->equipment->armor, sizeof(Item), 1, infile);
-		actors[n_actors]->equipment->armor->entity = malloc(sizeof(Entity));
-		fread(actors[n_actors]->equipment->armor->entity, sizeof(Entity), 1, infile);
-		fread(actors[n_actors]->equipment->armor->name, sizeof(char) * 64, 1, infile);
-		actors[n_actors]->equipment->armor->entity->item = actors[n_actors]->equipment->armor;
-		actors[n_actors]->equipment->armor->useFunction = equipItem;
+		player->equipment->armor = malloc(sizeof(Item));
+		fread(player->equipment->armor, sizeof(Item), 1, infile);
+		player->equipment->armor->entity = malloc(sizeof(Entity));
+		fread(player->equipment->armor->entity, sizeof(Entity), 1, infile);
+		fread(player->equipment->armor->name, sizeof(char) * 64, 1, infile);
+		player->equipment->armor->entity->item = player->equipment->armor;
+		player->equipment->armor->useFunction = equipItem;
 	}
 	else
 	{
-		actors[n_actors]->equipment->armor = NULL;
+		player->equipment->armor = NULL;
 	}
 	
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		actors[n_actors]->equipment->helm = malloc(sizeof(Item));
-		fread(actors[n_actors]->equipment->helm, sizeof(Item), 1, infile);
-		actors[n_actors]->equipment->helm->entity = malloc(sizeof(Entity));
-		fread(actors[n_actors]->equipment->helm->entity, sizeof(Entity), 1, infile);
-		fread(actors[n_actors]->equipment->helm->name, sizeof(char) * 64, 1, infile);
-		actors[n_actors]->equipment->helm->entity->item = actors[n_actors]->equipment->helm;
-		actors[n_actors]->equipment->helm->useFunction = equipItem;
+		player->equipment->helm = malloc(sizeof(Item));
+		fread(player->equipment->helm, sizeof(Item), 1, infile);
+		player->equipment->helm->entity = malloc(sizeof(Entity));
+		fread(player->equipment->helm->entity, sizeof(Entity), 1, infile);
+		fread(player->equipment->helm->name, sizeof(char) * 64, 1, infile);
+		player->equipment->helm->entity->item = player->equipment->helm;
+		player->equipment->helm->useFunction = equipItem;
 	}
 	else
 	{
-		actors[n_actors]->equipment->helm = NULL;
+		player->equipment->helm = NULL;
 	}
 
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		actors[n_actors]->equipment->boots = malloc(sizeof(Item));
-		fread(actors[n_actors]->equipment->boots, sizeof(Item), 1, infile);
-		actors[n_actors]->equipment->boots->entity = malloc(sizeof(Entity));
-		fread(actors[n_actors]->equipment->boots->entity, sizeof(Entity), 1, infile);
-		fread(actors[n_actors]->equipment->boots->name, sizeof(char) * 64, 1, infile);
-		actors[n_actors]->equipment->boots->entity->item = actors[n_actors]->equipment->boots;
-		actors[n_actors]->equipment->boots->useFunction = equipItem;
+		player->equipment->boots = malloc(sizeof(Item));
+		fread(player->equipment->boots, sizeof(Item), 1, infile);
+		player->equipment->boots->entity = malloc(sizeof(Entity));
+		fread(player->equipment->boots->entity, sizeof(Entity), 1, infile);
+		fread(player->equipment->boots->name, sizeof(char) * 64, 1, infile);
+		player->equipment->boots->entity->item = player->equipment->boots;
+		player->equipment->boots->useFunction = equipItem;
 	}
 	else
 	{
-		actors[n_actors]->equipment->boots = NULL;
+		player->equipment->boots = NULL;
 	}
 
 	fread(&message_count, sizeof(int), 1, infile);

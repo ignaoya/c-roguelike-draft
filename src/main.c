@@ -3,8 +3,9 @@
 const int GAMEMAP_HEIGHT = 35;
 const int GAMEMAP_WIDTH = 120;
 const int MAX_MONSTERS = 15;
+Actor* player;
 Tile** level;
-Actor* actors[16] = { NULL };
+List* actors;
 List* items;
 int n_actors = 0;
 Message** message_log;
@@ -18,10 +19,13 @@ int main(void)
 	srand(time(NULL));
 	bool compatibleTerminal;
 	bool load_successful;
-	Actor* player;
 	int ch;
 	Position* newPosition;
 	Room** rooms;
+
+	actors = malloc(sizeof(List));
+	actors->actor = NULL;
+	actors->next = NULL;
 
 	items = malloc(sizeof(List));
 	items->item = NULL;
@@ -31,20 +35,15 @@ int main(void)
 	compatibleTerminal = screenSetUp();
 	load_successful = intro();
 
-	if (load_successful)
-	{
-		player = actors[n_actors];
-	}
-	else
+	if (!load_successful)
 	{
 		dungeon_level = 1;
 		level = createLevelTiles();
 		rooms = mapSetUp();
 		player = playerSetUp(rooms[0]);
-		actors[n_actors] = player;
+		appendActor(actors, player);
 		message_log = createLog();
 	}
-
 
 	makeFOV(player->entity);
 	drawEverything();

@@ -22,11 +22,12 @@ void takeTurn(Actor* actor, Actor* player)
 
 void allMonstersTakeTurns(Actor* player)
 {
-	for (int i = 0; i < n_actors; i++)
+	List* temp = actors;
+	while (temp = temp->next)
 	{
-		if (!(actors[i]->dead))
+		if (!(temp->actor->dead) && strcmp(temp->actor->name, "player"))
 		{
-			takeTurn(actors[i], player);
+			takeTurn(temp->actor, player);
 		}
 	}
 }
@@ -74,12 +75,15 @@ void moveTowards(Actor* actor, Actor* target)
 
 void monsterMove(Position direction, Entity* entity)
 {
+	List* node;
 	bool occupied = false;
-	for (int i = 0; i < n_actors; i++)
+
+	node = actors;
+	while ((node = node->next) && (strcmp(node->actor->name, "player")))
 	{
-		if (!actors[i]->dead && 
-				actors[i]->entity->position.y == direction.y && 
-				actors[i]->entity->position.x == direction.x)
+		if (!node->actor->dead && 
+				node->actor->entity->position.y == direction.y && 
+				node->actor->entity->position.x == direction.x)
 		{
 			occupied = true;
 		}

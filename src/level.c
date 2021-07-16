@@ -23,7 +23,7 @@ Room** mapSetUp(void)
 		for (int j = 0; j < n_monsters; j++)
 		{
 			MonsterTemplate template;
-			if (n_actors >= MAX_MONSTERS || i == 0)
+			if (i == 0)
 			{
 				break;
 			}
@@ -45,8 +45,7 @@ Room** mapSetUp(void)
 				template = troll;
 				monster_level = maxInt(1, monster_level / 3);
 			}
-			actors[n_actors] = createMonster(monster_y, monster_x, template, monster_level);
-			n_actors++;
+			appendActor(actors, createMonster(monster_y, monster_x, template, monster_level));
 		}
 
 		for (int k = 0; k < 1; k++)
@@ -132,18 +131,15 @@ Tile** createLevelTiles(void)
 
 void clearLevel(void)
 {
-	List* temp;
+	List* node;
 
-	for (int i = 0; i < n_actors; i++)
-	{
-		free(actors[i]);
-	}
-	n_actors = 0;
+	actors->actor = NULL;
+	actors->next = NULL;
 
-	temp = items;
-	while (temp = temp->next)
+	node = items;
+	while (node = node->next)
 	{
-		free(temp->item);
+		free(node->item);
 	}
 
 	items->item = NULL;

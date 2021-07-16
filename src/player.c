@@ -126,14 +126,16 @@ Position* handleInput(int input, Entity* player)
 
 void checkPosition(Position* newPosition, Entity* player)
 {
+	List* node = actors;
 	bool occupied = false;
-	for (int i = 0; i < n_actors; i++)
+
+	while ((node = node->next) && (node->actor != player->owner))
 	{
-		if (!actors[i]->dead && 
-				actors[i]->entity->position.y == newPosition->y && 
-				actors[i]->entity->position.x == newPosition->x)
+		if (!node->actor->dead && 
+				node->actor->entity->position.y == newPosition->y && 
+				node->actor->entity->position.x == newPosition->x)
 		{
-			attack(player->owner->fighter, actors[i]->fighter);
+			attack(player->owner->fighter, node->actor->fighter);
 			occupied = true;
 			break;
 		}
@@ -168,7 +170,7 @@ Position* goDownStairs(Entity* player)
 		dungeon_level++;
 		clearLevel();
 		createNewLevel();
-		actors[n_actors] = player->owner;
+		appendActor(actors, player->owner);
 		addMessage("You go deeper into the dungeon!");
 		temp->y = up_stairs.y;	
 		temp->x = up_stairs.x;
@@ -192,7 +194,7 @@ Position* goUpStairs(Entity* player)
 		dungeon_level--;
 		clearLevel();
 		createNewLevel();
-		actors[n_actors] = player->owner;
+		appendActor(actors, player->owner);
 		addMessage("You go up the levels of the dungeon!");
 		temp->y = down_stairs.y;
 		temp->x = down_stairs.x;
@@ -211,7 +213,6 @@ Position* goUpStairs(Entity* player)
 void grabItem(Entity* player)
 {
 	List* temp = items;
-	int i = 0;
 
 	while (temp = temp->next)
 	{
@@ -224,7 +225,7 @@ void grabItem(Entity* player)
 				player->owner->inventory->n_items++;
 				temp->item->entity->position.y = 0;
 				temp->item->entity->position.x = 0;
-				removeItem(items, temp->item, false);;
+				removeItem(items, temp->item, false);
 				addMessage("You pick up an item.");
 			}
 			else
@@ -233,8 +234,6 @@ void grabItem(Entity* player)
 			}
 			return;
 		}
-
-		i++;
 	}
 	addMessage("There's nothing to pick up.");
 }

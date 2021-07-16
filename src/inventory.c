@@ -42,7 +42,7 @@ void useInventory(Inventory* inventory)
 				itemIndex = cursorPos + itemOffset;
 				if (itemIndex < inventory->n_items)
 				{
-					itemWasConsumed = inventory->items[itemIndex]->useFunction(inventory->items[itemIndex], actors[n_actors]);
+					itemWasConsumed = inventory->items[itemIndex]->useFunction(inventory->items[itemIndex], player);
 					if (itemWasConsumed)
 					{
 						consumeItem(inventory, itemIndex);

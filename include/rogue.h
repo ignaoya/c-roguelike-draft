@@ -178,8 +178,9 @@ extern const int GAMEMAP_WIDTH;
 extern const int MAX_MONSTERS;
 
 // global variables
+extern Actor* player;
 extern Tile** level;
-extern Actor* actors[];
+extern List* actors;
 extern List* items;
 extern int n_actors;
 extern Message** message_log;
