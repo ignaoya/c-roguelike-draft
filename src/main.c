@@ -2,7 +2,6 @@
 
 const int GAMEMAP_HEIGHT = 30;
 const int GAMEMAP_WIDTH = 110;
-const int MAX_MONSTERS = 15;
 Actor* player;
 Tile** level;
 List* actors;
@@ -93,7 +92,6 @@ bool screenSetUp(void)
 	{
 		start_color();
 
-		init_pair(BLACK_COLOR, COLOR_BLACK, COLOR_BLACK);
 		init_pair(PLAYER_COLOR, COLOR_WHITE, COLOR_BLACK);
 		init_pair(VISIBLE_COLOR, COLOR_WHITE, COLOR_BLACK);
 		init_pair(SEEN_COLOR, COLOR_BLUE, COLOR_BLACK);

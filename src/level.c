@@ -3,10 +3,12 @@
 int MIN_SIZE = 4;
 int MAX_SIZE = 9;
 int MAX_MONSTERS_PER_ROOM = 2;
+int MAX_ITEMS_PER_ROOM = 2;
+int CHANCE_OF_ITEM = 70;
 
 Room** mapSetUp(void)
 {
-	int y, x, height, width, max_rooms, n_monsters;
+	int y, x, height, width, max_rooms, n_monsters, n_items;
 	max_rooms = rand() % 15 + 5;
 	Room** rooms;
 	rooms = malloc(sizeof(Room) * max_rooms);
@@ -18,6 +20,7 @@ Room** mapSetUp(void)
 		height = rand() % MAX_SIZE + MIN_SIZE;
 		width = rand() % MAX_SIZE + MIN_SIZE;
 		n_monsters = rand() % MAX_MONSTERS_PER_ROOM;
+		n_items = rand() % MAX_ITEMS_PER_ROOM;
 
 		rooms[i] = createRoom(y, x, height, width);
 		for (int j = 0; j < n_monsters; j++)
@@ -48,27 +51,73 @@ Room** mapSetUp(void)
 			appendActor(actors, createMonster(monster_y, monster_x, template, monster_level));
 		}
 
-		for (int k = 0; k < 1; k++)
+		for (int k = 0; k < n_items; k++)
 		{
+			if ((rand() % 100) < CHANCE_OF_ITEM)
+			{
+				continue;
+			}
 			ItemTemplate itemTemp;
 			int item_y = rand() % (height - 2) + y + 1;
 			int item_x = rand() % (width - 2) + x + 1;
+			int item_level = (rand() % 100) + (10 * dungeon_level);
 			int item_type = rand() % 10;
-			if (item_type > 6)
+			if (item_level < 60)
 			{
-				itemTemp = health_potion;
+				if (item_type < 6)
+				{
+					itemTemp = health_potion;
+				}
+				else if (item_type < 8)
+				{
+					itemTemp = mana_potion;
+				}
+				else
+				{
+					itemTemp = light_helm;
+				}
 			}
-			else if (item_type > 4)
+			else if (item_level < 80)
 			{
-				itemTemp = short_sword;
-			}
-			else if (item_type > 1)
-			{
-				itemTemp = small_shield;
+				if (item_type < 3)
+				{
+					itemTemp = health_potion;
+				}
+				else if (item_type < 6)
+				{
+					itemTemp = mana_potion;
+				}
+				else if (item_type < 8)
+				{
+					itemTemp = lightning_scroll;
+				}
+				else
+				{
+					itemTemp = light_helm;
+				}
 			}
 			else
 			{
-				itemTemp = light_helm;
+				if (item_type < 2)
+				{
+					itemTemp = health_potion;
+				}
+				else if (item_type < 4)
+				{
+					itemTemp = mana_potion;
+				}
+				else if (item_type < 6)
+				{
+					itemTemp = fireball_scroll;
+				}
+				else if (item_type < 8)
+				{
+					itemTemp = short_sword;
+				}
+				else
+				{
+					itemTemp = small_shield;
+				}
 			}
 			appendItem(items, createItem(item_y, item_x, itemTemp));
 		}

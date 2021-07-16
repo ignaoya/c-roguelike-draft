@@ -8,7 +8,6 @@
 #include <math.h>
 
 // color pairs
-#define BLACK_COLOR 0
 #define PLAYER_COLOR 1
 #define VISIBLE_COLOR 2
 #define SEEN_COLOR 3
@@ -169,7 +168,6 @@ typedef struct List
 // global constants
 extern const int GAMEMAP_HEIGHT;
 extern const int GAMEMAP_WIDTH;
-extern const int MAX_MONSTERS;
 
 // global variables
 extern Actor* player;
