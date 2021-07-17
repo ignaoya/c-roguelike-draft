@@ -261,6 +261,7 @@ int getSign(int a);
 Message** createLog();
 void addMessage(char text[1024]);
 void printMessages(void);
+void freeLog(void);
 
 // ui.c functions
 void drawUI(void);

@@ -1,11 +1,13 @@
 #include "rogue.h"
 
+const int LOG_SIZE = 10;
+
 Message** createLog(void)
 {
 	Message** new_log;
-	new_log = malloc(sizeof(Message) * 10);
+	new_log = malloc(sizeof(Message*) * LOG_SIZE);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < LOG_SIZE; i++)
 	{
 		Message* newMessage;
 		newMessage = malloc(sizeof(Message));
@@ -42,5 +44,16 @@ void printMessages(void)
 		mvprintw(37 - i, 5, message_log[i]->text);
 	}
 }
+
+void freeLog(void)
+{
+	for (int i = 0; i < LOG_SIZE; i++)
+	{
+		free(message_log[i]);
+	}
+	free(message_log);
+}
+
+
 
 

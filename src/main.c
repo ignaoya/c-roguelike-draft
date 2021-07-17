@@ -38,6 +38,7 @@ int main(void)
 		level = createLevelTiles();
 		newPosition = mapSetUp();
 		player = playerSetUp(newPosition);
+		free(newPosition);
 		appendActor(actors, player);
 		message_log = createLog();
 	}

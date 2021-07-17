@@ -105,9 +105,18 @@ void freeActor(Actor* actor)
 	}
 	free(actor->inventory);
 
-	free(actor->equipment->weapon);
-	free(actor->equipment->shield);
-	free(actor->equipment->helm);
+	if (actor->equipment->weapon)
+	{
+		freeItem(actor->equipment->weapon);
+	}
+	if (actor->equipment->shield)
+	{
+		freeItem(actor->equipment->shield);
+	}
+	if (actor->equipment->helm)
+	{
+		freeItem(actor->equipment->helm);
+	}
 	free(actor->equipment);
 
 	free(actor);
@@ -132,6 +141,7 @@ void freeAllRooms(Room** rooms, int n_rooms)
 	{
 		freeRoom(rooms[i]);
 	}
+	free(rooms);
 }
 
 void freeList(List* head)
@@ -151,5 +161,6 @@ void freeEverything(void)
 {
 	clearLevel();
 	freeActor(player);
+	freeLog();
 }
 

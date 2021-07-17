@@ -95,10 +95,12 @@ Position* handleInput(int input, Entity* player)
 
 		// Go down stairs
 		case '>':
+			free(newPosition);
 			newPosition = goDownStairs(player);
 			break;
 		// Go up stairs
 		case '<':
+			free(newPosition);
 			newPosition = goUpStairs(player);
 			break;
 		// Grab an Item
@@ -216,7 +218,7 @@ void grabItem(Entity* player)
 				player->owner->inventory->n_items++;
 				temp->item->entity->position.y = 0;
 				temp->item->entity->position.x = 0;
-				removeItem(items, temp->item, false);
+				removeItem(items, temp->item, true);
 				addMessage("You pick up an item.");
 			}
 			else

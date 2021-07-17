@@ -215,6 +215,10 @@ bool castFireball(Item* self, Actor* caster)
 
 void consumeItem(Inventory* inventory, int index)
 {
+	if (!inventory->items[index]->weapon && !inventory->items[index]->shield && !inventory->items[index]->helm)
+	{
+		freeItem(inventory->items[index]);
+	}
 	for (int i = index; i < inventory->n_items - 1; i++)
 	{
 		inventory->items[i] = inventory->items[i + 1];

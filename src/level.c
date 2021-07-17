@@ -12,7 +12,7 @@ Position* mapSetUp(void)
 	n_rooms = rand() % 15 + 5;
 	Position* start_pos = malloc(sizeof(Position));
 	Room** rooms;
-	rooms = malloc(sizeof(Room) * n_rooms);
+	rooms = malloc(sizeof(Room*) * n_rooms);
 
 	for (int i = 0; i < n_rooms; i++)
 	{
