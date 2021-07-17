@@ -194,8 +194,7 @@ void clearLevel(void)
 		freeActor(node->actor);
 	}
 
-	actors->actor = NULL;
-	actors->next = NULL;
+	freeList(actors);
 
 	node = items;
 	while (node = node->next)
@@ -203,17 +202,25 @@ void clearLevel(void)
 		freeItem(node->item);
 	}
 
-	items->item = NULL;
-	items->next = NULL;
+	freeList(items);
 
 	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
 	{
 		free(level[y]);
 	}
+	free(level);
 }
 
 void createNewLevel(void)
 {
+	actors = malloc(sizeof(List));
+	actors->actor = NULL;
+	actors->next = NULL;
+
+	items = malloc(sizeof(List));
+	items->item = NULL;
+	items->next = NULL;
+
 	Position* temp;
 	level = createLevelTiles();
 	temp = mapSetUp();

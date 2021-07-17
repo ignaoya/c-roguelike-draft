@@ -134,6 +134,18 @@ void freeAllRooms(Room** rooms, int n_rooms)
 	}
 }
 
+void freeList(List* head)
+{
+	List* node = head;
+	List* prev = head;
+
+	while (node = node->next)
+	{
+		free(prev);
+		prev = node;
+	}
+	free(prev);
+}
 
 void freeEverything(void)
 {

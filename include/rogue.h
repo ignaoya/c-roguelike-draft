@@ -284,6 +284,7 @@ void freeActor(Actor* actor);
 void freeItem(Item* item);
 void freeRoom(Room* room);
 void freeAllRooms(Room** rooms, int n_rooms);
+void freeList(List* head);
 void freeEverything(void);
 
 // save_load.c functions

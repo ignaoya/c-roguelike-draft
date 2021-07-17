@@ -67,6 +67,7 @@ int main(void)
 			}
 			newPosition = handleInput(ch, player->entity);
 			checkPosition(newPosition, player->entity);
+			free(newPosition);
 			allMonstersTakeTurns(player);
 			drawEverything();
 		}
