@@ -120,4 +120,24 @@ void freeItem(Item* item)
 	free(item);
 }
 
+void freeRoom(Room* room)
+{
+	free(room->center);
+	free(room);
+}
+
+void freeAllRooms(Room** rooms, int n_rooms)
+{
+	for (int i = 0; i < n_rooms; i++)
+	{
+		freeRoom(rooms[i]);
+	}
+}
+
+
+void freeEverything(void)
+{
+	clearLevel();
+	freeActor(player);
+}
 

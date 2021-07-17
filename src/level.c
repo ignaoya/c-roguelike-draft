@@ -6,14 +6,15 @@ int MAX_MONSTERS_PER_ROOM = 2;
 int MAX_ITEMS_PER_ROOM = 2;
 int CHANCE_OF_ITEM = 70;
 
-Room** mapSetUp(void)
+Position* mapSetUp(void)
 {
-	int y, x, height, width, max_rooms, n_monsters, n_items;
-	max_rooms = rand() % 15 + 5;
+	int y, x, height, width, n_rooms, n_monsters, n_items;
+	n_rooms = rand() % 15 + 5;
+	Position* start_pos = malloc(sizeof(Position));
 	Room** rooms;
-	rooms = malloc(sizeof(Room) * max_rooms);
+	rooms = malloc(sizeof(Room) * n_rooms);
 
-	for (int i = 0; i < max_rooms; i++)
+	for (int i = 0; i < n_rooms; i++)
 	{
 		y = rand() % (GAMEMAP_HEIGHT - 15) + 1;
 		x = rand() % (GAMEMAP_WIDTH - 15) + 1;
@@ -128,7 +129,7 @@ Room** mapSetUp(void)
 		{
 			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
 		}
-		if (i == max_rooms - 1)
+		if (i == n_rooms - 1)
 		{
 			addDownStairs(rooms[i]->center);
 		}
@@ -138,7 +139,12 @@ Room** mapSetUp(void)
 	{
 		addUpStairs(rooms[0]->center);
 	}
-	return rooms;
+
+	start_pos->y = rooms[0]->center->y;
+	start_pos->x = rooms[0]->center->x;
+
+	freeAllRooms(rooms, n_rooms);
+	return start_pos;
 }
 
 void addDownStairs(Position* center)
@@ -208,8 +214,9 @@ void clearLevel(void)
 
 void createNewLevel(void)
 {
-	Room** rooms;
+	Position* temp;
 	level = createLevelTiles();
-	rooms = mapSetUp();
+	temp = mapSetUp();
+	free(temp);
 }
 

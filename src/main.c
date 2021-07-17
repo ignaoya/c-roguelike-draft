@@ -19,7 +19,6 @@ int main(void)
 	bool load_successful;
 	int ch;
 	Position* newPosition;
-	Room** rooms;
 
 	actors = malloc(sizeof(List));
 	actors->actor = NULL;
@@ -37,8 +36,8 @@ int main(void)
 	{
 		dungeon_level = 1;
 		level = createLevelTiles();
-		rooms = mapSetUp();
-		player = playerSetUp(rooms[0]);
+		newPosition = mapSetUp();
+		player = playerSetUp(newPosition);
 		appendActor(actors, player);
 		message_log = createLog();
 	}
@@ -78,6 +77,7 @@ int main(void)
 
 	getch();
 	endwin();
+	freeEverything();
 
 	return 0;
 }

@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-Actor* playerSetUp(Room* room)
+Actor* playerSetUp(Position* start_pos)
 {
 	Actor* newPlayer; 
 	newPlayer = malloc(sizeof(Actor));
@@ -11,8 +11,8 @@ Actor* playerSetUp(Room* room)
 	newPlayer->equipment = malloc(sizeof(Equipment));
 
 
-	newPlayer->entity->position.x = room->center->x;
-	newPlayer->entity->position.y = room->center->y;
+	newPlayer->entity->position.x = start_pos->x;
+	newPlayer->entity->position.y = start_pos->y;
 	newPlayer->entity->ch = '@';
 	newPlayer->entity->color = COLOR_PAIR(PLAYER_COLOR);
 	newPlayer->entity->draw_order = ACTOR;

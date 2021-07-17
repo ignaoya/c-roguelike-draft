@@ -198,7 +198,7 @@ void lostGame(void);
 bool checkVictory(void);
 
 // level.c functions 
-Room** mapSetUp(void);
+Position* mapSetUp(void);
 void addDownStairs(Position* center);
 void addUpStairs(Position* center);
 Tile** createLevelTiles(void);
@@ -206,7 +206,7 @@ void clearLevel(void);
 void createNewLevel(void);
 
 // player.c functions
-Actor* playerSetUp(Room* room);
+Actor* playerSetUp(Position* start_pos);
 Position* handleInput(int input, Entity* player);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
@@ -282,6 +282,9 @@ void removeItem(List* head, Item* item, bool cleanUp);
 void removeActor(List* head, Actor* actor, bool cleanUp);
 void freeActor(Actor* actor);
 void freeItem(Item* item);
+void freeRoom(Room* room);
+void freeAllRooms(Room** rooms, int n_rooms);
+void freeEverything(void);
 
 // save_load.c functions
 void saveGame(void);
