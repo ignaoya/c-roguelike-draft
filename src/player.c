@@ -3,12 +3,12 @@
 Actor* playerSetUp(Position* start_pos)
 {
 	Actor* newPlayer; 
-	newPlayer = malloc(sizeof(Actor));
-	newPlayer->entity = malloc(sizeof(Entity));
-	newPlayer->fighter = malloc(sizeof(Fighter));
-	newPlayer->ai = malloc(sizeof(AI));
-	newPlayer->inventory = malloc(sizeof(Inventory));
-	newPlayer->equipment = malloc(sizeof(Equipment));
+	newPlayer = calloc(1, sizeof(Actor));
+	newPlayer->entity = calloc(1, sizeof(Entity));
+	newPlayer->fighter = calloc(1, sizeof(Fighter));
+	newPlayer->ai = calloc(1, sizeof(AI));
+	newPlayer->inventory = calloc(1, sizeof(Inventory));
+	newPlayer->equipment = calloc(1, sizeof(Equipment));
 
 
 	newPlayer->entity->position.x = start_pos->x;
@@ -43,7 +43,7 @@ Actor* playerSetUp(Position* start_pos)
 Position* handleInput(int input, Entity* player)
 {
 	Position* newPosition;
-	newPosition = malloc(sizeof(Position));
+	newPosition = calloc(1, sizeof(Position));
 	newPosition->y = player->position.y;
 	newPosition->x = player->position.x;
 	switch (input)
@@ -156,7 +156,7 @@ void playerMove(Position* newPosition, Entity* player)
 
 Position* goDownStairs(Entity* player)
 {
-	Position* temp = malloc(sizeof(Position));
+	Position* temp = calloc(1, sizeof(Position));
 
 	if (level[player->position.y][player->position.x].ch == '>')
 	{
@@ -180,7 +180,7 @@ Position* goDownStairs(Entity* player)
 
 Position* goUpStairs(Entity* player)
 {
-	Position* temp = malloc(sizeof(Position));
+	Position* temp = calloc(1, sizeof(Position));
 
 	if (level[player->position.y][player->position.x].ch == '<')
 	{

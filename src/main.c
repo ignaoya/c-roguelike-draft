@@ -21,11 +21,11 @@ int main(void)
 	int ch;
 	Position* newPosition;
 
-	actors = malloc(sizeof(List));
+	actors = calloc(1, sizeof(List));
 	actors->actor = NULL;
 	actors->next = NULL;
 
-	items = malloc(sizeof(List));
+	items = calloc(1, sizeof(List));
 	items->item = NULL;
 	items->next = NULL;
 

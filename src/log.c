@@ -5,12 +5,12 @@ const int LOG_SIZE = 10;
 Message** createLog(void)
 {
 	Message** new_log;
-	new_log = malloc(sizeof(Message*) * LOG_SIZE);
+	new_log = calloc(LOG_SIZE, sizeof(Message*));
 
 	for (int i = 0; i < LOG_SIZE; i++)
 	{
 		Message* newMessage;
-		newMessage = malloc(sizeof(Message));
+		newMessage = calloc(1, sizeof(Message));
 		snprintf(newMessage->text, sizeof(newMessage->text), " ");
 		new_log[i] = newMessage;
 	}

@@ -29,7 +29,7 @@ void appendItem(List* head, Item* item)
 	{
 		temp = temp->next;
 	}
-	temp->next = malloc(sizeof(List));
+	temp->next = calloc(1, sizeof(List));
 	temp = temp->next;
 	temp->item = item;
 	temp->next = NULL;
@@ -43,7 +43,7 @@ void appendActor(List* head, Actor* actor)
 	{
 		temp = temp->next;
 	}
-	temp->next = malloc(sizeof(List));
+	temp->next = calloc(1, sizeof(List));
 	temp = temp->next;
 	temp->actor = actor;
 	temp->next = NULL;

@@ -8,12 +8,12 @@ MonsterTemplate balrog = {'B', COLOR_PAIR(RED_COLOR), 15, 100, 25, 10, "Balrog"}
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 {
 	Actor* monster;
-	monster = malloc(sizeof(Actor));
-	monster->entity = malloc(sizeof(Entity));
-	monster->fighter = malloc(sizeof(Fighter));
-	monster->ai = malloc(sizeof(AI));
-	monster->inventory = malloc(sizeof(Inventory));
-	monster->equipment = malloc(sizeof(Equipment));
+	monster = calloc(1, sizeof(Actor));
+	monster->entity = calloc(1, sizeof(Entity));
+	monster->fighter = calloc(1, sizeof(Fighter));
+	monster->ai = calloc(1, sizeof(AI));
+	monster->inventory = calloc(1, sizeof(Inventory));
+	monster->equipment = calloc(1, sizeof(Equipment));
 
 	monster->entity->position.y = y;
 	monster->entity->position.x = x;

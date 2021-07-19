@@ -10,9 +10,9 @@ Position* mapSetUp(void)
 {
 	int y, x, height, width, n_rooms, n_monsters, n_items;
 	n_rooms = rand() % 15 + 5;
-	Position* start_pos = malloc(sizeof(Position));
+	Position* start_pos = calloc(1, sizeof(Position));
 	Room** rooms;
-	rooms = malloc(sizeof(Room*) * n_rooms);
+	rooms = calloc(n_rooms, sizeof(Room*));
 
 	for (int i = 0; i < n_rooms; i++)
 	{
@@ -173,11 +173,11 @@ Tile** createLevelTiles(void)
 {
 	int x, y;
 	Tile** tiles;
-	tiles = malloc(sizeof(Tile*) * GAMEMAP_HEIGHT);
+	tiles = calloc(GAMEMAP_HEIGHT, sizeof(Tile*));
 
 	for (y = 0; y < GAMEMAP_HEIGHT; y++)
 	{
-		tiles[y] = malloc(sizeof(Tile) * GAMEMAP_WIDTH);
+		tiles[y] = calloc(GAMEMAP_WIDTH, sizeof(Tile));
 		for (x = 0; x < GAMEMAP_WIDTH; x++)
 		{
 			tiles[y][x].ch = '#';
@@ -221,11 +221,11 @@ void clearLevel(void)
 
 void createNewLevel(void)
 {
-	actors = malloc(sizeof(List));
+	actors = calloc(1, sizeof(List));
 	actors->actor = NULL;
 	actors->next = NULL;
 
-	items = malloc(sizeof(List));
+	items = calloc(1, sizeof(List));
 	items->item = NULL;
 	items->next = NULL;
 

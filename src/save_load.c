@@ -172,10 +172,10 @@ bool loadGame(void)
 
 	fread(&down_stairs, sizeof(Position), 1, infile);
 
-	level = malloc(sizeof(Tile*) * GAMEMAP_HEIGHT);
+	level = calloc(GAMEMAP_HEIGHT, sizeof(Tile*));
 	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
 	{
-		level[y] = malloc(sizeof(Tile) * GAMEMAP_WIDTH);
+		level[y] = calloc(GAMEMAP_WIDTH, sizeof(Tile));
 		for (int x = 0; x < GAMEMAP_WIDTH; x++)
 		{
 			fread(&(level[y][x]), sizeof(Tile), 1, infile);
@@ -185,9 +185,9 @@ bool loadGame(void)
 	fread(&n_items, sizeof(int), 1, infile);
 	for (int i = 0; i < n_items; i++)
 	{
-		Item* item = malloc(sizeof(Item));
+		Item* item = calloc(1, sizeof(Item));
 		fread(item, sizeof(Item), 1, infile);
-		item->entity = malloc(sizeof(Entity));
+		item->entity = calloc(1, sizeof(Entity));
 		fread(item->entity, sizeof(Entity), 1, infile);
 		fread(item->name, sizeof(char) * 64, 1, infile);
 		item->entity->item = item;
@@ -219,12 +219,12 @@ bool loadGame(void)
 	fread(&n_actors, sizeof(int), 1, infile);
 	for (int i = 0; i < n_actors; i++)
 	{
-		Actor* actor = malloc(sizeof(Actor));
-		actor->entity = malloc(sizeof(Entity));
-		actor->fighter = malloc(sizeof(Fighter));
-		actor->ai = malloc(sizeof(AI));
-		actor->inventory = malloc(sizeof(Inventory));
-		actor->equipment = malloc(sizeof(Equipment));
+		Actor* actor = calloc(1, sizeof(Actor));
+		actor->entity = calloc(1, sizeof(Entity));
+		actor->fighter = calloc(1, sizeof(Fighter));
+		actor->ai = calloc(1, sizeof(AI));
+		actor->inventory = calloc(1, sizeof(Inventory));
+		actor->equipment = calloc(1, sizeof(Equipment));
 
 		fread(actor->entity, sizeof(Entity), 1, infile);
 		fread(actor->fighter, sizeof(Fighter), 1, infile);
@@ -251,9 +251,9 @@ bool loadGame(void)
 	fread(&(player->inventory->n_items), sizeof(int), 1, infile);
 	for (int i = 0; i < player->inventory->n_items; i++)
 	{
-		player->inventory->items[i] = malloc(sizeof(Item));
+		player->inventory->items[i] = calloc(1, sizeof(Item));
 		fread(player->inventory->items[i], sizeof(Item), 1, infile);
-		player->inventory->items[i]->entity = malloc(sizeof(Entity));
+		player->inventory->items[i]->entity = calloc(1, sizeof(Entity));
 		fread(player->inventory->items[i]->entity, sizeof(Entity), 1, infile);
 		fread(player->inventory->items[i]->name, sizeof(char) * 64, 1, infile);
 		player->inventory->items[i]->entity->item = player->inventory->items[i];
@@ -283,9 +283,9 @@ bool loadGame(void)
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		player->equipment->weapon = malloc(sizeof(Item));
+		player->equipment->weapon = calloc(1, sizeof(Item));
 		fread(player->equipment->weapon, sizeof(Item), 1, infile);
-		player->equipment->weapon->entity = malloc(sizeof(Entity));
+		player->equipment->weapon->entity = calloc(1, sizeof(Entity));
 		fread(player->equipment->weapon->entity, sizeof(Entity), 1, infile);
 		fread(player->equipment->weapon->name, sizeof(char) * 64, 1, infile);
 		player->equipment->weapon->entity->item = player->equipment->weapon;
@@ -299,9 +299,9 @@ bool loadGame(void)
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		player->equipment->shield = malloc(sizeof(Item));
+		player->equipment->shield = calloc(1, sizeof(Item));
 		fread(player->equipment->shield, sizeof(Item), 1, infile);
-		player->equipment->shield->entity = malloc(sizeof(Entity));
+		player->equipment->shield->entity = calloc(1, sizeof(Entity));
 		fread(player->equipment->shield->entity, sizeof(Entity), 1, infile);
 		fread(player->equipment->shield->name, sizeof(char) * 64, 1, infile);
 		player->equipment->shield->entity->item = player->equipment->shield;
@@ -315,9 +315,9 @@ bool loadGame(void)
 	fread(&hasEquipment, sizeof(bool), 1, infile);
 	if (hasEquipment)
 	{
-		player->equipment->helm = malloc(sizeof(Item));
+		player->equipment->helm = calloc(1, sizeof(Item));
 		fread(player->equipment->helm, sizeof(Item), 1, infile);
-		player->equipment->helm->entity = malloc(sizeof(Entity));
+		player->equipment->helm->entity = calloc(1, sizeof(Entity));
 		fread(player->equipment->helm->entity, sizeof(Entity), 1, infile);
 		fread(player->equipment->helm->name, sizeof(char) * 64, 1, infile);
 		player->equipment->helm->entity->item = player->equipment->helm;

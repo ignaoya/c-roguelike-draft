@@ -13,8 +13,8 @@ ItemTemplate light_helm = {'^', COLOR_PAIR(CYAN_COLOR), equipItem, "Light Helm",
 Item* createItem(int y, int x, ItemTemplate template)
 {
 	Item* item;
-	item = malloc(sizeof(Item));
-	item->entity = malloc(sizeof(Entity));
+	item = calloc(1, sizeof(Item));
+	item->entity = calloc(1, sizeof(Entity));
 
 	item->entity->position.y = y;
 	item->entity->position.x = x;
@@ -65,7 +65,7 @@ bool useManaPotion(Item* self, Actor* drinker)
 
 bool castLightning(Item* self, Actor* caster)
 {
-	Actor* target = malloc(sizeof(Actor));
+	Actor* target = calloc(1, sizeof(Actor));
 	target = NULL;
 	int farthest = 200;
 	int temp;
@@ -108,6 +108,7 @@ bool castLightning(Item* self, Actor* caster)
 		addMessage("You don't have enough mana!");
 		return false;
 	}
+	free(target);
 }
 
 bool castFireball(Item* self, Actor* caster)

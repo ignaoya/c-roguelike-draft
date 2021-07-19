@@ -3,9 +3,9 @@
 Room* createRoom(int y, int x, int height, int width)
 {
 	Room* newRoom;
-	newRoom = malloc(sizeof(Room));
+	newRoom = calloc(1, sizeof(Room));
 	Position* center;
-	center = malloc(sizeof(Position));
+	center = calloc(1, sizeof(Position));
 	center->x = x + (int)(width / 2);
 	center->y = y + (int)(height / 2);
 
