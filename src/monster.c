@@ -3,6 +3,7 @@
 MonsterTemplate goblin = {'g', COLOR_PAIR(GREEN_COLOR), 15, 6, 2, 0, "goblin"};
 MonsterTemplate orc = {'o', COLOR_PAIR(GREEN_COLOR), 10, 10, 3, 1, "orc"};
 MonsterTemplate troll = {'T', COLOR_PAIR(GREEN_COLOR), 7, 20, 5, 2, "troll"}; 
+MonsterTemplate balrog = {'B', COLOR_PAIR(RED_COLOR), 15, 100, 25, 10, "Balrog"};
 
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel)
 {

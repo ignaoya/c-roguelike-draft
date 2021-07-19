@@ -3,6 +3,7 @@
 const int GAMEMAP_HEIGHT = 30;
 const int GAMEMAP_WIDTH = 110;
 Actor* player;
+Actor* boss;
 Tile** level;
 List* actors;
 List* items;
@@ -146,7 +147,7 @@ void wonGame(void)
 	mvprintw(10, 50, "####################################");
 	mvprintw(11, 50, "######### CONGRATULATIONS! #########");
 	mvprintw(12, 50, "####################################");
-	mvprintw(13, 50, "# You have killed all the goblins! #");
+	mvprintw(13, 50, "###  You have slain the Balrog!  ###");
 	mvprintw(17, 50, "###### Press 'q' Key to Leave ######");
 
 	while (getch() != 'q'){;}
@@ -165,5 +166,20 @@ void lostGame(void)
 
 bool checkVictory(void)
 {
-	return false; // Need to define win condition
+	List* node = actors;
+
+	if (dungeon_level == 10)
+	{
+		while (node = node->next)
+		{
+			if (node->actor == boss)
+			{
+				if (node->actor->dead)
+				{
+					return true;
+				}
+			}
+		}
+	}
+	return false;	
 }

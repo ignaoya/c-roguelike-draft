@@ -131,7 +131,15 @@ Position* mapSetUp(void)
 		}
 		if (i == n_rooms - 1)
 		{
-			addDownStairs(rooms[i]->center);
+			if (dungeon_level < 10)
+			{
+				addDownStairs(rooms[i]->center);
+			}
+			else
+			{
+				boss = createMonster(rooms[i]->center->y, rooms[i]->center->x, balrog, 1);
+				appendActor(actors, boss);
+			}
 		}
 	}
 	
