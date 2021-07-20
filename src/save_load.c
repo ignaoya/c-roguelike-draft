@@ -8,6 +8,7 @@ void saveGame(void)
 	bool hasEquipment;
 	int n_items;
 	int n_actors;
+	int message_count = 4;
 
 
 	outfile = fopen("save/game.sav", "wb");
@@ -156,6 +157,7 @@ bool loadGame(void)
 	bool hasEquipment;
 	int n_items;
 	int n_actors;
+	int message_count;
 
 	infile = fopen("save/game.sav", "rb");
 	if (infile == NULL)

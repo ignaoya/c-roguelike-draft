@@ -1,6 +1,7 @@
 #include "rogue.h"
 
 const int LOG_SIZE = 10;
+int message_count = 0;
 
 Message** createLog(void)
 {
