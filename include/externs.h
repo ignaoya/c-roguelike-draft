@@ -11,7 +11,7 @@ extern Actor* boss;
 extern Tile** level;
 extern List* actors;
 extern List* items;
-extern Message** message_log;
+extern Message* message_log;
 extern int dungeon_level;
 extern Position down_stairs;
 extern Position up_stairs;

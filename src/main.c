@@ -7,7 +7,7 @@ Actor* boss;
 Tile** level;
 List* actors;
 List* items;
-Message** message_log;
+Message* message_log;
 int dungeon_level = 1;
 Position down_stairs;
 Position up_stairs;

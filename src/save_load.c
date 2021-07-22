@@ -130,23 +130,14 @@ void saveGame(void)
 
 	for (int i = message_count - 1 ; i >= 0; i--)
 	{
-		fwrite(message_log[i]->text, sizeof(char) * 1024, 1, outfile);
+		fwrite(message_log[i].text, sizeof(char) * 1024, 1, outfile);
 	}
 
 	fclose(outfile);
 
-	if(fwrite != 0)
-	{
-		clear();
-		mvprintw(20, 60, "Saved succesfully!");
-		getch();
-	}
-	else
-	{
-		clear();
-		mvprintw(20, 60, "Error saving!");
-		getch();
-	}
+	clear();
+	mvprintw(20, 60, "Saved successfully!");
+	getch();
 }
 
 bool loadGame(void)

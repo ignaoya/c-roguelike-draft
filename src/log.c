@@ -3,17 +3,14 @@
 const int LOG_SIZE = 10;
 int message_count = 0;
 
-Message** createLog(void)
+Message* createLog(void)
 {
-	Message** new_log;
-	new_log = calloc(LOG_SIZE, sizeof(Message*));
+	Message* new_log;
+	new_log = calloc(LOG_SIZE, sizeof(Message));
 
 	for (int i = 0; i < LOG_SIZE; i++)
 	{
-		Message* newMessage;
-		newMessage = calloc(1, sizeof(Message));
-		snprintf(newMessage->text, sizeof(newMessage->text), " ");
-		new_log[i] = newMessage;
+		snprintf(new_log[i].text, sizeof(new_log[i].text), " ");
 	}
 
 	return new_log;
@@ -23,12 +20,12 @@ void addMessage(char text[1024])
 {
 	for (int i = 0; i < message_count; i++)
 	{
-		memcpy(message_log[message_count - i]->text, 
-				   message_log[message_count - i - 1]->text, 
+		memcpy(message_log[message_count - i].text, 
+				   message_log[message_count - i - 1].text, 
 					 sizeof(char) * 1024);
 	}
 
-	memcpy(message_log[0]->text, text, sizeof(char) * 1024);
+	memcpy(message_log[0].text, text, sizeof(char) * 1024);
 
 	if (message_count < 4)
 	{
@@ -42,7 +39,7 @@ void printMessages(void)
 	{
 		move(37 - i, 5);
 		clrtoeol();
-		mvprintw(37 - i, 5, message_log[i]->text);
+		mvprintw(37 - i, 5, message_log[i].text);
 	}
 }
 

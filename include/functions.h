@@ -69,7 +69,7 @@ bool lineOfSight(Entity* origin, int target_y, int target_x);
 int getSign(int a);
 
 // log.c exports
-Message** createLog();
+Message* createLog();
 void addMessage(char text[1024]);
 void printMessages(void);
 void freeLog(void);
