@@ -25,11 +25,9 @@ Actor* playerSetUp(Position* start_pos);
 Position* handleInput(int input);
 void playerCheckPosition(Position* newPosition);
 void playerMove(Position* newPosition);
-Position* goDownStairs(Entity* player);
-Position* goUpStairs(Entity* player);
-void grabItem(Entity* player);
-void gainXP(Fighter* player, int amount);
-void levelUp(Fighter* player);
+Position* goDownStairs(void);
+Position* goUpStairs(void);
+void grabItem(void);
 
 // monster.c functions
 Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
@@ -37,8 +35,10 @@ Actor* createMonster(int y, int x, MonsterTemplate template, int xpLevel);
 // fighter.c functions
 void attack(Fighter* attacker, Fighter* defender);
 void takeDamage(Fighter* fighter, int damage);
-void drawBlood(Entity* entity);
+void spillBlood(Entity* entity);
 void die(Fighter* fighter);
+void gainXP(Fighter* fighter, int amount);
+void levelUp(Fighter* fighter);
 
 // ai.c functions
 void takeTurn(Actor* actor, Actor* player);
@@ -57,7 +57,7 @@ bool equipItem(Item* self, Actor* equiper);
 void unequipItem(Item* equipment, Actor* actor);
 
 // inventory.c functions
-void useInventory(Inventory* inventory);
+void useInventory(void);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);

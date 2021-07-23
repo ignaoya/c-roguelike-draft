@@ -31,12 +31,12 @@ void takeDamage(Fighter* fighter, int damage)
 
 	while (damage > 0)
 	{
-		drawBlood(fighter->owner->entity);
+		spillBlood(fighter->owner->entity);
 		damage -= 5;
 	}
 }
 
-void drawBlood(Entity* entity)
+void spillBlood(Entity* entity)
 {
 	int blood_spot = rand() % 9;
 	Position temp;
@@ -99,5 +99,51 @@ void die(Fighter* fighter)
 }
 
 
+void gainXP(Fighter* fighter, int amount)
+{
+	fighter->xp += amount;
+	if (fighter->xp >= fighter->xp_to_next_level)
+	{
+		levelUp(fighter);
+	}
+}
+
+void levelUp(Fighter* fighter)
+{
+	int ch = '0';
+
+	fighter->level++;
+	fighter->xp_to_next_level = fighter->xp_to_next_level * 2;
+	fighter->hp += fighter->max_hp / 5;
+	fighter->max_hp += fighter->max_hp / 5;
+	fighter->mana += fighter->max_mana / 5;
+	fighter->max_mana += fighter->max_mana / 5;
+	drawEverything();
+
+	mvprintw(10, 50, "####################################");
+	mvprintw(11, 50, "############# LEVEL UP #############");
+	mvprintw(12, 50, "####################################");
+	mvprintw(13, 50, "#####       Choose a bonus:    #####");
+	mvprintw(14, 50, "#           (a): Attack +2         #");
+	mvprintw(15, 50, "#           (d): Defense +1        #");
+	mvprintw(16, 50, "####################################");
+	addMessage("### LEVEL UP ###");
+	printMessages();
+	while (ch != 'a' && ch != 'd')
+	{
+		ch = getch();
+		switch(ch)
+		{
+			case 'a':
+				fighter->attack += 2;
+				break;
+			case 'd':
+				fighter->defense++;
+				break;
+			default:
+				break;
+		}
+	}
+}
 
 

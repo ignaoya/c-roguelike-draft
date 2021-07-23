@@ -86,20 +86,20 @@ Position* handleInput(int input)
 		// Go down stairs
 		case '>':
 			free(newPosition);
-			newPosition = goDownStairs(player->entity);
+			newPosition = goDownStairs();
 			break;
 		// Go up stairs
 		case '<':
 			free(newPosition);
-			newPosition = goUpStairs(player->entity);
+			newPosition = goUpStairs();
 			break;
 		// Grab an Item
 		case 'g':
-			grabItem(player->entity);
+			grabItem();
 			break;
 		// Use Inventory
 		case 'I':
-			useInventory(player->inventory);
+			useInventory();
 			break;
 		// View All Map Cheat(for development)
 		case 'v':
@@ -144,16 +144,16 @@ void playerMove(Position* newPosition)
 	makeFOV(player->entity);
 }
 
-Position* goDownStairs(Entity* player)
+Position* goDownStairs(void)
 {
 	Position* temp = calloc(1, sizeof(Position));
 
-	if (level[player->position.y][player->position.x].ch == '>')
+	if (level[player->entity->position.y][player->entity->position.x].ch == '>')
 	{
 		dungeon_level++;
 		clearLevel();
 		createNewLevel();
-		appendActor(actors, player->owner);
+		appendActor(actors, player);
 		addMessage("You go deeper into the dungeon!");
 		temp->y = up_stairs.y;	
 		temp->x = up_stairs.x;
@@ -162,22 +162,22 @@ Position* goDownStairs(Entity* player)
 	else
 	{
 		addMessage("There are no DOWN stairs here!");
-		temp->y = player->position.y;
-		temp->x = player->position.x;
+		temp->y = player->entity->position.y;
+		temp->x = player->entity->position.x;
 		return temp;
 	}
 }
 
-Position* goUpStairs(Entity* player)
+Position* goUpStairs(void)
 {
 	Position* temp = calloc(1, sizeof(Position));
 
-	if (level[player->position.y][player->position.x].ch == '<')
+	if (level[player->entity->position.y][player->entity->position.x].ch == '<')
 	{
 		dungeon_level--;
 		clearLevel();
 		createNewLevel();
-		appendActor(actors, player->owner);
+		appendActor(actors, player);
 		addMessage("You go up the levels of the dungeon!");
 		temp->y = down_stairs.y;
 		temp->x = down_stairs.x;
@@ -186,29 +186,27 @@ Position* goUpStairs(Entity* player)
 	else
 	{
 		addMessage("There are no UP stairs here!");
-		temp->y = player->position.y;
-		temp->x = player->position.x;
+		temp->y = player->entity->position.y;
+		temp->x = player->entity->position.x;
 		return temp;
 	}
 }
 
 
-void grabItem(Entity* player)
+void grabItem(void)
 {
-	List* temp = items;
+	List* node = items;
 
-	while (temp = temp->next)
+	while (node = node->next)
 	{
-		if (temp->item->entity->position.y == player->position.y &&
-				temp->item->entity->position.x == player->position.x)
+		if (node->item->entity->position.y == player->entity->position.y &&
+				node->item->entity->position.x == player->entity->position.x)
 		{
-			if (player->owner->inventory->n_items < 10)
+			if (player->inventory->n_items < 10)
 			{
-				player->owner->inventory->items[player->owner->inventory->n_items] = temp->item;
-				player->owner->inventory->n_items++;
-				temp->item->entity->position.y = 0;
-				temp->item->entity->position.x = 0;
-				removeItem(items, temp->item, true);
+				player->inventory->items[player->inventory->n_items] = node->item;
+				player->inventory->n_items++;
+				removeItem(items, node->item, true);
 				addMessage("You pick up an item.");
 			}
 			else
@@ -221,51 +219,5 @@ void grabItem(Entity* player)
 	addMessage("There's nothing to pick up.");
 }
 
-void gainXP(Fighter* player, int amount)
-{
-	player->xp += amount;
-	if (player->xp >= player->xp_to_next_level)
-	{
-		levelUp(player);
-	}
-}
-
-void levelUp(Fighter* player)
-{
-	int ch = '0';
-
-	player->level++;
-	player->xp_to_next_level = player->xp_to_next_level * 2;
-	player->hp += player->max_hp / 5;
-	player->max_hp += player->max_hp / 5;
-	player->mana += player->max_mana / 5;
-	player->max_mana += player->max_mana / 5;
-	drawEverything();
-
-	mvprintw(10, 50, "####################################");
-	mvprintw(11, 50, "############# LEVEL UP #############");
-	mvprintw(12, 50, "####################################");
-	mvprintw(13, 50, "#####       Choose a bonus:    #####");
-	mvprintw(14, 50, "#           (a): Attack +2         #");
-	mvprintw(15, 50, "#           (d): Defense +1        #");
-	mvprintw(16, 50, "####################################");
-	addMessage("### LEVEL UP ###");
-	printMessages();
-	while (ch != 'a' && ch != 'd')
-	{
-		ch = getch();
-		switch(ch)
-		{
-			case 'a':
-				player->attack += 2;
-				break;
-			case 'd':
-				player->defense++;
-				break;
-			default:
-				break;
-		}
-	}
-}
 
 

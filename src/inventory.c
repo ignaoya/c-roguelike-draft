@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-void useInventory(Inventory* inventory)
+void useInventory(void)
 {
 	int ch;
 	int cursorPos = 0;
@@ -8,6 +8,7 @@ void useInventory(Inventory* inventory)
 	int itemIndex;
 	bool itemWasConsumed = false;
 	bool showInventory = true;
+	Inventory* inventory = player->inventory;
 	Position clr_a = {51, 13};
 	Position clr_b = {85, 18};
 
