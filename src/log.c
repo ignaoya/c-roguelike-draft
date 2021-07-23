@@ -5,8 +5,7 @@ int message_count = 0;
 
 Message* createLog(void)
 {
-	Message* new_log;
-	new_log = calloc(LOG_SIZE, sizeof(Message));
+	Message* new_log = calloc(LOG_SIZE, sizeof(Message));
 
 	for (int i = 0; i < LOG_SIZE; i++)
 	{
@@ -45,10 +44,6 @@ void printMessages(void)
 
 void freeLog(void)
 {
-	for (int i = 0; i < LOG_SIZE; i++)
-	{
-		free(message_log[i]);
-	}
 	free(message_log);
 }
 
