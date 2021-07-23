@@ -22,7 +22,7 @@ void createNewLevel(void);
 
 // player.c functions
 Actor* playerSetUp(Position* start_pos);
-Position* handleInput(int input, Entity* player);
+Position* handleInput(int input);
 void checkPosition(Position* newPosition, Entity* player);
 void playerMove(Position* newPosition, Entity* player);
 Position* goDownStairs(Entity* player);
@@ -43,7 +43,7 @@ void die(Fighter* fighter);
 // ai.c functions
 void takeTurn(Actor* actor, Actor* player);
 void allMonstersTakeTurns(Actor* player);
-void moveTowards(Actor* actor, Actor* target);
+void monsterCheckDirection(Actor* actor, Actor* target);
 void monsterMove(Position direction, Entity* entity);
 
 // item.c functions

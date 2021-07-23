@@ -2,8 +2,7 @@
 
 Actor* playerSetUp(Position* start_pos)
 {
-	Actor* newPlayer; 
-	newPlayer = calloc(1, sizeof(Actor));
+	Actor* newPlayer = calloc(1, sizeof(Actor));
 	newPlayer->entity = calloc(1, sizeof(Entity));
 	newPlayer->fighter = calloc(1, sizeof(Fighter));
 	newPlayer->ai = calloc(1, sizeof(AI));
@@ -40,76 +39,67 @@ Actor* playerSetUp(Position* start_pos)
 	return newPlayer;
 }
 
-Position* handleInput(int input, Entity* player)
+Position* handleInput(int input)
 {
-	Position* newPosition;
-	newPosition = calloc(1, sizeof(Position));
-	newPosition->y = player->position.y;
-	newPosition->x = player->position.x;
+	Position* newPosition = calloc(1, sizeof(Position));
+	newPosition->y = player->entity->position.y;
+	newPosition->x = player->entity->position.x;
 	switch (input)
 	{
 		// move up
 		case 'w':
-		case 'W':
 		case 'k':
-			newPosition->y = player->position.y - 1;
-			newPosition->x = player->position.x;
+			newPosition->y--;
 			break;
 		// move down
 		case 's':
-		case 'S':
 		case 'j':
-			newPosition->y = player->position.y + 1;
-			newPosition->x = player->position.x;
+			newPosition->y++;
 			break;
 		// move left
 		case 'a':
-		case 'A':
 		case 'h':
-			newPosition->y = player->position.y;
-			newPosition->x = player->position.x - 1;
+			newPosition->x--;
 			break;
 		// move right
 		case 'd':
-		case 'D':
 		case 'l':
-			newPosition->y = player->position.y;
-			newPosition->x = player->position.x + 1;
+			newPosition->x++;
 			break;
 		case 'u':
-			newPosition->y = player->position.y - 1;
-			newPosition->x = player->position.x - 1;
+			newPosition->y--;
+			newPosition->x--;
 			break;
 		case 'i':
-			newPosition->y = player->position.y - 1;
-			newPosition->x = player->position.x + 1;
+			newPosition->y--;
+			newPosition->x++;
 			break;
 		case 'n':
-			newPosition->y = player->position.y + 1;
-			newPosition->x = player->position.x - 1;
+			newPosition->y++;
+			newPosition->x--;
 			break;
 		case 'm':
-			newPosition->y = player->position.y + 1;
-			newPosition->x = player->position.x + 1;
+			newPosition->y++;
+			newPosition->x++;
 			break;
 
 		// Go down stairs
 		case '>':
 			free(newPosition);
-			newPosition = goDownStairs(player);
+			newPosition = goDownStairs(player->entity);
 			break;
 		// Go up stairs
 		case '<':
 			free(newPosition);
-			newPosition = goUpStairs(player);
+			newPosition = goUpStairs(player->entity);
 			break;
 		// Grab an Item
 		case 'g':
-			grabItem(player);
+			grabItem(player->entity);
 			break;
 		// Use Inventory
 		case 'I':
-			useInventory(player->owner->inventory);
+			useInventory(player->inventory);
 			break;
 		// View All Map Cheat(for development)
 		case 'v':

@@ -8,15 +8,14 @@ void takeTurn(Actor* actor, Actor* player)
 	{
 		if (!actor->ai->seen_player)
 		{
-			//addMessage("The enemy has seen you!");
 			actor->ai->seen_player = true;
 		}
 
-		moveTowards(actor, player);
+		monsterCheckDirection(actor, player);
 	}
 	else if (actor->ai->seen_player)
 	{
-		moveTowards(actor, player);
+		monsterCheckDirection(actor, player);
 	}
 }
 
@@ -32,7 +31,7 @@ void allMonstersTakeTurns(Actor* player)
 	}
 }
 
-void moveTowards(Actor* actor, Actor* target)
+void monsterCheckDirection(Actor* actor, Actor* target)
 {
 	Position direction;
 	int dy, dx;

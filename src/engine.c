@@ -17,7 +17,6 @@ void initDungeon(bool load_successful)
 	{
 		Position* newPosition;
 
-		dungeon_level = 1;
 		level = createLevelTiles();
 		newPosition = mapSetUp();
 		player = playerSetUp(newPosition);
@@ -52,7 +51,7 @@ void gameLoop(void)
 			saveGame();
 			break;
 		}
-		newPosition = handleInput(ch, player->entity);
+		newPosition = handleInput(ch);
 		checkPosition(newPosition, player->entity);
 		free(newPosition);
 		allMonstersTakeTurns(player);
