@@ -78,15 +78,13 @@ void addMessage(char text[1024]);
 void printMessages(void);
 void freeLog(void);
 
-// ui.c functions
-void drawUI(void);
-
 // draw.c functions
 void drawEverything(void);
 void drawEntity(Entity* entity);
 void drawAllEntities(void);
 void mapDraw(void);
 void showWholeMap(void);
+void drawUI(void);
 
 // utils.c functions
 int maxInt(int a, int b);
