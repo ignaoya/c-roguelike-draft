@@ -52,7 +52,7 @@ void gameLoop(void)
 			break;
 		}
 		newPosition = handleInput(ch);
-		checkPosition(newPosition, player->entity);
+		playerCheckPosition(newPosition);
 		free(newPosition);
 		allMonstersTakeTurns(player);
 		drawEverything();

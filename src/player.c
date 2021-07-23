@@ -114,34 +114,34 @@ Position* handleInput(int input)
 	return newPosition;
 }
 
-void checkPosition(Position* newPosition, Entity* player)
+void playerCheckPosition(Position* newPosition)
 {
 	List* node = actors;
 	bool occupied = false;
 
-	while ((node = node->next) && (node->actor != player->owner))
+	while ((node = node->next) && (node->actor != player))
 	{
 		if (!node->actor->dead && 
 				node->actor->entity->position.y == newPosition->y && 
 				node->actor->entity->position.x == newPosition->x)
 		{
-			attack(player->owner->fighter, node->actor->fighter);
+			attack(player->fighter, node->actor->fighter);
 			occupied = true;
 			break;
 		}
 	}
 	if ((!occupied) && (level[newPosition->y][newPosition->x].walkable))
 	{
-		playerMove(newPosition, player);
+		playerMove(newPosition);
 	}
 }
 
-void playerMove(Position* newPosition, Entity* player)
+void playerMove(Position* newPosition)
 {
-	clearFOV(player);
-	player->position.y = newPosition->y;
-	player->position.x = newPosition->x;
-	makeFOV(player);
+	clearFOV(player->entity);
+	player->entity->position.y = newPosition->y;
+	player->entity->position.x = newPosition->x;
+	makeFOV(player->entity);
 }
 
 Position* goDownStairs(Entity* player)

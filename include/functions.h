@@ -23,8 +23,8 @@ void createNewLevel(void);
 // player.c functions
 Actor* playerSetUp(Position* start_pos);
 Position* handleInput(int input);
-void checkPosition(Position* newPosition, Entity* player);
-void playerMove(Position* newPosition, Entity* player);
+void playerCheckPosition(Position* newPosition);
+void playerMove(Position* newPosition);
 Position* goDownStairs(Entity* player);
 Position* goUpStairs(Entity* player);
 void grabItem(Entity* player);
