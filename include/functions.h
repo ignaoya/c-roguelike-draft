@@ -1,7 +1,11 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-// main.c functions
+// engine.c functions
+void initLists(void);
+void initDungeon(bool load_successful);
+void gameLoop(void);
+void closeGame(void);
 bool screenSetUp(void);
 bool intro(void);
 void wonGame(void);
