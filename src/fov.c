@@ -58,7 +58,7 @@ void clearFOV(Entity* player)
 
 bool isInMap(int y, int x)
 {
-	if ((0 < y && y < GAMEMAP_HEIGHT - 1) && (0 < x && x < GAMEMAP_WIDTH - 1))
+	if ((0 < y && y < MAP_HEIGHT - 1) && (0 < x && x < MAP_WIDTH - 1))
 	{
 		return true;
 	}

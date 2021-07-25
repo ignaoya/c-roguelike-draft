@@ -1,7 +1,7 @@
 #include "rogue.h"
 
-const int GAMEMAP_HEIGHT = 30;
-const int GAMEMAP_WIDTH = 110;
+const int MAP_HEIGHT = 30;
+const int MAP_WIDTH = 110;
 Actor* player;
 Actor* boss;
 Tile** level;

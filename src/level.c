@@ -16,8 +16,8 @@ Position* mapSetUp(void)
 
 	for (int i = 0; i < n_rooms; i++)
 	{
-		y = rand() % (GAMEMAP_HEIGHT - 15) + 1;
-		x = rand() % (GAMEMAP_WIDTH - 15) + 1;
+		y = rand() % (MAP_HEIGHT - 15) + 1;
+		x = rand() % (MAP_WIDTH - 15) + 1;
 		height = rand() % MAX_SIZE + MIN_SIZE;
 		width = rand() % MAX_SIZE + MIN_SIZE;
 		n_monsters = rand() % MAX_MONSTERS_PER_ROOM;
@@ -26,41 +26,84 @@ Position* mapSetUp(void)
 		rooms[i] = createRoom(y, x, height, width);
 		for (int j = 0; j < n_monsters; j++)
 		{
-			MonsterTemplate template;
 			if (i == 0)
 			{
 				break;
 			}
-			int monster_y = rand() % (height - 2) + y + 1;
-			int monster_x = rand() % (width - 2) + x + 1;
-			int monster_level = rand() % dungeon_level + 1;
-			int monster_type = rand() % 100;
-			if (monster_type < 80 - dungeon_level * dungeon_level)
-			{
-				template = goblin;
-			}
-			else if (monster_type < 99 - dungeon_level * 2)
-			{
-				template = orc;
-				monster_level = maxInt(1, monster_level / 2);
-			}
-			else
-			{
-				template = troll;
-				monster_level = maxInt(1, monster_level / 3);
-			}
-			appendActor(actors, createMonster(monster_y, monster_x, template, monster_level));
+			addMonsterToRoom(rooms[i]);
 		}
 
 		for (int k = 0; k < n_items; k++)
 		{
-			if ((rand() % 100) < CHANCE_OF_ITEM)
+			if ((rand() % 100) > CHANCE_OF_ITEM)
 			{
-				continue;
+				addItemToRoom(rooms[i]);
 			}
+		}
+
+		drawRoom(rooms[i]);
+		
+		if (i > 0) 
+		{
+			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
+		}
+		if (i == n_rooms - 1)
+		{
+			if (dungeon_level < 10)
+			{
+				addDownStairs(rooms[i]->center);
+			}
+			else
+			{
+				boss = createMonster(rooms[i]->center->y, rooms[i]->center->x, balrog, 1);
+				appendActor(actors, boss);
+			}
+		}
+	}
+	
+	if (dungeon_level > 1)
+	{
+		addUpStairs(rooms[0]->center);
+	}
+
+	start_pos->y = rooms[0]->center->y;
+	start_pos->x = rooms[0]->center->x;
+
+	freeAllRooms(rooms, n_rooms);
+	return start_pos;
+}
+
+void addMonsterToRoom(Room* room)
+{
+	MonsterTemplate template;
+	int monster_y = rand() % (room->height - 2) + room->position.y + 1;
+	int monster_x = rand() % (room->width - 2) + room->position.x + 1;
+	int monster_level = rand() % dungeon_level + 1;
+	int monster_type = rand() % 100;
+
+	if (monster_type < 80 - (dungeon_level * dungeon_level))
+	{
+		template = goblin;
+	}
+	else if (monster_type < 99 - dungeon_level * 2)
+	{
+		template = orc;
+		monster_level = maxInt(1, monster_level / 2);
+	}
+	else
+	{
+		template = troll;
+		monster_level = maxInt(1, monster_level / 3);
+	}
+
+	appendActor(actors, createMonster(monster_y, monster_x, template, monster_level));
+}
+
+void addItemToRoom(Room* room)
+{
 			ItemTemplate itemTemp;
-			int item_y = rand() % (height - 2) + y + 1;
-			int item_x = rand() % (width - 2) + x + 1;
+			int item_y = rand() % (room->height - 2) + room->position.y + 1;
+			int item_x = rand() % (room->width - 2) + room->position.x + 1;
 			int item_level = (rand() % 100) + (10 * dungeon_level);
 			int item_type = rand() % 10;
 			if (item_level < 60)
@@ -121,38 +164,6 @@ Position* mapSetUp(void)
 				}
 			}
 			appendItem(items, createItem(item_y, item_x, itemTemp));
-		}
-
-		drawRoom(rooms[i]);
-		
-		if (i > 0) 
-		{
-			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
-		}
-		if (i == n_rooms - 1)
-		{
-			if (dungeon_level < 10)
-			{
-				addDownStairs(rooms[i]->center);
-			}
-			else
-			{
-				boss = createMonster(rooms[i]->center->y, rooms[i]->center->x, balrog, 1);
-				appendActor(actors, boss);
-			}
-		}
-	}
-	
-	if (dungeon_level > 1)
-	{
-		addUpStairs(rooms[0]->center);
-	}
-
-	start_pos->y = rooms[0]->center->y;
-	start_pos->x = rooms[0]->center->x;
-
-	freeAllRooms(rooms, n_rooms);
-	return start_pos;
 }
 
 void addDownStairs(Position* center)
@@ -173,12 +184,12 @@ Tile** createLevelTiles(void)
 {
 	int x, y;
 	Tile** tiles;
-	tiles = calloc(GAMEMAP_HEIGHT, sizeof(Tile*));
+	tiles = calloc(MAP_HEIGHT, sizeof(Tile*));
 
-	for (y = 0; y < GAMEMAP_HEIGHT; y++)
+	for (y = 0; y < MAP_HEIGHT; y++)
 	{
-		tiles[y] = calloc(GAMEMAP_WIDTH, sizeof(Tile));
-		for (x = 0; x < GAMEMAP_WIDTH; x++)
+		tiles[y] = calloc(MAP_WIDTH, sizeof(Tile));
+		for (x = 0; x < MAP_WIDTH; x++)
 		{
 			tiles[y][x].ch = '#';
 			tiles[y][x].color = COLOR_PAIR(VISIBLE_COLOR);
@@ -212,7 +223,7 @@ void clearLevel(void)
 
 	freeList(items);
 
-	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
+	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
 		free(level[y]);
 	}

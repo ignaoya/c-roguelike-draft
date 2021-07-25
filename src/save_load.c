@@ -33,9 +33,9 @@ void saveGame(void)
 
 	fwrite(&down_stairs, sizeof(Position), 1, outfile);
 
-	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
+	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
-		for (int x = 0; x < GAMEMAP_WIDTH; x++)
+		for (int x = 0; x < MAP_WIDTH; x++)
 		{
 			fwrite(&(level[y][x]), sizeof(Tile), 1, outfile);
 		}
@@ -165,11 +165,11 @@ bool loadGame(void)
 
 	fread(&down_stairs, sizeof(Position), 1, infile);
 
-	level = calloc(GAMEMAP_HEIGHT, sizeof(Tile*));
-	for (int y = 0; y < GAMEMAP_HEIGHT; y++)
+	level = calloc(MAP_HEIGHT, sizeof(Tile*));
+	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
-		level[y] = calloc(GAMEMAP_WIDTH, sizeof(Tile));
-		for (int x = 0; x < GAMEMAP_WIDTH; x++)
+		level[y] = calloc(MAP_WIDTH, sizeof(Tile));
+		for (int x = 0; x < MAP_WIDTH; x++)
 		{
 			fread(&(level[y][x]), sizeof(Tile), 1, infile);
 		}

@@ -128,9 +128,9 @@ bool castFireball(Item* self, Actor* caster)
 		while (true)
 		{
 			drawEverything();
-			if (cursor.y > GAMEMAP_HEIGHT - 2) cursor.y = GAMEMAP_HEIGHT - 2;
+			if (cursor.y > MAP_HEIGHT - 2) cursor.y = MAP_HEIGHT - 2;
 			if (cursor.y < 0) cursor.y = 0;
-			if (cursor.x > GAMEMAP_WIDTH - 2) cursor.x = GAMEMAP_WIDTH - 2;
+			if (cursor.x > MAP_WIDTH - 2) cursor.x = MAP_WIDTH - 2;
 			if (cursor.x < 0) cursor.x = 0;
 
 			for (int y = -1; y < 2; y++)

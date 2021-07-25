@@ -14,6 +14,8 @@ bool checkVictory(void);
 
 // level.c functions 
 Position* mapSetUp(void);
+void addMonsterToRoom(Room* room);
+void addItemToRoom(Room* room);
 void addDownStairs(Position* center);
 void addUpStairs(Position* center);
 Tile** createLevelTiles(void);

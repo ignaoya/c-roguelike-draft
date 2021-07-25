@@ -2,8 +2,8 @@
 #define EXTERNS_H
 
 // global constants
-extern const int GAMEMAP_HEIGHT;
-extern const int GAMEMAP_WIDTH;
+extern const int MAP_HEIGHT;
+extern const int MAP_WIDTH;
 
 // global variables
 extern Actor* player;

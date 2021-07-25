@@ -52,9 +52,9 @@ void drawAllEntities(void)
 void mapDraw(void)
 {
 	int x, y;
-	for (y = 0; y < GAMEMAP_HEIGHT; y++)
+	for (y = 0; y < MAP_HEIGHT; y++)
 	{
-		for (x = 0; x < GAMEMAP_WIDTH; x++)
+		for (x = 0; x < MAP_WIDTH; x++)
 		{
 			if (level[y][x].visible)
 			{
@@ -75,9 +75,9 @@ void mapDraw(void)
 void showWholeMap(void)
 {
 	int x, y;
-	for (y = 0; y < GAMEMAP_HEIGHT; y++)
+	for (y = 0; y < MAP_HEIGHT; y++)
 	{
-		for (x = 0; x < GAMEMAP_WIDTH; x++)
+		for (x = 0; x < MAP_WIDTH; x++)
 		{
 			mvaddch(y, x, level[y][x].ch);
 			level[y][x].visible = true;
@@ -85,9 +85,9 @@ void showWholeMap(void)
 	}
 	drawAllEntities();
 
-	for (y = 0; y < GAMEMAP_HEIGHT; y++)
+	for (y = 0; y < MAP_HEIGHT; y++)
 	{
-		for (x = 0; x < GAMEMAP_WIDTH; x++)
+		for (x = 0; x < MAP_WIDTH; x++)
 		{
 			level[y][x].visible = false;
 		}
