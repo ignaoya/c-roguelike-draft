@@ -69,7 +69,7 @@ int getDistance(Position origin, Position target);
 void makeFOV(Entity* player);
 void clearFOV(Entity* player);
 bool isInMap(int y, int x);
-bool lineOfSight(Entity* origin, int target_y, int target_x);
+bool lineOfSight(Position origin, Position target);
 int getSign(int a);
 
 // log.c exports

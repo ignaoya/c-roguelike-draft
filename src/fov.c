@@ -31,7 +31,7 @@ void makeFOV(Entity* player)
 
 			if (distance < RADIUS)
 			{
-				if (isInMap(y, x) && lineOfSight(player, y, x))
+				if (isInMap(y, x) && lineOfSight(player->position, target))
 				{
 					level[y][x].visible = true;
 					level[y][x].seen = true;
@@ -65,12 +65,12 @@ bool isInMap(int y, int x)
 	return false;
 }
 
-bool lineOfSight(Entity* origin, int target_y, int target_x)
+bool lineOfSight(Position origin, Position target)
 {
 	int t, x, y, abs_delta_x, abs_delta_y, sign_x, sign_y, delta_x, delta_y;
 
-	delta_x = origin->position.x - target_x;
-	delta_y = origin->position.y - target_y;
+	delta_x = origin.x - target.x;
+	delta_y = origin.y - target.y;
 
 	abs_delta_x = abs(delta_x);
 	abs_delta_y = abs(delta_y);
@@ -78,8 +78,8 @@ bool lineOfSight(Entity* origin, int target_y, int target_x)
 	sign_x = getSign(delta_x);
 	sign_y = getSign(delta_y);
 
-	x = target_x;
-	y = target_y;
+	x = target.x;
+	y = target.y;
 
 	if (abs_delta_x > abs_delta_y)
 	{
@@ -96,7 +96,7 @@ bool lineOfSight(Entity* origin, int target_y, int target_x)
 			x += sign_x;
 			t += abs_delta_y * 2;
 
-			if (x == origin->position.x && y == origin->position.y)
+			if (x == origin.x && y == origin.y)
 			{
 				return true;
 			}
@@ -120,7 +120,7 @@ bool lineOfSight(Entity* origin, int target_y, int target_x)
 			y += sign_y;
 			t += abs_delta_x * 2;
 
-			if (x == origin->position.x && y == origin->position.y)
+			if (x == origin.x && y == origin.y)
 			{
 				return true;
 			}

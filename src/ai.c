@@ -4,7 +4,7 @@ void takeTurn(Actor* actor, Actor* player)
 {
 	int distance = getDistance(actor->entity->position, player->entity->position);
 	if (distance < actor->entity->fov_radius &&
-		  lineOfSight(actor->entity, player->entity->position.y, player->entity->position.x))
+		  lineOfSight(actor->entity->position, player->entity->position))
 	{
 		if (!actor->ai->seen_player)
 		{
