@@ -238,6 +238,11 @@ bool loadGame(void)
 			player = actor;
 		}
 
+		if (actor->entity->ch == 'B')
+		{
+			boss = actor;
+		}
+
 		appendActor(actors, actor);
 	}
 	
