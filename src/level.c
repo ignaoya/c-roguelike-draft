@@ -24,6 +24,7 @@ Position* mapSetUp(void)
 		n_items = rand() % MAX_ITEMS_PER_ROOM;
 
 		rooms[i] = createRoom(y, x, height, width);
+
 		for (int j = 0; j < n_monsters; j++)
 		{
 			if (i == 0)
@@ -47,23 +48,20 @@ Position* mapSetUp(void)
 		{
 			connectRoomCenters(rooms[i]->center, rooms[i-1]->center);
 		}
-		if (i == n_rooms - 1)
-		{
-			if (dungeon_level < 10)
-			{
-				addDownStairs(rooms[i]->center);
-			}
-			else
-			{
-				boss = createMonster(rooms[i]->center->y, rooms[i]->center->x, balrog, 1);
-				appendActor(actors, boss);
-			}
-		}
 	}
 	
 	if (dungeon_level > 1)
 	{
 		addUpStairs(rooms[0]->center);
+	}
+	if (dungeon_level < 10)
+	{
+		addDownStairs(rooms[n_rooms - 1]->center);
+	}
+	else
+	{
+		boss = createMonster(rooms[n_rooms - 1]->center->y, rooms[n_rooms - 1]->center->x, balrog, 1);
+		appendActor(actors, boss);
 	}
 
 	start_pos->y = rooms[0]->center->y;
