@@ -8,7 +8,7 @@ extern const int MAP_WIDTH;
 // global variables
 extern Actor* player;
 extern Actor* boss;
-extern Tile** level;
+extern Tile** map;
 extern List* actors;
 extern List* items;
 extern Message* message_log;

@@ -26,7 +26,7 @@ void drawAllEntities(void)
 			{
 				y = node->actor->entity->position.y;
 				x = node->actor->entity->position.x;
-				if (level[y][x].visible)
+				if (map[y][x].visible)
 				{
 					drawEntity(node->actor->entity);
 				}
@@ -40,7 +40,7 @@ void drawAllEntities(void)
 			{
 				y = node->item->entity->position.y;
 				x = node->item->entity->position.x;
-				if (level[y][x].visible)
+				if (map[y][x].visible)
 				{
 					drawEntity(node->item->entity);
 				}
@@ -56,13 +56,13 @@ void mapDraw(void)
 	{
 		for (x = 0; x < MAP_WIDTH; x++)
 		{
-			if (level[y][x].visible)
+			if (map[y][x].visible)
 			{
-				mvaddch(y, x, level[y][x].ch | level[y][x].color);
+				mvaddch(y, x, map[y][x].ch | map[y][x].color);
 			}
-			else if (level[y][x].seen)
+			else if (map[y][x].seen)
 			{
-				mvaddch(y, x, level[y][x].ch | COLOR_PAIR(SEEN_COLOR));
+				mvaddch(y, x, map[y][x].ch | COLOR_PAIR(SEEN_COLOR));
 			}
 			else
 			{
@@ -79,8 +79,8 @@ void showWholeMap(void)
 	{
 		for (x = 0; x < MAP_WIDTH; x++)
 		{
-			mvaddch(y, x, level[y][x].ch);
-			level[y][x].visible = true;
+			mvaddch(y, x, map[y][x].ch);
+			map[y][x].visible = true;
 		}
 	}
 	drawAllEntities();
@@ -89,7 +89,7 @@ void showWholeMap(void)
 	{
 		for (x = 0; x < MAP_WIDTH; x++)
 		{
-			level[y][x].visible = false;
+			map[y][x].visible = false;
 		}
 	}
 	makeFOV(player->entity);
@@ -132,7 +132,7 @@ void drawUI(void)
 	while ((node = node->next) && (strcmp(node->actor->name, "player")))
 	{
 		Position pos = node->actor->entity->position;
-		if (level[pos.y][pos.x].visible)
+		if (map[pos.y][pos.x].visible)
 		{
 			mvaddch(10 + seen_counter, 112, node->actor->entity->ch | node->actor->entity->color);
 			mvprintw(10 + seen_counter, 114, node->actor->name);
@@ -144,7 +144,7 @@ void drawUI(void)
 	while (node = node->next)
 	{
 		Position pos = node->item->entity->position;
-		if (level[pos.y][pos.x].visible)
+		if (map[pos.y][pos.x].visible)
 		{
 			mvaddch(10 + seen_counter, 112, node->item->entity->ch | node->item->entity->color);
 			mvprintw(10 + seen_counter, 114, node->item->name);
@@ -153,16 +153,16 @@ void drawUI(void)
 		}
 	}
 
-	if (level[down_stairs.y][down_stairs.x].visible)
+	if (map[down_stairs.y][down_stairs.x].visible)
 	{
-		mvaddch(10 + seen_counter, 112, level[down_stairs.y][down_stairs.x].ch | level[down_stairs.y][down_stairs.x].color);
+		mvaddch(10 + seen_counter, 112, map[down_stairs.y][down_stairs.x].ch | map[down_stairs.y][down_stairs.x].color);
 		mvprintw(10 + seen_counter, 114, "Down Stairs");
 
 		seen_counter++;
 	}
-	if (level[up_stairs.y][up_stairs.x].visible)
+	if (map[up_stairs.y][up_stairs.x].visible)
 	{
-		mvaddch(10 + seen_counter, 112, level[up_stairs.y][up_stairs.x].ch | level[up_stairs.y][up_stairs.x].color);
+		mvaddch(10 + seen_counter, 112, map[up_stairs.y][up_stairs.x].ch | map[up_stairs.y][up_stairs.x].color);
 		mvprintw(10 + seen_counter, 114, "Up Stairs");
 
 		seen_counter++;

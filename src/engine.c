@@ -17,7 +17,7 @@ void initDungeon(bool load_successful)
 	{
 		Position* newPosition;
 
-		level = createLevelTiles();
+		map = createMapTiles();
 		newPosition = mapSetUp();
 		player = playerSetUp(newPosition);
 		free(newPosition);

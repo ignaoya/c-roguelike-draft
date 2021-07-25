@@ -4,7 +4,7 @@ const int MAP_HEIGHT = 30;
 const int MAP_WIDTH = 110;
 Actor* player;
 Actor* boss;
-Tile** level;
+Tile** map;
 List* actors;
 List* items;
 Message* message_log;

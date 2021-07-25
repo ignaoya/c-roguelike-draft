@@ -13,12 +13,12 @@ void lostGame(void);
 bool checkVictory(void);
 
 // level.c functions 
+Tile** createMapTiles(void);
 Position* mapSetUp(void);
 void addMonsterToRoom(Room* room);
 void addItemToRoom(Room* room);
 void addDownStairs(Position* center);
 void addUpStairs(Position* center);
-Tile** createLevelTiles(void);
 void clearLevel(void);
 void createNewLevel(void);
 

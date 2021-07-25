@@ -61,7 +61,7 @@ void monsterCheckDirection(Actor* actor, Actor* target)
 		direction.y = actor_y + dy;
 		direction.x = actor_x + dx;
 
-		if (level[direction.y][direction.x].walkable)
+		if (map[direction.y][direction.x].walkable)
 		{
 			monsterMove(direction, actor->entity);
 		}

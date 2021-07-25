@@ -130,7 +130,7 @@ void playerCheckPosition(Position* newPosition)
 			break;
 		}
 	}
-	if ((!occupied) && (level[newPosition->y][newPosition->x].walkable))
+	if ((!occupied) && (map[newPosition->y][newPosition->x].walkable))
 	{
 		playerMove(newPosition);
 	}
@@ -148,7 +148,7 @@ Position* goDownStairs(void)
 {
 	Position* temp = calloc(1, sizeof(Position));
 
-	if (level[player->entity->position.y][player->entity->position.x].ch == '>')
+	if (map[player->entity->position.y][player->entity->position.x].ch == '>')
 	{
 		dungeon_level++;
 		clearLevel();
@@ -172,7 +172,7 @@ Position* goUpStairs(void)
 {
 	Position* temp = calloc(1, sizeof(Position));
 
-	if (level[player->entity->position.y][player->entity->position.x].ch == '<')
+	if (map[player->entity->position.y][player->entity->position.x].ch == '<')
 	{
 		dungeon_level--;
 		clearLevel();

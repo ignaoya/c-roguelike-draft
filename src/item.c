@@ -77,7 +77,7 @@ bool castLightning(Item* self, Actor* caster)
 		node = actors;
 		while ((node = node->next) && (node->actor != caster))
 		{
-			if (level[node->actor->entity->position.y][node->actor->entity->position.x].visible)
+			if (map[node->actor->entity->position.y][node->actor->entity->position.x].visible)
 			{
 				temp = getDistance(caster->entity->position, node->actor->entity->position);
 				if (temp < farthest && !node->actor->dead)
@@ -163,7 +163,7 @@ bool castFireball(Item* self, Actor* caster)
 					return false;
 					break;
 				case ' ':
-					if (level[cursor.y][cursor.x].visible)
+					if (map[cursor.y][cursor.x].visible)
 					{
 						snprintf(text, sizeof(text), "You cast a fireball!");
 						addMessage(text);

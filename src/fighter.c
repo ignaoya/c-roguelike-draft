@@ -58,7 +58,7 @@ void spillBlood(Entity* entity)
 			break;
 	}
 
-	level[temp.y][temp.x].color = COLOR_PAIR(RED_COLOR);
+	map[temp.y][temp.x].color = COLOR_PAIR(RED_COLOR);
 }
 
 void die(Fighter* fighter)

@@ -18,8 +18,8 @@ void makeFOV(Entity* player)
 	int RADIUS = player->fov_radius;
 	Position target;
 
-	level[player->position.y][player->position.x].visible = true;
-	level[player->position.y][player->position.x].seen = true;
+	map[player->position.y][player->position.x].visible = true;
+	map[player->position.y][player->position.x].seen = true;
 
 	for (y = player->position.y - RADIUS; y < player->position.y + RADIUS; y++)
 	{
@@ -33,8 +33,8 @@ void makeFOV(Entity* player)
 			{
 				if (isInMap(y, x) && lineOfSight(player->position, target))
 				{
-					level[y][x].visible = true;
-					level[y][x].seen = true;
+					map[y][x].visible = true;
+					map[y][x].seen = true;
 				}
 			}
 		}
@@ -51,7 +51,7 @@ void clearFOV(Entity* player)
 		for (x = player->position.x - RADIUS; x < player->position.x + RADIUS; x++)
 		{
 			if (isInMap(y, x))
-				level[y][x].visible = false;
+				map[y][x].visible = false;
 		}
 	}
 }
@@ -101,7 +101,7 @@ bool lineOfSight(Position origin, Position target)
 				return true;
 			}
 		}
-		while(level[y][x].transparent);
+		while(map[y][x].transparent);
 
 		return false;
 	}
@@ -125,7 +125,7 @@ bool lineOfSight(Position origin, Position target)
 				return true;
 			}
 		}
-		while(level[y][x].transparent);
+		while(map[y][x].transparent);
 
 		return false;
 	}

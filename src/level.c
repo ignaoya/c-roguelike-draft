@@ -168,19 +168,19 @@ void addItemToRoom(Room* room)
 
 void addDownStairs(Position* center)
 {
-	level[center->y][center->x].ch = '>';
+	map[center->y][center->x].ch = '>';
 	down_stairs.y = center->y;
 	down_stairs.x = center->x;
 }
 
 void addUpStairs(Position* center)
 {
-	level[center->y][center->x].ch = '<';
+	map[center->y][center->x].ch = '<';
 	up_stairs.y = center->y;
 	up_stairs.x = center->x;
 }
 
-Tile** createLevelTiles(void)
+Tile** createMapTiles(void)
 {
 	int x, y;
 	Tile** tiles;
@@ -225,9 +225,9 @@ void clearLevel(void)
 
 	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
-		free(level[y]);
+		free(map[y]);
 	}
-	free(level);
+	free(map);
 }
 
 void createNewLevel(void)
@@ -241,7 +241,7 @@ void createNewLevel(void)
 	items->next = NULL;
 
 	Position* temp;
-	level = createLevelTiles();
+	map = createMapTiles();
 	temp = mapSetUp();
 	free(temp);
 }

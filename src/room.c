@@ -29,9 +29,9 @@ void drawRoom(Room* room)
 		{
 			if (isInMap(y, x))
 			{
-				level[y][x].ch = '.';
-				level[y][x].walkable = true;
-				level[y][x].transparent = true;
+				map[y][x].ch = '.';
+				map[y][x].walkable = true;
+				map[y][x].transparent = true;
 			}
 		}
 	}
@@ -66,9 +66,9 @@ void connectRoomCenters(Position* centerOne, Position* centerTwo)
 		}
 		if (isInMap(temp.y, temp.x))
 		{
-			level[temp.y][temp.x].ch = '.';
-			level[temp.y][temp.x].walkable = true;
-			level[temp.y][temp.x].transparent = true;
+			map[temp.y][temp.x].ch = '.';
+			map[temp.y][temp.x].walkable = true;
+			map[temp.y][temp.x].transparent = true;
 		}
 	}
 }
