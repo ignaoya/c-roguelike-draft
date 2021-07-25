@@ -45,43 +45,27 @@ void spillBlood(Entity* entity)
 
 	switch(blood_spot)
 	{
-		case 0:
-			level[temp.y - 1][temp.x - 1].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 1:
-			level[temp.y - 1][temp.x].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 2:
-			level[temp.y - 1][temp.x + 1].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 3:
-			level[temp.y][temp.x - 1].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 4:
-			level[temp.y][temp.x].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 5:
-			level[temp.y][temp.x + 1].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 6:
-			level[temp.y + 1][temp.x - 1].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 7:
-			level[temp.y + 1][temp.x].color = COLOR_PAIR(RED_COLOR);
-			break;
-		case 8:
-			level[temp.y + 1][temp.x + 1].color = COLOR_PAIR(RED_COLOR);
-			break;
+		case 0: temp.y--; temp.x--; break;
+		case 1: temp.y--; break;
+		case 2: temp.y--; temp.x++; break;
+		case 3: temp.x--; break;
+		case 4: break;
+		case 5: temp.x++; break;
+		case 6: temp.y++; temp.x--; break;
+		case 7: temp.y++; break;
+		case 8: temp.y++; temp.x++;
 		default:
 			break;
 	}
+
+	level[temp.y][temp.x].color = COLOR_PAIR(RED_COLOR);
 }
 
 void die(Fighter* fighter)
 {
 	char text[1024];
 
-	if (!strcmp(fighter->owner->name, "player"))
+	if (fighter->owner == player)
 	{
 		snprintf(text, sizeof(text), "You have been killed!");
 	}
