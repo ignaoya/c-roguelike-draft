@@ -114,10 +114,10 @@ void levelUp(Fighter* fighter)
 
 	fighter->level++;
 	fighter->xp_to_next_level = fighter->xp_to_next_level * 2;
-	fighter->hp += fighter->max_hp / 5;
 	fighter->max_hp += fighter->max_hp / 5;
-	fighter->mana += fighter->max_mana / 5;
+	fighter->hp = fighter->max_hp;
 	fighter->max_mana += fighter->max_mana / 5;
+	fighter->mana = fighter->max_mana;
 	drawEverything();
 
 	mvprintw(10, 50, "####################################");
