@@ -124,20 +124,20 @@ void levelUp(Fighter* fighter)
 	mvprintw(11, 50, "############# LEVEL UP #############");
 	mvprintw(12, 50, "####################################");
 	mvprintw(13, 50, "#####       Choose a bonus:    #####");
-	mvprintw(14, 50, "#           (a): Attack +2         #");
-	mvprintw(15, 50, "#           (d): Defense +1        #");
+	mvprintw(14, 50, "#           (A): Attack +2         #");
+	mvprintw(15, 50, "#           (D): Defense +1        #");
 	mvprintw(16, 50, "####################################");
 	addMessage("### LEVEL UP ###");
 	printMessages();
-	while (ch != 'a' && ch != 'd')
+	while (ch != 'A' && ch != 'D')
 	{
 		ch = getch();
 		switch(ch)
 		{
-			case 'a':
+			case 'A':
 				fighter->attack += 2;
 				break;
-			case 'd':
+			case 'D':
 				fighter->defense++;
 				break;
 			default:
