@@ -99,7 +99,7 @@ Position* handleInput(int input)
 			break;
 		// Use Inventory
 		case 'I':
-			useInventory();
+			inventoryMenu();
 			break;
 		// View All Map Cheat(for development)
 		case 'v':

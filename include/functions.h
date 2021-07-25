@@ -57,7 +57,7 @@ bool equipItem(Item* self, Actor* equiper);
 void unequipItem(Item* equipment, Actor* actor);
 
 // inventory.c functions
-void useInventory(void);
+void inventoryMenu(void);
 
 // room.c functions
 Room* createRoom(int y, int x, int height, int width);

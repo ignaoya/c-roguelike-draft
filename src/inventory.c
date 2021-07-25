@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-void useInventory(void)
+void inventoryMenu(void)
 {
 	int ch;
 	int cursorPos = 0;
@@ -21,6 +21,8 @@ void useInventory(void)
 	mvprintw(16, 50, "#                                  #");
 	mvprintw(17, 50, "#                                  #");
 	mvprintw(18, 50, "####################################");
+	mvprintw(19, 50, "# [space]: USE [d]: DROP [q]: EXIT #");
+	mvprintw(20, 50, "####################################");
 
 	while (showInventory)
 	{
@@ -39,7 +41,7 @@ void useInventory(void)
 		ch = getch();
 		switch(ch)
 		{
-			case ' ':
+			case ' ': //use Item
 				itemIndex = cursorPos + itemOffset;
 				if (itemIndex < inventory->n_items)
 				{
@@ -51,8 +53,28 @@ void useInventory(void)
 				}
 				else
 				{
-					addMessage("Not an option!");
+					continue;
 				}
+				showInventory = false;
+				break;
+			case 'd': //drop Item
+				itemIndex = cursorPos + itemOffset;
+				if (itemIndex < inventory->n_items)
+				{
+					inventory->items[itemIndex]->entity->position.y = player->entity->position.y;
+					inventory->items[itemIndex]->entity->position.x = player->entity->position.x;
+					appendItem(items, inventory->items[itemIndex]);
+					for (int i = itemIndex; i < inventory->n_items - 1; i++)
+					{
+						inventory->items[i] = inventory->items[i + 1];
+					}
+					inventory->n_items--;
+				}
+				else
+				{
+					continue;
+				}
+				addMessage("Dropped item!");
 				showInventory = false;
 				break;
 			case 'j':
