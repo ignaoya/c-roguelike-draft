@@ -6,6 +6,29 @@ int MAX_MONSTERS_PER_ROOM = 2;
 int MAX_ITEMS_PER_ROOM = 2;
 int CHANCE_OF_ITEM = 70;
 
+Tile** createMapTiles(void)
+{
+	int x, y;
+	Tile** tiles;
+	tiles = calloc(MAP_HEIGHT, sizeof(Tile*));
+
+	for (y = 0; y < MAP_HEIGHT; y++)
+	{
+		tiles[y] = calloc(MAP_WIDTH, sizeof(Tile));
+		for (x = 0; x < MAP_WIDTH; x++)
+		{
+			tiles[y][x].ch = '#';
+			tiles[y][x].color = COLOR_PAIR(VISIBLE_COLOR);
+			tiles[y][x].walkable = false;
+			tiles[y][x].transparent = false;
+			tiles[y][x].visible = false;
+			tiles[y][x].seen = false;
+		}
+	}
+
+	return tiles;
+}
+
 Position* mapSetUp(void)
 {
 	int y, x, height, width, n_rooms, n_monsters, n_items;
@@ -176,29 +199,6 @@ void addUpStairs(Position* center)
 	map[center->y][center->x].ch = '<';
 	up_stairs.y = center->y;
 	up_stairs.x = center->x;
-}
-
-Tile** createMapTiles(void)
-{
-	int x, y;
-	Tile** tiles;
-	tiles = calloc(MAP_HEIGHT, sizeof(Tile*));
-
-	for (y = 0; y < MAP_HEIGHT; y++)
-	{
-		tiles[y] = calloc(MAP_WIDTH, sizeof(Tile));
-		for (x = 0; x < MAP_WIDTH; x++)
-		{
-			tiles[y][x].ch = '#';
-			tiles[y][x].color = COLOR_PAIR(VISIBLE_COLOR);
-			tiles[y][x].walkable = false;
-			tiles[y][x].transparent = false;
-			tiles[y][x].visible = false;
-			tiles[y][x].seen = false;
-		}
-	}
-
-	return tiles;
 }
 
 void clearLevel(void)

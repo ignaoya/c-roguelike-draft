@@ -17,6 +17,7 @@ void drawAllEntities(void)
 {
 	List* node;
 	int x, y;
+
 	for (int j = 0; j <= ACTOR; j++)
 	{
 		node = actors;
@@ -32,6 +33,7 @@ void drawAllEntities(void)
 				}
 			}
 		}
+
 		if (j == ITEM)
 		{
 			node = items;

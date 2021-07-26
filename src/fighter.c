@@ -9,7 +9,7 @@ void attack(Fighter* attacker, Fighter* defender)
 	snprintf(text, sizeof(text), "The %s attacks the lvl %i %s for %i damage!", att_name, defender->level, def_name, damage); 
 	addMessage(text);
 	takeDamage(defender, damage);
-	if (!strcmp(attacker->owner->name, "player"))
+	if (attacker->owner == player)
 	{
 		gainXP(attacker, damage);
 	}
@@ -24,7 +24,7 @@ void takeDamage(Fighter* fighter, int damage)
 		die(fighter);
 	}
 
-	if (!strcmp(fighter->owner->name, "player"))
+	if (fighter->owner == player)
 	{
 		gainXP(fighter, damage);
 	}
@@ -54,8 +54,7 @@ void spillBlood(Entity* entity)
 		case 6: temp.y++; temp.x--; break;
 		case 7: temp.y++; break;
 		case 8: temp.y++; temp.x++;
-		default:
-			break;
+		default: break;
 	}
 
 	map[temp.y][temp.x].color = COLOR_PAIR(RED_COLOR);
