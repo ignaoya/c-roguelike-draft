@@ -43,9 +43,9 @@ void gainXP(Fighter* fighter, int amount);
 void levelUp(Fighter* fighter);
 
 // ai.c functions
-void takeTurn(Actor* actor, Actor* player);
-void allMonstersTakeTurns(Actor* player);
-void monsterCheckDirection(Actor* actor, Actor* target);
+void takeTurn(Actor* actor);
+void allMonstersTakeTurns(void);
+void monsterCheckDirection(Actor* monster, Position target);
 void monsterMove(Position direction, Entity* entity);
 
 // item.c functions

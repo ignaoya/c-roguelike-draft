@@ -1,6 +1,6 @@
 #include "rogue.h"
 
-void takeTurn(Actor* actor, Actor* player)
+void takeTurn(Actor* actor)
 {
 	int distance = getDistance(actor->entity->position, player->entity->position);
 	if (distance < actor->entity->fov_radius &&
@@ -10,42 +10,44 @@ void takeTurn(Actor* actor, Actor* player)
 		{
 			actor->ai->seen_player = true;
 		}
+		actor->ai->last_player_position.y = player->entity->position.y;
+		actor->ai->last_player_position.x = player->entity->position.x;
 
-		monsterCheckDirection(actor, player);
+		monsterCheckDirection(actor, player->entity->position);
 	}
 	else if (actor->ai->seen_player)
 	{
-		monsterCheckDirection(actor, player);
+		monsterCheckDirection(actor, actor->ai->last_player_position);
 	}
 }
 
-void allMonstersTakeTurns(Actor* player)
+void allMonstersTakeTurns(void)
 {
-	List* temp = actors;
-	while (temp = temp->next)
+	List* node = actors;
+	while (node = node->next)
 	{
-		if (!(temp->actor->dead) && strcmp(temp->actor->name, "player"))
+		if (!(node->actor->dead) && strcmp(node->actor->name, "player"))
 		{
-			takeTurn(temp->actor, player);
+			takeTurn(node->actor);
 		}
 	}
 }
 
-void monsterCheckDirection(Actor* actor, Actor* target)
+void monsterCheckDirection(Actor* monster, Position target)
 {
 	Position direction;
 	int dy, dx;
-	int actor_y = actor->entity->position.y;
-	int actor_x = actor->entity->position.x;
-	int target_y = target->entity->position.y;
-	int target_x = target->entity->position.x;
+	int monster_y = monster->entity->position.y;
+	int monster_x = monster->entity->position.x;
 
-	dy = target_y - actor_y;
-	dx = target_x - actor_x;
+	dy = target.y - monster_y;
+	dx = target.x - monster_x;
 
-	if (abs(dy) < 2 && abs(dx) < 2)
+	if (target.y == player->entity->position.y && 
+		  target.x == player->entity->position.x && 
+			abs(dy) < 2 && abs(dx) < 2)
 	{
-		attack(actor->fighter, target->fighter);
+		attack(monster->fighter, player->fighter);
 	}
 	else
 	{
@@ -58,12 +60,22 @@ void monsterCheckDirection(Actor* actor, Actor* target)
 			dx = (dx < 0) ? -1 : 1;
 		}
 
-		direction.y = actor_y + dy;
-		direction.x = actor_x + dx;
+		direction.y = monster_y + dy;
+		direction.x = monster_x + dx;
 
 		if (map[direction.y][direction.x].walkable)
 		{
-			monsterMove(direction, actor->entity);
+			monsterMove(direction, monster->entity);
+		}
+		else if (map[direction.y - dy][direction.x].walkable)
+		{
+			direction.y -= dy;
+			monsterMove(direction, monster->entity);
+		}
+		else if (map[direction.y][direction.x - dx].walkable)
+		{
+			direction.x -= dx;
+			monsterMove(direction, monster->entity);
 		}
 	}
 }

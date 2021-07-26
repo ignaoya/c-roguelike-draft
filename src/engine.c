@@ -54,7 +54,7 @@ void gameLoop(void)
 		newPosition = handleInput(ch);
 		playerCheckPosition(newPosition);
 		free(newPosition);
-		allMonstersTakeTurns(player);
+		allMonstersTakeTurns();
 		drawEverything();
 	}
 	clear();
