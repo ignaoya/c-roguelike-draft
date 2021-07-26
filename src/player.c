@@ -206,7 +206,7 @@ void grabItem(void)
 			{
 				player->inventory->items[player->inventory->n_items] = node->item;
 				player->inventory->n_items++;
-				removeItem(items, node->item, true);
+				removeItem(items, node->item);
 				addMessage("You pick up an item.");
 			}
 			else

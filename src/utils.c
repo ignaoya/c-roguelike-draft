@@ -49,7 +49,7 @@ void appendActor(List* head, Actor* actor)
 	temp->next = NULL;
 }
 
-void removeItem(List* head, Item* item, bool cleanUp)
+void removeItem(List* head, Item* item)
 {
 	List* curr = head;
 	List* prev = head;
@@ -59,18 +59,16 @@ void removeItem(List* head, Item* item, bool cleanUp)
 		if (curr->item == item)
 		{
 			prev->next = curr->next;
-			if (cleanUp)
-			{
-				free(curr);
-				curr = NULL;
-			}
+			free(curr);
+			curr = NULL;
+
 			break;
 		}
 		prev = prev->next;
 	}
 }
 
-void removeActor(List* head, Actor* actor, bool cleanUp)
+void removeActor(List* head, Actor* actor)
 {
 	List* curr = head;
 	List* prev = head;
@@ -80,11 +78,9 @@ void removeActor(List* head, Actor* actor, bool cleanUp)
 		if (curr->actor == actor)
 		{
 			prev->next = curr->next;
-			if (cleanUp)
-			{
-				free(curr);
-				curr = NULL;
-			}
+			free(curr);
+			curr = NULL;
+
 			break;
 		}
 		prev = prev->next;

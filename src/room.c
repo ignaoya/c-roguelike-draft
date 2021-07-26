@@ -20,8 +20,7 @@ Room* createRoom(int y, int x, int height, int width)
 
 void drawRoom(Room* room)
 {
-	int y;
-	int x;
+	int y, x;
 	
 	for (y = room->position.y + 1; y < room->position.y + room->height - 1; y++)
 	{
@@ -45,25 +44,27 @@ void connectRoomCenters(Position* centerOne, Position* centerTwo)
 
 	while (true)
 	{
-		if ((abs((temp.x - 1) - centerTwo->x) < abs(temp.x - centerTwo->x)))
+		if ((abs((temp.x - 1) - centerTwo->x) < abs(temp.x - centerTwo->x))) 
 		{
 			temp.x--;
-
-		} else if ((abs((temp.x + 1) - centerTwo->x) < abs(temp.x - centerTwo->x)))
+		} 
+		else if ((abs((temp.x + 1) - centerTwo->x) < abs(temp.x - centerTwo->x)))
 		{
 			temp.x++;
-
-		} else if ((abs((temp.y + 1) - centerTwo->y) < abs(temp.y - centerTwo->y)))
+		} 
+		else if ((abs((temp.y + 1) - centerTwo->y) < abs(temp.y - centerTwo->y)))
 		{
 			temp.y++;
-
-		} else if ((abs((temp.y - 1) - centerTwo->y) < abs(temp.y - centerTwo->y)))
+		} 
+		else if ((abs((temp.y - 1) - centerTwo->y) < abs(temp.y - centerTwo->y)))
 		{
 			temp.y--;
-		} else
+		} 
+		else
 		{
 			break;
 		}
+
 		if (isInMap(temp.y, temp.x))
 		{
 			map[temp.y][temp.x].ch = '.';
