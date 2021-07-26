@@ -71,7 +71,6 @@ void saveGame(void)
 		fwrite(temp->actor->entity, sizeof(Entity), 1, outfile);
 		fwrite(temp->actor->fighter, sizeof(Fighter), 1, outfile);
 		fwrite(temp->actor->ai, sizeof(AI), 1, outfile);
-		//fwrite(temp->actor->inventory, sizeof(Inventory), 1, outfile);
 		fwrite(temp->actor->name, sizeof(char) * 64, 1, outfile);
 		fwrite(&(temp->actor->dead), sizeof(bool), 1, outfile);
 	}
@@ -222,7 +221,6 @@ bool loadGame(void)
 		fread(actor->entity, sizeof(Entity), 1, infile);
 		fread(actor->fighter, sizeof(Fighter), 1, infile);
 		fread(actor->ai, sizeof(AI), 1, infile);
-		//fread(actor->inventory, sizeof(Inventory), 1, infile);
 		fread(actor->name, sizeof(char) * 64, 1, infile);
 		fread(&(actor->dead), sizeof(bool), 1, infile);
 
