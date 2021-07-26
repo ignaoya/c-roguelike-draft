@@ -22,7 +22,11 @@ int main(void)
 	initLists();
 	compatibleTerminal = screenSetUp();
 	load_successful = intro();
-	initDungeon(load_successful);
+
+	if (!load_successful)
+	{
+		initDungeon();
+	}
 
 	if (compatibleTerminal)
 	{

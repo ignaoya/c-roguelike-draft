@@ -11,28 +11,25 @@ void initLists(void)
 	items->next = NULL;
 }
 
-void initDungeon(bool load_successful)
+void initDungeon(void)
 {
-	if (!load_successful)
-	{
-		Position* newPosition;
+	Position* newPosition;
 
-		map = createMapTiles();
-		newPosition = mapSetUp();
-		player = playerSetUp(newPosition);
-		free(newPosition);
-		appendActor(actors, player);
-		message_log = createLog();
-	}
-
-	makeFOV(player->entity);
-	drawEverything();
+	map = createMapTiles();
+	newPosition = mapSetUp();
+	player = playerSetUp(newPosition);
+	free(newPosition);
+	appendActor(actors, player);
+	message_log = createLog();
 }
 
 void gameLoop(void)
 {
 	int ch;
 	Position* newPosition;
+
+	makeFOV(player->entity);
+	drawEverything();
 
 	while (ch = getch())
 	{
@@ -75,6 +72,7 @@ bool screenSetUp(void)
 	noecho();
 	refresh();
 	curs_set(0);
+
 	if (has_colors())
 	{
 		start_color();

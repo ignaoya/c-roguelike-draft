@@ -3,7 +3,7 @@
 
 // engine.c functions
 void initLists(void);
-void initDungeon(bool load_successful);
+void initDungeon(void);
 void gameLoop(void);
 void closeGame(void);
 bool screenSetUp(void);
