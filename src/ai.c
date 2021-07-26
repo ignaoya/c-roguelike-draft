@@ -1,23 +1,23 @@
 #include "rogue.h"
 
-void takeTurn(Actor* actor)
+void takeTurn(Actor* monster)
 {
-	int distance = getDistance(actor->entity->position, player->entity->position);
-	if (distance < actor->entity->fov_radius &&
-		  lineOfSight(actor->entity->position, player->entity->position))
+	int distance = getDistance(monster->entity->position, player->entity->position);
+	if (distance < monster->entity->fov_radius &&
+		  lineOfSight(monster->entity->position, player->entity->position))
 	{
-		if (!actor->ai->seen_player)
+		if (!monster->ai->seen_player)
 		{
-			actor->ai->seen_player = true;
+			monster->ai->seen_player = true;
 		}
-		actor->ai->last_player_position.y = player->entity->position.y;
-		actor->ai->last_player_position.x = player->entity->position.x;
+		monster->ai->last_player_position.y = player->entity->position.y;
+		monster->ai->last_player_position.x = player->entity->position.x;
 
-		monsterCheckDirection(actor, player->entity->position);
+		monsterCheckDirection(monster, player->entity->position);
 	}
-	else if (actor->ai->seen_player)
+	else if (monster->ai->seen_player)
 	{
-		monsterCheckDirection(actor, actor->ai->last_player_position);
+		monsterCheckDirection(monster, monster->ai->last_player_position);
 	}
 }
 

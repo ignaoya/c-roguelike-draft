@@ -67,7 +67,7 @@ bool castLightning(Item* self, Actor* caster)
 {
 	Actor* target = calloc(1, sizeof(Actor));
 	target = NULL;
-	int farthest = 200;
+	int closest = 200;
 	int temp;
 	char text[1024];
 	List* node;
@@ -80,9 +80,9 @@ bool castLightning(Item* self, Actor* caster)
 			if (map[node->actor->entity->position.y][node->actor->entity->position.x].visible)
 			{
 				temp = getDistance(caster->entity->position, node->actor->entity->position);
-				if (temp < farthest && !node->actor->dead)
+				if (temp < closest && !node->actor->dead)
 				{
-					farthest = temp;
+					closest = temp;
 					target = node->actor;
 				}
 			}
