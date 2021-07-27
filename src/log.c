@@ -36,9 +36,9 @@ void printMessages(void)
 {
 	for (int i = 0; i < message_count; i++)
 	{
-		move(37 - i, 5);
+		move(MAP_HEIGHT + 4 - i, 5);
 		clrtoeol();
-		mvprintw(37 - i, 5, message_log[i].text);
+		mvprintw(MAP_HEIGHT + 4 - i, 5, message_log[i].text);
 	}
 }
 

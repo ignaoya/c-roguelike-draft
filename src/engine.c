@@ -68,10 +68,29 @@ void closeGame(void)
 
 bool screenSetUp(void)
 {
+	int tx, ty, ch;
+
 	initscr();
 	noecho();
 	refresh();
 	curs_set(0);
+	getmaxyx(stdscr, ty, tx);
+
+	while (ty < (MAP_HEIGHT + 5) || tx < (MAP_WIDTH + 16))
+	{
+		clear();
+		mvprintw(ty/2, (tx/2) - 10, "Your terminal size is %d x %d.", tx, ty);
+		mvprintw(ty/2 + 2, (tx/2) - 10, "This is too small to play this game.");
+		mvprintw(ty/2 + 4, (tx/2) - 10, "You need at least %d x %d.", MAP_WIDTH + 16, MAP_HEIGHT + 5);
+		mvprintw(ty/2 + 6, (tx/2) - 15, "Please enlarge your terminal or reduce your terminal font size.");
+
+		getch();
+
+		getmaxyx(stdscr, ty, tx);
+	}
+	clear();
+	mvprintw(ty/2, (tx/2) - 10, "Your terminal size is %d x %d.", tx, ty);
+	getch();
 
 	if (has_colors())
 	{
@@ -86,8 +105,8 @@ bool screenSetUp(void)
 		init_pair(CYAN_COLOR, COLOR_CYAN, COLOR_BLACK);
 		init_pair(FIRE_COLOR, COLOR_BLACK, COLOR_RED);
 
-		move(20, 60);
-		printw("Your terminal supports %d colors.\n", COLORS);
+		clear();
+		mvprintw(20, 60, "Your terminal supports %d colors.\n", COLORS);
 		getch();
 		return true;
 	}
