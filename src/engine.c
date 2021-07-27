@@ -21,6 +21,7 @@ void initDungeon(void)
 	free(newPosition);
 	appendActor(actors, player);
 	message_log = createLog();
+	addMessage("Press '?' to show controls!");
 }
 
 void gameLoop(void)
@@ -142,6 +143,24 @@ bool intro(void)
 		}
 	}
 }
+
+void showControls(void)
+{
+	clear();
+	mvprintw(10, 50, "####################################");
+	mvprintw(11, 50, "########    THE CONTROLS    ########");
+	mvprintw(12, 50, "####################################");
+	mvprintw(14, 50, "(h): Left / (l): Right / (j): Down / (k): Up");
+	mvprintw(15, 50, "Move into enemies to attack them.");
+	mvprintw(16, 50, "Diagonal Movement: (u), (i), (n), (m)");
+	mvprintw(17, 50, "(I): Open Inventory / (SPACE): Use / (d): Drop");
+	mvprintw(18, 50, "(g): Grab Item");
+	mvprintw(19, 50, "(q): Exit Menu, Cancel Spell or Exit Game");
+	getch();
+}
+
+
+
 
 void wonGame(void)
 {

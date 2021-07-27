@@ -6,13 +6,13 @@ SRCDIR = ./src/
 
 SOURCES = $(SRCDIR)*.c
 
-all: rogue run clean
+all: abyss run clean
 
-rogue: 
-	$(CC) $(SOURCES) $(CFLAGS) -o $@
+abyss: 
+	$(CC) $(SOURCES) $(CFLAGS) -o abyss
 
 run:
-	./rogue
+	./abyss
 
 clean:
-	rm rogue
+	rm abyss

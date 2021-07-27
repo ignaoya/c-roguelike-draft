@@ -22,6 +22,7 @@ int main(void)
 	initLists();
 	compatibleTerminal = screenSetUp();
 	load_successful = intro();
+	showControls();
 
 	if (!load_successful)
 	{

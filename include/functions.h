@@ -8,6 +8,7 @@ void gameLoop(void);
 void closeGame(void);
 bool screenSetUp(void);
 bool intro(void);
+void showControls(void);
 void wonGame(void);
 void lostGame(void);
 bool checkVictory(void);

@@ -101,6 +101,10 @@ Position* handleInput(int input)
 		case 'I':
 			inventoryMenu();
 			break;
+		// Show Controls
+		case '?':
+			showControls();
+			break;
 		// View All Map Cheat(for development)
 		case 'v':
 			showWholeMap();
