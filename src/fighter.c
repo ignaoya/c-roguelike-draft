@@ -2,7 +2,7 @@
 
 void attack(Fighter* attacker, Fighter* defender)
 {
-	char text[1024];
+	char text[1024] = {0};
 	int damage = maxInt(0, attacker->attack - defender->defense);
 	char* att_name = attacker->owner->name;
 	char* def_name = defender->owner->name;
@@ -62,7 +62,7 @@ void spillBlood(Entity* entity)
 
 void die(Fighter* fighter)
 {
-	char text[1024];
+	char text[1024] = {0};
 
 	if (fighter->owner == player)
 	{
